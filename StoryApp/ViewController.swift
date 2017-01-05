@@ -18,13 +18,9 @@ class ViewController: UIViewController {
         
         for i in 0..<storyRepo.arrayOfStories.count {
             
-            let cardVC = CardView()
+            let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
             cardVC.nameLabel.text = storyRepo.arrayOfStories[i].name
             cardVC.textView.text = storyRepo.arrayOfStories[i].text
-            cardVC.factLabel.text = "False"
-            if storyRepo.arrayOfStories[i].fact! {
-                cardVC.factLabel.text = "True"
-            }
             array.append(cardVC)
         }
         return array
@@ -43,7 +39,22 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: IBActions
+    @IBAction func leftButtonTapped() {
+        kolodaView?.swipe(.left)
+    }
+    
+    @IBAction func rightButtonTapped() {
+        kolodaView?.swipe(.right)
+    }
+    
+    @IBAction func undoButtonTapped() {
+        kolodaView?.revertAction()
+    }
 }
+
+// MARK: KolodaViewDelegate
 
 extension ViewController: KolodaViewDelegate {
     
@@ -60,9 +71,11 @@ extension ViewController: KolodaViewDelegate {
     }
     
     func koloda(koloda: KolodaView, didSelectCardAt index: Int) {
-        UIApplication.shared.openURL(NSURL(string: "https://yalantis.com/")! as URL)
     }
 }
+
+
+// MARK: KolodaViewDataSource
 
 extension ViewController: KolodaViewDataSource {
     

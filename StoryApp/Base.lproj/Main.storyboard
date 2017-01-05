@@ -23,16 +23,50 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k13-cG-7zt" customClass="KolodaView" customModule="Koloda">
-                                <rect key="frame" x="42" y="169" width="291" height="328"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="16" y="101" width="343" height="354"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="Oay-Fh-KYf">
+                                <rect key="frame" x="105" y="552" width="164" height="32"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3H-lE-0mu">
+                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                        <state key="normal" image="btn_skip_normal">
+                                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="leftButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="qG3-uw-Vie"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wz0-Lj-6AT">
+                                        <rect key="frame" x="132" y="0.0" width="32" height="32"/>
+                                        <state key="normal" image="btn_like_normal">
+                                            <color key="titleColor" red="0.28627450980000002" green="0.69803921570000005" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="rightButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="YY5-6g-zcn"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vzg-DA-ete">
+                                <rect key="frame" x="338" y="28" width="21" height="22"/>
+                                <state key="normal" image="btn_undo"/>
+                                <connections>
+                                    <action selector="undoButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="AgJ-CB-V9V"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="149" id="B1E-1d-K31"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="26" id="Igy-de-Cyu"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Sel-fL-i3D"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Tup-zS-Gwt"/>
+                            <constraint firstItem="Vzg-DA-ete" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="5Mp-P0-wpc"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="centerX" secondItem="Oay-Fh-KYf" secondAttribute="centerX" id="B32-Lv-n9l"/>
+                            <constraint firstItem="Oay-Fh-KYf" firstAttribute="top" secondItem="k13-cG-7zt" secondAttribute="bottom" constant="97" id="DVs-SQ-r8i"/>
+                            <constraint firstItem="Vzg-DA-ete" firstAttribute="trailing" secondItem="k13-cG-7zt" secondAttribute="trailing" id="LwL-ge-kdR"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="OoZ-zw-BV7"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Oay-Fh-KYf" secondAttribute="bottom" constant="83" id="SM7-D7-jKw"/>
+                            <constraint firstItem="Vzg-DA-ete" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="w7R-0G-gUf"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="top" secondItem="Vzg-DA-ete" secondAttribute="bottom" constant="51" id="yEe-3t-jrx"/>
                         </constraints>
                     </view>
                     <connections>
@@ -44,4 +78,9 @@
             <point key="canvasLocation" x="-399.19999999999999" y="73.313343328335833"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="btn_like_normal" width="32" height="32"/>
+        <image name="btn_skip_normal" width="32" height="32"/>
+        <image name="btn_undo" width="21" height="21"/>
+    </resources>
 </document>
