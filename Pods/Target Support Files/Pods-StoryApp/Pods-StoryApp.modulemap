@@ -1,0 +1,6 @@
+framework module Pods_StoryApp {
+  umbrella header "Pods-StoryApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
