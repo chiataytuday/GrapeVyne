@@ -9,20 +9,26 @@
 import UIKit
 import Koloda
 
-var storyRepo = StoryRepo()
-
 class ViewController: UIViewController {
     @IBOutlet weak var kolodaView: KolodaView!
     
-    var dataSource: [UITextView] = {
-        var array : [UITextView] = []
+    var dataSource: [CardView] {
+        let storyRepo = StoryRepo()
+        var array : [CardView] = []
+        
         for i in 0..<storyRepo.arrayOfStories.count {
-            var s = UITextView(frame: CGRect(x: 20, y: 20, width: 100, height: 100))
-            s.text = storyRepo.arrayOfStories[i].text
-            array.append(s)
+            
+            let cardVC = CardView()
+            cardVC.nameLabel.text = storyRepo.arrayOfStories[i].name
+            cardVC.textView.text = storyRepo.arrayOfStories[i].text
+            cardVC.factLabel.text = "False"
+            if storyRepo.arrayOfStories[i].fact! {
+                cardVC.factLabel.text = "True"
+            }
+            array.append(cardVC)
         }
         return array
-    }()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
