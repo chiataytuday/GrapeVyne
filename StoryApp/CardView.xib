@@ -18,17 +18,17 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kye-65-1PD">
                     <rect key="frame" x="155" y="20" width="64" height="32"/>
                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                    <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XSC-w8-2Lx">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XSC-w8-2Lx">
                     <rect key="frame" x="11" y="60" width="353" height="607"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
             </subviews>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.29370855639999999" green="0.58726502709999995" blue="0.80258815179999998" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="XSC-w8-2Lx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="11" id="0kL-WL-Md0"/>
                 <constraint firstItem="kye-65-1PD" firstAttribute="centerX" secondItem="XSC-w8-2Lx" secondAttribute="centerX" id="8WG-xt-sm3"/>
