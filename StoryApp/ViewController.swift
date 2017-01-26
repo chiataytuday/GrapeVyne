@@ -19,8 +19,7 @@ class ViewController: UIViewController {
         for i in 0..<storyRepo.arrayOfStories.count {
             
             let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
-            cardVC.nameLabel.text = storyRepo.arrayOfStories[i].name
-            cardVC.textView.text = storyRepo.arrayOfStories[i].text
+            cardVC.titleLabel.text = storyRepo.arrayOfStories[i].title
             array.append(cardVC)
         }
         return array

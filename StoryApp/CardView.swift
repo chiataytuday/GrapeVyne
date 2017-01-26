@@ -9,6 +9,5 @@
 import UIKit
 
 class CardView: UIView {
-    @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
 }
