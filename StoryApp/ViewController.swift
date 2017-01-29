@@ -9,20 +9,21 @@
 import UIKit
 import Koloda
 
-var storyRepo = StoryRepo()
-
 class ViewController: UIViewController {
     @IBOutlet weak var kolodaView: KolodaView!
+    let storyRepo = StoryRepo()
     
-    var dataSource: [UITextView] = {
-        var array : [UITextView] = []
+    var dataSource: [CardView] {
+        var array : [CardView] = []
+        
         for i in 0..<storyRepo.arrayOfStories.count {
-            var s = UITextView(frame: CGRect(x: 20, y: 20, width: 100, height: 100))
-            s.text = storyRepo.arrayOfStories[i].text
-            array.append(s)
+            
+            let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
+            cardVC.titleLabel.text = storyRepo.arrayOfStories[i].title
+            array.append(cardVC)
         }
         return array
-    }()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,26 +38,34 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: IBActions
+    @IBAction func leftButtonTapped() {
+        kolodaView?.swipe(.left)
+    }
+    
+    @IBAction func rightButtonTapped() {
+        kolodaView?.swipe(.right)
+    }
+    
+    @IBAction func undoButtonTapped() {
+        kolodaView?.revertAction()
+    }
 }
+
+// MARK: KolodaViewDelegate
 
 extension ViewController: KolodaViewDelegate {
     
-    func kolodaDidRunOutOfCards(koloda: KolodaView) {
-        print("GAMEEEE OVERRRRR")
-//        let position = kolodaView.currentCardIndex
-//        
-//        for i in 1...4 {
-//            var s = UITextView(frame: CGRect(x: 20, y: 20, width: 100, height: 100))
-//            s.text = storyRepo.getArray()[i].getText()
-//            dataSource.append(s)
-//        }
-//        kolodaView.insertCardAtIndexRange(position..<position + 4, animated: true)
+    func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
     }
     
-    func koloda(koloda: KolodaView, didSelectCardAt index: Int) {
-        UIApplication.shared.openURL(NSURL(string: "https://yalantis.com/")! as URL)
+    func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
     }
 }
+
+
+// MARK: KolodaViewDataSource
 
 extension ViewController: KolodaViewDataSource {
     

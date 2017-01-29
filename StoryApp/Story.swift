@@ -7,13 +7,11 @@
 //
 
 class Story {
-    var name : String?
-    var text : String?
+    var title : String?
     var fact : Bool?
     
-    init(name:String, text:String, fact: Bool) {
-        self.name = name
-        self.text = text
+    init(title:String, fact: Bool) {
+        self.title = title
         self.fact = fact
     }
 }

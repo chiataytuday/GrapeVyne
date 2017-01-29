@@ -4,4 +4,5 @@
 target 'StoryApp' do
   use_frameworks!
   pod 'Koloda', :git => 'https://github.com/Yalantis/Koloda.git', :branch => 'swift-3'
+  pod 'SwiftyJSON'
 end
