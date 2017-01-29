@@ -13,12 +13,13 @@ class StoryRepo {
     
     init() {
         arrayOfStories = []
-        var j = networkCall.makeRequest()
-        //var parsedJSON = jsonPar.parse(json: networkCall.makeRequest())
-        var parsedJSON = ["1", "2"]
+        let parsedJSON = jsonPar.parseTitles(json: networkCall.makeRequest())
         for str in parsedJSON {
+            print(str.characters.count)
             if !str.isEmpty {
-                arrayOfStories.append(Story(title: str, fact: false))
+                if !(str.characters.count < 10) {
+                    arrayOfStories.append(Story(title: str, fact: false))
+                }
             }
         }
     }
