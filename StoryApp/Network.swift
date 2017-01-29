@@ -9,9 +9,12 @@
 import SwiftyJSON
 
 class Network {
+    public let FALSE_PROJECT_TOKEN = "t9eT0c4yuFGf"
+    public let TRUE_PROJECT_TOKEN = "t0744QDN9fDV"
     
-    public func makeRequest() -> JSON {
-        let url = URL(string: "https://www.parsehub.com/api/v2/projects/t9eT0c4yuFGf/last_ready_run/data?api_key=t_mLCwaTNSTu")
+    public func makeRequest(token : ProjectToken) -> JSON {
+        
+        let url = URL(string: "https://www.parsehub.com/api/v2/projects/\(token.rawValue)/last_ready_run/data?api_key=t_mLCwaTNSTu")
         var data : Data?
         var response : URLResponse?
         var error : Error?
@@ -48,4 +51,9 @@ extension URLSession {
         
         return (data, response, error)
     }
+}
+
+enum ProjectToken : String {
+    case falseProject = "t9eT0c4yuFGf"
+    case trueProject = "t0744QDN9fDV"
 }
