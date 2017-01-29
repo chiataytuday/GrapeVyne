@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     
     var dataSource: [CardView] {
         var array : [CardView] = []
-        
         for i in 0..<storyRepo.arrayOfStories.count {
             
             let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView

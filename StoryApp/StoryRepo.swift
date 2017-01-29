@@ -15,7 +15,6 @@ class StoryRepo {
         arrayOfStories = []
         let parsedJSON = jsonPar.parseTitles(json: networkCall.makeRequest())
         for str in parsedJSON {
-            print(str.characters.count)
             if !str.isEmpty {
                 if !(str.characters.count < 10) {
                     arrayOfStories.append(Story(title: str, fact: false))

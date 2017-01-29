@@ -75,8 +75,8 @@
 			children = (
 				6166C99A1E14CF8E00BF5A54 /* AppDelegate.swift */,
 				619BE2C11E3D1B530085023B /* Model */,
-				619BE2C21E3D1B650085023B /* View */,
 				619BE2C31E3D1B980085023B /* Controller */,
+				619BE2C21E3D1B650085023B /* View */,
 				617426201E1E0F0B009BFC75 /* Assets.xcassets */,
 				6166C9A61E14CF8E00BF5A54 /* Info.plist */,
 			);
