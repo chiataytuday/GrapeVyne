@@ -11,16 +11,15 @@ import Koloda
 
 class ViewController: UIViewController {
     @IBOutlet weak var kolodaView: KolodaView!
+    let storyRepo = StoryRepo()
     
     var dataSource: [CardView] {
-        let storyRepo = StoryRepo()
         var array : [CardView] = []
         
         for i in 0..<storyRepo.arrayOfStories.count {
             
             let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
-            cardVC.nameLabel.text = storyRepo.arrayOfStories[i].name
-            cardVC.textView.text = storyRepo.arrayOfStories[i].text
+            cardVC.titleLabel.text = storyRepo.arrayOfStories[i].title
             array.append(cardVC)
         }
         return array
@@ -58,19 +57,10 @@ class ViewController: UIViewController {
 
 extension ViewController: KolodaViewDelegate {
     
-    func kolodaDidRunOutOfCards(koloda: KolodaView) {
-        print("GAMEEEE OVERRRRR")
-//        let position = kolodaView.currentCardIndex
-//        
-//        for i in 1...4 {
-//            var s = UITextView(frame: CGRect(x: 20, y: 20, width: 100, height: 100))
-//            s.text = storyRepo.getArray()[i].getText()
-//            dataSource.append(s)
-//        }
-//        kolodaView.insertCardAtIndexRange(position..<position + 4, animated: true)
+    func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
     }
     
-    func koloda(koloda: KolodaView, didSelectCardAt index: Int) {
+    func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
     }
 }
 

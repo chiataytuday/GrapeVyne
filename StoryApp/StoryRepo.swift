@@ -8,12 +8,18 @@
 
 class StoryRepo {
     var arrayOfStories : [Story]
+    let networkCall = Network()
+    var jsonPar = JSONParser()
     
     init() {
         arrayOfStories = []
-        arrayOfStories.append(Story(name: "Horror", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae velit non neque tempor interdum a at libero. Sed vehicula dignissim leo, sed tempus nisi elementum feugiat. Nulla rhoncus facilisis varius. Nulla laoreet at eros nec porta. Phasellus vitae velit sed metus maximus mattis non nec augue. In gravida dictum neque a venenatis. Morbi quis tellus fringilla, pellentesque sapien sed, faucibus eros. Proin vestibulum justo id porttitor bibendum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae velit non neque tempor interdum a at libero. Sed vehicula dignissim leo, sed tempus nisi elementum feugiat. Nulla rhoncus facilisis varius. Nulla laoreet at eros nec porta. Phasellus vitae velit sed metus maximus mattis non nec augue. In gravida dictum neque a venenatis. Morbi quis tellus fringilla, pellentesque sapien sed, faucibus eros. Proin vestibulum justo id porttitor bibendum.", fact: true))
-        arrayOfStories.append(Story(name: "Drama", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae velit non neque tempor interdum a at libero. Sed vehicula dignissim leo, sed tempus nisi elementum feugiat. Nulla rhoncus facilisis varius. Nulla laoreet at eros nec porta. Phasellus vitae velit sed metus maximus mattis non nec augue. In gravida dictum neque a venenatis. Morbi quis tellus fringilla, pellentesque sapien sed, faucibus eros. Proin vestibulum justo id porttitor bibendum.", fact: false))
-        arrayOfStories.append(Story(name: "Comedy", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae velit non neque tempor interdum a at libero. Sed vehicula dignissim leo, sed tempus nisi elementum feugiat. Nulla rhoncus facilisis varius. Nulla laoreet at eros nec porta. Phasellus vitae velit sed metus maximus mattis non nec augue. In gravida dictum neque a venenatis. Morbi quis tellus fringilla, pellentesque sapien sed, faucibus eros. Proin vestibulum justo id porttitor bibendum.", fact: true))
-        arrayOfStories.append(Story(name: "Sci-fi", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae velit non neque tempor interdum a at libero. Sed vehicula dignissim leo, sed tempus nisi elementum feugiat. Nulla rhoncus facilisis varius. Nulla laoreet at eros nec porta. Phasellus vitae velit sed metus maximus mattis non nec augue. In gravida dictum neque a venenatis. Morbi quis tellus fringilla, pellentesque sapien sed, faucibus eros. Proin vestibulum justo id porttitor bibendum.", fact: false))
+        var j = networkCall.makeRequest()
+        //var parsedJSON = jsonPar.parse(json: networkCall.makeRequest())
+        var parsedJSON = ["1", "2"]
+        for str in parsedJSON {
+            if !str.isEmpty {
+                arrayOfStories.append(Story(title: str, fact: false))
+            }
+        }
     }
 }
