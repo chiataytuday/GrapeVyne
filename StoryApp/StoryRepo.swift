@@ -26,7 +26,7 @@ class StoryRepo {
         } else if token == .trueProject {
             fact = true
         }
-        let parsedJSON = jsonPar.parseTitles(json: networkCall.makeRequest(token: token))
+        let parsedJSON = jsonPar.parseTitles(data: networkCall.makeRequest(token: token))
         for str in parsedJSON {
             if !str.isEmpty {
                 if !(str.characters.count < 10) {
