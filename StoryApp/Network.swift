@@ -10,15 +10,15 @@ import SwiftyJSON
 
 class Network {
     
-    public func makeRequest() -> JSON {
-        let url = URL(string: "https://www.parsehub.com/api/v2/projects/t9eT0c4yuFGf/last_ready_run/data?api_key=t_mLCwaTNSTu")
+    public func makeRequest(token : ProjectToken) -> JSON {
+        
+        let url = URL(string: "https://www.parsehub.com/api/v2/projects/\(token.rawValue)/last_ready_run/data?api_key=t_mLCwaTNSTu")
         var data : Data?
-        var response : URLResponse?
         var error : Error?
         
         
         var jsonResponse : JSON?
-        (data, response, error) = URLSession.shared.synchronousDataTask(with: url!)
+        (data, _, error) = URLSession.shared.synchronousDataTask(with: url!)
         if (error != nil) {
             print(error.debugDescription)
         } else {
@@ -48,4 +48,9 @@ extension URLSession {
         
         return (data, response, error)
     }
+}
+
+enum ProjectToken : String {
+    case falseProject = "t9eT0c4yuFGf"
+    case trueProject = "tKWsPC0omVB4"
 }

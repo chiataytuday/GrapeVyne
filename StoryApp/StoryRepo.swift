@@ -13,13 +13,27 @@ class StoryRepo {
     
     init() {
         arrayOfStories = []
-        let parsedJSON = jsonPar.parseTitles(json: networkCall.makeRequest())
+        getTitles(token: .falseProject)
+        getTitles(token: .trueProject)
+    }
+    
+    // MARK: Private functions
+    
+    func getTitles(token : ProjectToken) {
+        var fact : Bool?
+        if token == .falseProject {
+            fact = false
+        } else if token == .trueProject {
+            fact = true
+        }
+        let parsedJSON = jsonPar.parseTitles(json: networkCall.makeRequest(token: token))
         for str in parsedJSON {
             if !str.isEmpty {
                 if !(str.characters.count < 10) {
-                    arrayOfStories.append(Story(title: str, fact: false))
+                    arrayOfStories.append(Story(title: str, fact: fact!))
                 }
             }
         }
     }
+
 }
