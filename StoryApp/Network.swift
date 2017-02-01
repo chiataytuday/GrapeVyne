@@ -9,8 +9,6 @@
 import SwiftyJSON
 
 class Network {
-    public let FALSE_PROJECT_TOKEN = "t9eT0c4yuFGf"
-    public let TRUE_PROJECT_TOKEN = "t0744QDN9fDV"
     
     public func makeRequest(token : ProjectToken) -> JSON {
         
@@ -54,5 +52,5 @@ extension URLSession {
 
 enum ProjectToken : String {
     case falseProject = "t9eT0c4yuFGf"
-    case trueProject = "t0744QDN9fDV"
+    case trueProject = "tKWsPC0omVB4"
 }
