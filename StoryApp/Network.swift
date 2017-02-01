@@ -16,12 +16,11 @@ class Network {
         
         let url = URL(string: "https://www.parsehub.com/api/v2/projects/\(token.rawValue)/last_ready_run/data?api_key=t_mLCwaTNSTu")
         var data : Data?
-        var response : URLResponse?
         var error : Error?
         
         
         var jsonResponse : JSON?
-        (data, response, error) = URLSession.shared.synchronousDataTask(with: url!)
+        (data, _, error) = URLSession.shared.synchronousDataTask(with: url!)
         if (error != nil) {
             print(error.debugDescription)
         } else {

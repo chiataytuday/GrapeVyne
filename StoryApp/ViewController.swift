@@ -14,13 +14,24 @@ class ViewController: UIViewController {
     let storyRepo = StoryRepo()
     
     var dataSource: [CardView] {
-        var array : [CardView] = []
-        for i in 0..<storyRepo.arrayOfStories.count {
+        var tempArray = storyRepo.arrayOfStories
+        var arrayOfCardViews : [CardView] = []
+        
+        while tempArray.count > 0 {
+            let randomIndex = Int(arc4random_uniform(UInt32(tempArray.count)))
+            print("Array size: \(tempArray.count)\t Random index: \(randomIndex)")
             let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
-            cardVC.titleLabel.text = storyRepo.arrayOfStories[i].title
-            array.append(cardVC)
+            cardVC.titleLabel.text = tempArray[randomIndex].title
+            arrayOfCardViews.append(cardVC)
+            tempArray.remove(at: randomIndex)
         }
-        return array
+        return arrayOfCardViews
+//        for i in 0..<storyRepo.arrayOfStories.count {
+//            let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
+//            cardVC.titleLabel.text = storyRepo.arrayOfStories[i].title
+//            arrayOfCardViews.append(cardVC)
+//        }
+//        return arrayOfCardViews
     }
     
     override func viewDidLoad() {
@@ -49,7 +60,10 @@ class ViewController: UIViewController {
     @IBAction func undoButtonTapped() {
         kolodaView?.revertAction()
     }
+    
 }
+
+
 
 // MARK: KolodaViewDelegate
 

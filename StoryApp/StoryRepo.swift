@@ -17,7 +17,7 @@ class StoryRepo {
         getTitles(token: .trueProject)
     }
     
-    // MARK: Private fucntions
+    // MARK: Private functions
     
     func getTitles(token : ProjectToken) {
         var fact : Bool?
