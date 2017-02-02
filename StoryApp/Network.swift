@@ -20,6 +20,14 @@ class Network {
         if (error != nil) {
             print(error.debugDescription)
             data = nil
+        } else {
+            switch token {
+            case .trueProject:
+                UserDefaultsManager.trueData = data!
+            case .falseProject:
+                UserDefaultsManager.falseData = data!
+            }
+            UserDefaultsManager.hasNetworkData = true
         }
         return data!
     }

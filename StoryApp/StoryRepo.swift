@@ -13,27 +13,25 @@ class StoryRepo {
     
     init() {
         arrayOfStories = []
-        getTitles(token: .falseProject)
-        getTitles(token: .trueProject)
+        if UserDefaultsManager.hasNetworkData {
+            appendTitlesAsStories(array: jsonPar.parseTitles(data: UserDefaultsManager.trueData), fact: true)
+            appendTitlesAsStories(array: jsonPar.parseTitles(data: UserDefaultsManager.falseData), fact: false)
+        } else {
+            appendTitlesAsStories(array: jsonPar.parseTitles(data: networkCall.makeRequest(token: .trueProject)), fact: true)
+            appendTitlesAsStories(array: jsonPar.parseTitles(data: networkCall.makeRequest(token: .falseProject)), fact: false)
+        }
     }
     
     // MARK: Private functions
     
-    func getTitles(token : ProjectToken) {
-        var fact : Bool?
-        if token == .falseProject {
-            fact = false
-        } else if token == .trueProject {
-            fact = true
-        }
-        let parsedJSON = jsonPar.parseTitles(data: networkCall.makeRequest(token: token))
-        for str in parsedJSON {
-            if !str.isEmpty {
-                if !(str.characters.count < 10) {
-                    arrayOfStories.append(Story(title: str, fact: fact!))
+    private func appendTitlesAsStories(array : [String], fact : Bool?) {
+        for string in array {
+            if !string.isEmpty {
+                if !(string.characters.count < 10) {
+                    arrayOfStories.append(Story(title: string, fact: fact!))
                 }
             }
         }
     }
-
+    
 }
