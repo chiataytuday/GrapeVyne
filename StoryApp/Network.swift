@@ -10,7 +10,7 @@ import Foundation
 
 class Network {
     
-    public func makeRequest(token : ProjectToken) -> Data {
+    public func getLastReadyRunData(token : ProjectToken) -> Data {
         
         let url = URL(string: "https://www.parsehub.com/api/v2/projects/\(token.rawValue)/last_ready_run/data?api_key=t_mLCwaTNSTu")
         var data : Data?

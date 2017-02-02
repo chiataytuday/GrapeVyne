@@ -17,8 +17,8 @@ class StoryRepo {
             appendTitlesAsStories(array: jsonPar.parseTitles(data: UserDefaultsManager.trueData), fact: true)
             appendTitlesAsStories(array: jsonPar.parseTitles(data: UserDefaultsManager.falseData), fact: false)
         } else {
-            appendTitlesAsStories(array: jsonPar.parseTitles(data: networkCall.makeRequest(token: .trueProject)), fact: true)
-            appendTitlesAsStories(array: jsonPar.parseTitles(data: networkCall.makeRequest(token: .falseProject)), fact: false)
+            appendTitlesAsStories(array: jsonPar.parseTitles(data: networkCall.getLastReadyRunData(token: .trueProject)), fact: true)
+            appendTitlesAsStories(array: jsonPar.parseTitles(data: networkCall.getLastReadyRunData(token: .falseProject)), fact: false)
         }
     }
     

@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     
     // MARK: Private functions
     
-    func getDataSource() -> [CardView] {
+    private func getDataSource() -> [CardView] {
         var tempArray = StoryRepo().arrayOfStories
         var arrayOfCardViews : [CardView] = []
         
