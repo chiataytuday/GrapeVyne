@@ -84,8 +84,8 @@ extension ViewController: KolodaViewDataSource {
         return dataSource![index]
     }
     
-    func koloda(koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
-        return Bundle.main.loadNibNamed("OverlayView",
+    func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
+        return Bundle.main.loadNibNamed("SwipeOverlayView",
                                                   owner: self, options: nil)?[0] as? OverlayView
     }
 }
