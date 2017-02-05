@@ -9,15 +9,23 @@
 import UIKit
 import Koloda
 
+private let customLightBlue = UIColor(red: 161/255, green: 203/255, blue: 255/255, alpha: 1.0)
+private let customBlue = UIColor(red: 16/255, green: 102/255, blue: 178/255, alpha: 1.0)
+private let customOrange = UIColor(red: 255/255, green: 161/255, blue: 0/255, alpha: 1.0)
+
 class ViewController: UIViewController {
     @IBOutlet weak var kolodaView: KolodaView!
     var dataSource : [CardView]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = customLightBlue
         dataSource = getDataSource()
         kolodaView.dataSource = self
         kolodaView.delegate = self
+        
+        trueButton.setImage(#imageLiteral(resourceName: "btn_true_pressed"), for: .highlighted)
+        falseButton.setImage(#imageLiteral(resourceName: "btn_false_pressed"), for: .highlighted)
         
         self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
     }
@@ -27,13 +35,20 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: IBOutlets
+    
+    @IBOutlet weak var trueButton: UIButton!
+    
+    @IBOutlet weak var falseButton: UIButton!
+    
     // MARK: IBActions
-    @IBAction func leftButtonTapped() {
-        kolodaView?.swipe(.left)
+    
+    @IBAction func trueButton(_ sender: UIButton) {
+        kolodaView.swipe(.right)
     }
     
-    @IBAction func rightButtonTapped() {
-        kolodaView?.swipe(.right)
+    @IBAction func falseButton(_ sender: UIButton) {
+        kolodaView.swipe(.left)
     }
     
     @IBAction func undoButtonTapped() {
@@ -49,7 +64,13 @@ class ViewController: UIViewController {
         while tempArray.count > 0 {
             let randomIndex = Int(arc4random_uniform(UInt32(tempArray.count)))
             let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
+            if tempArray.count % 2 == 0 {
+                cardVC.backgroundColor = customBlue
+            } else {
+                cardVC.backgroundColor = customOrange
+            }
             cardVC.titleLabel.text = tempArray[randomIndex].title
+            cardVC.titleLabel.textColor = UIColor.white
             arrayOfCardViews.append(cardVC)
             tempArray.remove(at: randomIndex)
         }
@@ -57,8 +78,6 @@ class ViewController: UIViewController {
     }
     
 }
-
-
 
 // MARK: KolodaViewDelegate
 

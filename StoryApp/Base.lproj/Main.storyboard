@@ -22,17 +22,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAh-7t-1tc">
-                                <rect key="frame" x="164" y="318" width="46" height="30"/>
+                                <rect key="frame" x="165" y="319" width="46" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="WXc-0J-Ei3"/>
                                 </constraints>
-                                <state key="normal" title="Start!"/>
+                                <state key="normal" title="Start!">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" id="E6n-9L-7cM"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.63137254899999995" green="0.79607843140000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="zAh-7t-1tc" firstAttribute="centerY" secondItem="2Ab-lJ-DrG" secondAttribute="centerY" id="7R5-jb-RY2"/>
                             <constraint firstItem="zAh-7t-1tc" firstAttribute="centerX" secondItem="2Ab-lJ-DrG" secondAttribute="centerX" id="qQL-gO-WjG"/>
@@ -59,60 +61,57 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k13-cG-7zt" customClass="KolodaView" customModule="Koloda">
                                 <rect key="frame" x="16" y="145" width="343" height="310"/>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="Oay-Fh-KYf">
-                                <rect key="frame" x="105" y="552" width="164" height="32"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3H-lE-0mu">
-                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                                        <state key="normal" image="btn_skip_normal">
-                                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="leftButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="qG3-uw-Vie"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wz0-Lj-6AT">
-                                        <rect key="frame" x="132" y="0.0" width="32" height="32"/>
-                                        <state key="normal" image="btn_like_normal">
-                                            <color key="titleColor" red="0.28627450980000002" green="0.69803921570000005" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="rightButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="YY5-6g-zcn"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vzg-DA-ete">
                                 <rect key="frame" x="316" y="64" width="43" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="RBH-Hx-ZhK"/>
-                                    <constraint firstAttribute="width" constant="43" id="mil-wG-z5g"/>
+                                    <constraint firstAttribute="height" constant="45" id="1B9-nl-3kU"/>
+                                    <constraint firstAttribute="width" constant="43" id="zUd-tN-J9g"/>
                                 </constraints>
                                 <state key="normal" image="btn_undo"/>
                                 <connections>
                                     <action selector="undoButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="AgJ-CB-V9V"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="0qP-Iy-NvO">
+                                <rect key="frame" x="103" y="541" width="170" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r3s-pg-pq8">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <state key="normal" image="btn_false_normal"/>
+                                        <connections>
+                                            <action selector="falseButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ca5-z1-IKy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BlQ-ce-2ND">
+                                        <rect key="frame" x="110" y="0.0" width="60" height="60"/>
+                                        <state key="normal" image="btn_true_normal"/>
+                                        <connections>
+                                            <action selector="trueButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L2a-jq-WtJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Oay-Fh-KYf" firstAttribute="top" secondItem="k13-cG-7zt" secondAttribute="bottom" constant="97" id="6UZ-x1-h2s"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Oay-Fh-KYf" secondAttribute="bottom" constant="83" id="Tgh-VH-1dm"/>
-                            <constraint firstItem="Vzg-DA-ete" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="WTj-77-LcX"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="XOH-U4-OpA"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="top" secondItem="Vzg-DA-ete" secondAttribute="bottom" constant="36" id="cTA-8B-yiG"/>
-                            <constraint firstItem="Vzg-DA-ete" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="se4-mw-fHL"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="centerX" secondItem="Oay-Fh-KYf" secondAttribute="centerX" id="u2t-We-ebp"/>
-                            <constraint firstItem="Vzg-DA-ete" firstAttribute="trailing" secondItem="k13-cG-7zt" secondAttribute="trailing" id="ua3-xU-b9R"/>
+                            <constraint firstItem="0qP-Iy-NvO" firstAttribute="top" secondItem="k13-cG-7zt" secondAttribute="bottom" constant="86" id="39A-eu-Bpi"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="centerX" secondItem="0qP-Iy-NvO" secondAttribute="centerX" id="4Is-yn-8Qr"/>
+                            <constraint firstItem="Vzg-DA-ete" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="UQ9-ro-D0c"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0qP-Iy-NvO" secondAttribute="bottom" constant="66" id="WzI-fK-fSj"/>
+                            <constraint firstItem="Vzg-DA-ete" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="buX-Ch-h8c"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="cSL-Ex-d72"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="top" secondItem="Vzg-DA-ete" secondAttribute="bottom" constant="36" id="goo-ot-dF4"/>
+                            <constraint firstItem="Vzg-DA-ete" firstAttribute="trailing" secondItem="k13-cG-7zt" secondAttribute="trailing" id="tBe-TZ-QaL"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="falseButton" destination="r3s-pg-pq8" id="nyd-K9-FQ9"/>
                         <outlet property="kolodaView" destination="k13-cG-7zt" id="2W7-0W-pE7"/>
+                        <outlet property="trueButton" destination="BlQ-ce-2ND" id="ukN-XC-imr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="468" y="73"/>
+            <point key="canvasLocation" x="468" y="72.413793103448285"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Dz2-TO-fA3">
@@ -134,8 +133,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="btn_like_normal" width="32" height="32"/>
-        <image name="btn_skip_normal" width="32" height="32"/>
+        <image name="btn_false_normal" width="60" height="60"/>
+        <image name="btn_true_normal" width="60" height="60"/>
         <image name="btn_undo" width="21" height="21"/>
     </resources>
 </document>
