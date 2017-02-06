@@ -8,6 +8,7 @@
 
 import UIKit
 import Koloda
+import CoreData
 
 private let customLightBlue = UIColor(red: 161/255, green: 203/255, blue: 255/255, alpha: 1.0)
 private let customBlue = UIColor(red: 16/255, green: 102/255, blue: 178/255, alpha: 1.0)
@@ -16,6 +17,8 @@ private let customOrange = UIColor(red: 255/255, green: 161/255, blue: 0/255, al
 class ViewController: UIViewController {
     @IBOutlet weak var kolodaView: KolodaView!
     var dataSource : [CardView]?
+    var countRight = 0
+    var countWrong = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +32,7 @@ class ViewController: UIViewController {
         
         self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -70,6 +73,7 @@ class ViewController: UIViewController {
                 cardVC.backgroundColor = customOrange
             }
             cardVC.titleLabel.text = tempArray[randomIndex].title
+            cardVC.fact = tempArray[randomIndex].fact!
             cardVC.titleLabel.textColor = UIColor.white
             arrayOfCardViews.append(cardVC)
             tempArray.remove(at: randomIndex)
@@ -84,9 +88,53 @@ class ViewController: UIViewController {
 extension ViewController: KolodaViewDelegate {
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
+        updateModel()
+        let tableVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+        present(tableVC, animated: true, completion: nil)
     }
     
     func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
+    }
+    
+    func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
+        switch direction {
+        case .right:
+            if (dataSource?[index].fact)! {
+                //RIGHT
+                countRight += 1
+            } else {
+                //WRONG
+                countWrong += 1
+            }
+        case .left:
+            if (dataSource?[index].fact)! {
+                //WRONG
+                countWrong += 1
+            } else {
+                //RIGHT
+                countRight += 1
+            }
+        default:
+            break
+        }
+    }
+    
+    private func getContext () -> NSManagedObjectContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.persistentContainer.viewContext
+    }
+    
+    private func updateModel() {
+        let context = getContext()
+        let dayEntity = NSEntityDescription.entity(forEntityName: "Day", in: context)
+        let day = NSManagedObject(entity: dayEntity!, insertInto: context)
+        day.setValue(countRight, forKey: "numberOfRight")
+        day.setValue(countWrong, forKey: "numberOfWrong")
+        do {
+            try context.save()
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
     }
 }
 
@@ -105,6 +153,6 @@ extension ViewController: KolodaViewDataSource {
     
     func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
         return Bundle.main.loadNibNamed("SwipeOverlayView",
-                                                  owner: self, options: nil)?[0] as? OverlayView
+                                        owner: self, options: nil)?[0] as? OverlayView
     }
 }

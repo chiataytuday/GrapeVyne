@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6156196C1E47AD9E007E5F27 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6156196A1E47AD9E007E5F27 /* Model.xcdatamodeld */; };
+		6156198F1E47C618007E5F27 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6156198E1E47C618007E5F27 /* TableViewController.swift */; };
 		6166C99B1E14CF8E00BF5A54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166C99A1E14CF8E00BF5A54 /* AppDelegate.swift */; };
 		6166C99D1E14CF8E00BF5A54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166C99C1E14CF8E00BF5A54 /* ViewController.swift */; };
 		6166C9A01E14CF8E00BF5A54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6166C99E1E14CF8E00BF5A54 /* Main.storyboard */; };
@@ -26,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		29F41655618E1D6824B53921 /* Pods_StoryApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StoryApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6156196B1E47AD9E007E5F27 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		6156198E1E47C618007E5F27 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		6166C9971E14CF8E00BF5A54 /* StoryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6166C99A1E14CF8E00BF5A54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6166C99C1E14CF8E00BF5A54 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 				619BE2C41E3D3F610085023B /* JSONParser.swift */,
 				619BE2BF1E3D1B400085023B /* Network.swift */,
 				6174D2D61E42A8E9006C292E /* UserDefaultsManager.swift */,
+				6156196A1E47AD9E007E5F27 /* Model.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				6166C99C1E14CF8E00BF5A54 /* ViewController.swift */,
+				6156198E1E47C618007E5F27 /* TableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -271,7 +277,9 @@
 				619BE2C01E3D1B400085023B /* Network.swift in Sources */,
 				6166C99B1E14CF8E00BF5A54 /* AppDelegate.swift in Sources */,
 				6174D2E31E42E235006C292E /* SwipeOverlayView.swift in Sources */,
+				6156198F1E47C618007E5F27 /* TableViewController.swift in Sources */,
 				61CA8FF71E1DF097005B389D /* CardView.swift in Sources */,
+				6156196C1E47AD9E007E5F27 /* Model.xcdatamodeld in Sources */,
 				6174D2D71E42A8E9006C292E /* UserDefaultsManager.swift in Sources */,
 				61F7FF0F1E175D10004E14FA /* Story.swift in Sources */,
 			);
@@ -399,7 +407,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = JXTYT79G8A;
 				INFOPLIST_FILE = StoryApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.usharif.StoryApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -414,7 +422,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = JXTYT79G8A;
 				INFOPLIST_FILE = StoryApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.usharif.StoryApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -444,6 +452,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6156196A1E47AD9E007E5F27 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6156196B1E47AD9E007E5F27 /* Model.xcdatamodel */,
+			);
+			currentVersion = 6156196B1E47AD9E007E5F27 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6166C98F1E14CF8E00BF5A54 /* Project object */;
 }
