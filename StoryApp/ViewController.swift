@@ -8,7 +8,6 @@
 
 import UIKit
 import Koloda
-import CoreData
 
 private let customLightBlue = UIColor(red: 161/255, green: 203/255, blue: 255/255, alpha: 1.0)
 private let customBlue = UIColor(red: 16/255, green: 102/255, blue: 178/255, alpha: 1.0)
@@ -29,7 +28,8 @@ class ViewController: UIViewController {
         
         trueButton.setImage(#imageLiteral(resourceName: "btn_true_pressed"), for: .highlighted)
         falseButton.setImage(#imageLiteral(resourceName: "btn_false_pressed"), for: .highlighted)
-        
+        finishedLabel.isHidden = true
+
         self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
     }
     
@@ -43,6 +43,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var trueButton: UIButton!
     
     @IBOutlet weak var falseButton: UIButton!
+    
+    @IBOutlet weak var finishedLabel: UILabel!
     
     // MARK: IBActions
     
@@ -61,7 +63,9 @@ class ViewController: UIViewController {
     // MARK: Private functions
     
     private func getDataSource() -> [CardView] {
-        var tempArray = StoryRepo().arrayOfStories
+        //var tempStory = Story(title: "test", fact: true)
+        //var tempArray : [Story] = [tempStory]
+        var tempArray = storyRepo.arrayOfStories
         var arrayOfCardViews : [CardView] = []
         
         while tempArray.count > 0 {
@@ -73,7 +77,7 @@ class ViewController: UIViewController {
                 cardVC.backgroundColor = customOrange
             }
             cardVC.titleLabel.text = tempArray[randomIndex].title
-            cardVC.fact = tempArray[randomIndex].fact!
+            cardVC.fact = tempArray[randomIndex].fact
             cardVC.titleLabel.textColor = UIColor.white
             arrayOfCardViews.append(cardVC)
             tempArray.remove(at: randomIndex)
@@ -88,7 +92,7 @@ class ViewController: UIViewController {
 extension ViewController: KolodaViewDelegate {
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-        updateModel()
+        finishedLabel.isHidden = false
         let tableVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
         present(tableVC, animated: true, completion: nil)
     }
@@ -116,24 +120,6 @@ extension ViewController: KolodaViewDelegate {
             }
         default:
             break
-        }
-    }
-    
-    private func getContext () -> NSManagedObjectContext {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.persistentContainer.viewContext
-    }
-    
-    private func updateModel() {
-        let context = getContext()
-        let dayEntity = NSEntityDescription.entity(forEntityName: "Day", in: context)
-        let day = NSManagedObject(entity: dayEntity!, insertInto: context)
-        day.setValue(countRight, forKey: "numberOfRight")
-        day.setValue(countWrong, forKey: "numberOfWrong")
-        do {
-            try context.save()
-        } catch let error as NSError  {
-            print("Could not save \(error), \(error.userInfo)")
         }
     }
 }

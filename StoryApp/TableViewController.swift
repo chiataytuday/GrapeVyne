@@ -7,10 +7,8 @@
 //
 
 import UIKit
-import CoreData
 
 class TableViewController: UITableViewController {
-    var titles = [NSManagedObject]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,16 +21,6 @@ class TableViewController: UITableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let context = getContext()
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Day")
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            titles = results as! [NSManagedObject]
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
-        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,10 +42,6 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-
-        let title = titles[indexPath.row]
-        let i = title.value(forKey: "numberOfRight") as! Int
-        cell.textLabel?.text = "\(i)"
         
         return cell
     }
@@ -112,10 +96,5 @@ class TableViewController: UITableViewController {
     */
 
     // MARK: Private functions
-    
-    private func getContext () -> NSManagedObjectContext {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.persistentContainer.viewContext
-    }
     
 }

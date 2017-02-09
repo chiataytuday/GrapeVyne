@@ -59,14 +59,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No more cards. Thanks for playing!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQT-xt-LrS">
+                                <rect key="frame" x="44" y="277" width="287" height="112"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="112" id="Oi3-yS-UaI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k13-cG-7zt" customClass="KolodaView" customModule="Koloda">
                                 <rect key="frame" x="16" y="145" width="343" height="310"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vzg-DA-ete">
                                 <rect key="frame" x="316" y="64" width="43" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="513-Tb-Kvw"/>
-                                    <constraint firstAttribute="width" constant="43" id="6sC-Bt-tMj"/>
+                                    <constraint firstAttribute="height" constant="45" id="T3m-IP-uBx"/>
+                                    <constraint firstAttribute="width" constant="43" id="reN-SR-ktA"/>
                                 </constraints>
                                 <state key="normal" image="btn_undo"/>
                                 <connections>
@@ -94,18 +103,22 @@
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="centerX" secondItem="0qP-Iy-NvO" secondAttribute="centerX" id="8C5-z3-JFG"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="RLS-xI-Nfl"/>
-                            <constraint firstItem="0qP-Iy-NvO" firstAttribute="top" secondItem="k13-cG-7zt" secondAttribute="bottom" constant="86" id="WJw-Jv-1xA"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0qP-Iy-NvO" secondAttribute="bottom" constant="66" id="l5N-AO-PUa"/>
-                            <constraint firstItem="Vzg-DA-ete" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="onU-TW-8bn"/>
-                            <constraint firstItem="Vzg-DA-ete" firstAttribute="trailing" secondItem="k13-cG-7zt" secondAttribute="trailing" id="oxE-CQ-BKb"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="top" secondItem="Vzg-DA-ete" secondAttribute="bottom" constant="36" id="shD-1V-qk1"/>
-                            <constraint firstItem="Vzg-DA-ete" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="vPo-Gw-JFM"/>
+                            <constraint firstItem="hQT-xt-LrS" firstAttribute="centerX" secondItem="0qP-Iy-NvO" secondAttribute="centerX" id="6ud-AZ-j5C"/>
+                            <constraint firstItem="hQT-xt-LrS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="28" id="8D2-7I-4mh"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="A0B-rz-Lbk"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0qP-Iy-NvO" secondAttribute="bottom" constant="66" id="Q1K-wn-HGt"/>
+                            <constraint firstItem="Vzg-DA-ete" firstAttribute="trailing" secondItem="k13-cG-7zt" secondAttribute="trailing" id="T7U-Ef-EBd"/>
+                            <constraint firstItem="Vzg-DA-ete" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="YOJ-kx-avo"/>
+                            <constraint firstItem="Vzg-DA-ete" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="fHo-Lm-q1m"/>
+                            <constraint firstItem="hQT-xt-LrS" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="jtS-7a-dCf"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="centerX" secondItem="hQT-xt-LrS" secondAttribute="centerX" id="kxc-53-jXM"/>
+                            <constraint firstItem="0qP-Iy-NvO" firstAttribute="top" secondItem="k13-cG-7zt" secondAttribute="bottom" constant="86" id="pyM-3k-UN2"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="top" secondItem="Vzg-DA-ete" secondAttribute="bottom" constant="36" id="xWS-OQ-Y1g"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="falseButton" destination="r3s-pg-pq8" id="nyd-K9-FQ9"/>
+                        <outlet property="finishedLabel" destination="hQT-xt-LrS" id="6iu-56-sjB"/>
                         <outlet property="kolodaView" destination="k13-cG-7zt" id="2W7-0W-pE7"/>
                         <outlet property="trueButton" destination="BlQ-ce-2ND" id="ukN-XC-imr"/>
                     </connections>

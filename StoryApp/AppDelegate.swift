@@ -9,14 +9,19 @@
 import UIKit
 import CoreData
 
+var storyRepo = StoryRepo()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
+    let networkCall = Network()
+    let jsonParser = JSONParser()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        storyRepo.appendTitlesAsStories(array: jsonParser.parseStories(data: networkCall.getLastReadyRunData(token: .trueProject)), fact: true)
+        storyRepo.appendTitlesAsStories(array: jsonParser.parseStories(data: networkCall.getLastReadyRunData(token: .falseProject)), fact: false)
+        
         return true
     }
     

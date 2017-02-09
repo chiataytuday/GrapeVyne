@@ -9,7 +9,7 @@
 import SwiftyJSON
 
 class JSONParser {
-    public func parseTitles(data : Data) -> [String] {
+    public func parseStories(data : Data) -> [String] {
         let jsonResponse = JSON(data: data)
         var array = [String]()
         for i in 0..<jsonResponse["categories"].count {
