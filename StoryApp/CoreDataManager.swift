@@ -26,18 +26,19 @@ class CoreDataManager {
         }
     }
     
-//    static func updateModel(entity: String , valueToSet : Any, key : String) {
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let context = appDelegate.persistentContainer.viewContext
-//        let entity = NSEntityDescription.entity(forEntityName: entity, in: context)
-//        let day = NSManagedObject(entity: entity!, insertInto: context)
-//        day.setValue(valueToSet, forKey: key)
-//        do {
-//            try context.save()
-//        } catch let error as NSError  {
-//            print("Could not save \(error), \(error.userInfo)")
-//        }
-//    }
+    static func writeMetricToModel(entity: String, value: Bool) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: entity, in: context)
+        let metric = NSManagedObject(entity: entity!, insertInto: context)
+        metric.setValue(value, forKey: "hasViewedAll")
+        do {
+            try context.save()
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+
+    }
     
     static func fetchModel(entity: String) -> [NSManagedObject] {
         var managedObject = [NSManagedObject]()
@@ -51,5 +52,44 @@ class CoreDataManager {
             print("Could not fetch \(error), \(error.userInfo)")
         }
         return managedObject
+    }
+    
+    static func fetchObject(entity: String, title: String) -> NSManagedObject {
+        var managedObject = NSManagedObject()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchPredicate = NSPredicate(format: "title == %@", title)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        fetchRequest.predicate = fetchPredicate
+        
+        do {
+            let results = try context.fetch(fetchRequest) as! [NSManagedObject]
+            if !results.isEmpty {
+                managedObject = results[0]
+            }
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+        return managedObject
+    }
+    
+    static func deleteObject(entity: String, title: String) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchPredicate = NSPredicate(format: "title == %@", title)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        fetchRequest.predicate = fetchPredicate
+        
+        do {
+            let results = try context.fetch(fetchRequest) as! [NSManagedObject]
+            for object in results {
+             context.delete(object)
+            }
+            try context.save()
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
     }
 }

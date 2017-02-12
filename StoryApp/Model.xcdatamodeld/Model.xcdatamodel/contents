@@ -4,7 +4,11 @@
         <attribute name="fact" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Metrics" representedClassName="Metrics" syncable="YES" codeGenerationType="class">
+        <attribute name="hasViewedAll" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="CDStory" positionX="-63" positionY="-18" width="162" height="73"/>
+        <element name="CDStory" positionX="-63" positionY="-18" width="162" height="75"/>
+        <element name="Metrics" positionX="-45" positionY="0" width="128" height="60"/>
     </elements>
 </model>

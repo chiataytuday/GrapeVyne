@@ -10,20 +10,22 @@ import CoreData
 
 class StoryRepo {
     var arrayOfStories : [Story]
-
+    
     init() {
         arrayOfStories = []
     }
     
-    func appendTitlesAsStories(array : [String], fact : Bool) {
+    func appendTitlesAsStoriesAndWriteToCD(array : [String], fact : Bool) {
         for string in array {
             if !string.isEmpty {
                 if !(string.characters.count < 10) {
-                    arrayOfStories.append(Story(title: string, fact: fact))
-                    CoreDataManager.writeStoryToModel(entity: "CDStory", title: string, fact: fact)
+                    let tempStory = Story(title: string, fact: fact)
+                    if !arrayOfStories.contains(where: {$0.title == tempStory.title}) {
+                        arrayOfStories.append(Story(title: string, fact: fact))
+                        CoreDataManager.writeStoryToModel(entity: "CDStory", title: string, fact: fact)
+                    }
                 }
             }
         }
     }
-    
 }

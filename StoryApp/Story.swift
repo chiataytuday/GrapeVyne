@@ -7,8 +7,8 @@
 //
 
 class Story {
-    var title : String = ""
-    var fact : Bool = false
+    var title : String
+    var fact : Bool
     
     init(title: String, fact: Bool) {
         self.title = title

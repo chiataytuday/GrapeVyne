@@ -18,9 +18,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let networkCall = Network()
     let jsonParser = JSONParser()
     
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        let metricsManagedObject = CoreDataManager.fetchModel(entity: "Metrics")
+        for metric in metricsManagedObject {
+            let result = metric.value(forKey: "hasViewedAll") as! Bool
+            if result {
+                // User has viewed all cards
+                return true
+            }
+        }
+        
+        let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
+        if managedObject.isEmpty {
+            // Nothing in core data
+            storyRepo.appendTitlesAsStoriesAndWriteToCD(array: jsonParser.parseStories(data: networkCall.getLastReadyRunData(token: .trueProject)), fact: true)
+            storyRepo.appendTitlesAsStoriesAndWriteToCD(array: jsonParser.parseStories(data: networkCall.getLastReadyRunData(token: .falseProject)), fact: false)
+        } else {
+            // Something in core data
+            var arrayOfUnviewedStories : [Story] = []
+            for story in managedObject {
+                    let title = story.value(forKey: "title") as! String
+                    let fact = story.value(forKey: "fact") as! Bool
+                    
+                    let story = Story(title: title, fact: fact)
+                    arrayOfUnviewedStories.append(story)
+            }
+            storyRepo.arrayOfStories = arrayOfUnviewedStories
+        }
+        return true
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        storyRepo.appendTitlesAsStories(array: jsonParser.parseStories(data: networkCall.getLastReadyRunData(token: .trueProject)), fact: true)
-        storyRepo.appendTitlesAsStories(array: jsonParser.parseStories(data: networkCall.getLastReadyRunData(token: .falseProject)), fact: false)
         
         return true
     }

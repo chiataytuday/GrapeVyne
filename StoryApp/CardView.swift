@@ -10,5 +10,4 @@ import UIKit
 
 class CardView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
-    var fact = false
 }
