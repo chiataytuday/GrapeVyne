@@ -30,15 +30,17 @@ class SwipeOverlayView: OverlayView {
             case .left? :
                 self.backgroundColor = UIColor.clear
                 overlayImageView.image = UIImage(named: overlayLeftImageName)
-                overlayImageView.frame = CGRect(x: self.frame.maxX - (self.frame.maxX / 3), y: -60, width: 150, height: 150)
-                overlayImageView.contentMode = .scaleAspectFit
+                overlayImageView.clipsToBounds = true
+                //overlayImageView.frame = CGRect(x: self.frame.maxX - (self.frame.maxX / 3), y: -60, width: 150, height: 150)
+                //overlayImageView.contentMode = .scaleAspectFit
                 overlayImageView.backgroundColor = UIColor.clear
                 
             case .right? :
                 self.backgroundColor = UIColor.clear
                 overlayImageView.image = UIImage(named: overlayRightImageName)
-                overlayImageView.frame = CGRect(x: -20, y: -60, width: 150, height: 150)
-                overlayImageView.contentMode = .scaleAspectFit
+                overlayImageView.clipsToBounds = true
+                //overlayImageView.frame = CGRect(x: -20, y: -60, width: 150, height: 150)
+                //overlayImageView.contentMode = .scaleAspectFit
                 overlayImageView.backgroundColor = UIColor.clear
             default:
                 overlayImageView.image = nil

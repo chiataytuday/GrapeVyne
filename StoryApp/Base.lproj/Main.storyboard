@@ -31,9 +31,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k13-cG-7zt" customClass="KolodaView" customModule="Koloda">
-                                <rect key="frame" x="16" y="145" width="343" height="310"/>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="0qP-Iy-NvO">
                                 <rect key="frame" x="103" y="541" width="170" height="60"/>
                                 <subviews>
@@ -53,8 +50,8 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="4KT-e8-4Hv">
-                                <rect key="frame" x="16" y="463" width="82" height="25"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="4KT-e8-4Hv">
+                                <rect key="frame" x="16" y="463" width="82" height="24.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wYE-cS-cjC">
                                         <rect key="frame" x="0.0" y="0.0" width="67" height="24.5"/>
@@ -70,8 +67,8 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="yAd-OU-xS0">
-                                <rect key="frame" x="289" y="463" width="70" height="25"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="yAd-OU-xS0">
+                                <rect key="frame" x="289" y="463" width="70" height="24.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Right:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="PCq-4D-y1c">
                                         <rect key="frame" x="0.0" y="0.0" width="55" height="24.5"/>
@@ -87,6 +84,9 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k13-cG-7zt" customClass="KolodaView" customModule="Koloda">
+                                <rect key="frame" x="16" y="145" width="343" height="310"/>
+                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstItem="k13-cG-7zt" firstAttribute="trailing" secondItem="yAd-OU-xS0" secondAttribute="trailing" id="1iN-NY-meA"/>
