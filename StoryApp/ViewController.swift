@@ -13,7 +13,7 @@ private let customLightBlue = UIColor(red: 161/255, green: 203/255, blue: 255/25
 private let customBlue = UIColor(red: 16/255, green: 102/255, blue: 178/255, alpha: 1.0)
 private let customOrange = UIColor(red: 255/255, green: 161/255, blue: 0/255, alpha: 1.0)
 private let customGreen =  UIColor(red: 0, green: 128/255, blue: 0, alpha: 1.0)
-private let customRed = UIColor(colorLiteralRed: 218, green: 0, blue: 0, alpha: 1)
+private let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
 
 class ViewController: UIViewController {
     @IBOutlet weak var kolodaView: KolodaView!
@@ -35,10 +35,9 @@ class ViewController: UIViewController {
         } else {
             finishedLabel.isHidden = true
         }
-        updateTallyLabels()
-        rightLabel.textColor = customGreen
-        wrongLabel.textColor = customRed
-
+        rightCounter.textColor = customGreen
+        wrongCounter.textColor = customRed
+        
         self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
     }
     
@@ -50,10 +49,10 @@ class ViewController: UIViewController {
     // MARK: IBOutlets
     
     @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var rightLabel: UILabel!
+    @IBOutlet weak var rightCounter: UILabel!
     
     @IBOutlet weak var falseButton: UIButton!
-    @IBOutlet weak var wrongLabel: UILabel!
+    @IBOutlet weak var wrongCounter: UILabel!
     
     @IBOutlet weak var finishedLabel: UILabel!
     
@@ -67,15 +66,11 @@ class ViewController: UIViewController {
         kolodaView.swipe(.left)
     }
     
-    @IBAction func undoButtonTapped() {
-        kolodaView?.revertAction()
-    }
-    
     // MARK: Private functions
     
     private func getDataSource() -> [CardView] {
-//        var tempStory = Story(title: "test", fact: true)
-//        var tempArray : [Story] = [tempStory]
+        //        var tempStory = Story(title: "test", fact: true)
+        //        var tempArray : [Story] = [tempStory]
         var tempArray = storyRepo.arrayOfStories
         var arrayOfCardViews : [CardView] = []
         
@@ -95,14 +90,37 @@ class ViewController: UIViewController {
         return arrayOfCardViews
     }
     
-    func updateTallyLabels() {
-        rightLabel.text = "Right: \(countRight)"
-        rightLabel.sizeToFit()
+    func updateCounterLabel(counter: CounterLable) {
+        switch counter {
+        case .rightCounter:
+            rightCounter.pushTransition(duration: 0.4)
+            rightCounter.text = "\(countRight)"
+        case .wrongCounter:
+            wrongCounter.pushTransition(duration: 0.4)
+            wrongCounter.text = "\(countWrong)"
+        case .none:
+            break
+        }
         
-        wrongLabel.text = "Wrong: \(countWrong)"
-        wrongLabel.sizeToFit()
     }
     
+    enum CounterLable {
+        case rightCounter
+        case wrongCounter
+        case none
+    }
+    
+}
+extension UIView {
+    func pushTransition(duration:CFTimeInterval) {
+        let animation:CATransition = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name:
+            kCAMediaTimingFunctionEaseInEaseOut)
+        animation.type = kCATransitionPush
+        animation.subtype = kCATransitionFromTop
+        animation.duration = duration
+        self.layer.add(animation, forKey: kCATransitionPush)
+    }
 }
 
 // MARK: KolodaViewDelegate
@@ -112,8 +130,8 @@ extension ViewController: KolodaViewDelegate {
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
         finishedLabel.isHidden = false
         CoreDataManager.writeMetricToModel(entity: "Metrics", value: true)
-//        let tableVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
-//        present(tableVC, animated: true, completion: nil)
+        //        let tableVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+        //        present(tableVC, animated: true, completion: nil)
     }
     
     func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
@@ -127,27 +145,32 @@ extension ViewController: KolodaViewDelegate {
         //Get the story's properties
         let storyFactValue = storyObject.value(forKey: "fact") as! Bool
         
+        var counterToUpdate : CounterLable = .none
         switch direction {
         case .right:
             if storyFactValue {
                 //User got it right
                 countRight += 1
+                counterToUpdate = .rightCounter
             } else {
                 //User got it wrong
                 countWrong += 1
+                counterToUpdate = .wrongCounter
             }
         case .left:
             if storyFactValue {
                 //User got it wrong
                 countWrong += 1
+                counterToUpdate = .wrongCounter
             } else {
                 //User got it right
                 countRight += 1
+                counterToUpdate = .rightCounter
             }
         default:
             break
         }
-        updateTallyLabels()
+        updateCounterLabel(counter: counterToUpdate)
         //Finally, delete the story from memory
         CoreDataManager.deleteObject(entity: "CDStory", title: storyTitle)
     }
