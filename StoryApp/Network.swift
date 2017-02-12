@@ -6,25 +6,24 @@
 //  Copyright © 2017 usharif. All rights reserved.
 //
 
-import SwiftyJSON
+import Foundation
+
+private let api_key = "t_mLCwaTNSTu"
 
 class Network {
     
-    public func makeRequest(token : ProjectToken) -> JSON {
+    public func getLastReadyRunData(token : ProjectToken) -> Data {
         
-        let url = URL(string: "https://www.parsehub.com/api/v2/projects/\(token.rawValue)/last_ready_run/data?api_key=t_mLCwaTNSTu")
+        let url = URL(string: "https://www.parsehub.com/api/v2/projects/\(token.rawValue)/last_ready_run/data?api_key=\(api_key)")
         var data : Data?
         var error : Error?
         
-        
-        var jsonResponse : JSON?
         (data, _, error) = URLSession.shared.synchronousDataTask(with: url!)
         if (error != nil) {
             print(error.debugDescription)
-        } else {
-            jsonResponse = JSON(data: data!)
+            data = nil
         }
-        return jsonResponse!
+        return data!
     }
 }
 extension URLSession {

@@ -5,35 +5,27 @@
 //  Created by Umair Sharif on 12/30/16.
 //  Copyright © 2016 usharif. All rights reserved.
 //
+import UIKit
+import CoreData
 
 class StoryRepo {
     var arrayOfStories : [Story]
-    let networkCall = Network()
-    var jsonPar = JSONParser()
     
     init() {
         arrayOfStories = []
-        getTitles(token: .falseProject)
-        getTitles(token: .trueProject)
     }
     
-    // MARK: Private functions
-    
-    func getTitles(token : ProjectToken) {
-        var fact : Bool?
-        if token == .falseProject {
-            fact = false
-        } else if token == .trueProject {
-            fact = true
-        }
-        let parsedJSON = jsonPar.parseTitles(json: networkCall.makeRequest(token: token))
-        for str in parsedJSON {
-            if !str.isEmpty {
-                if !(str.characters.count < 10) {
-                    arrayOfStories.append(Story(title: str, fact: fact!))
+    func appendTitlesAsStoriesAndWriteToCD(array : [String], fact : Bool) {
+        for string in array {
+            if !string.isEmpty {
+                if !(string.characters.count < 10) {
+                    let tempStory = Story(title: string, fact: fact)
+                    if !arrayOfStories.contains(where: {$0.title == tempStory.title}) {
+                        arrayOfStories.append(Story(title: string, fact: fact))
+                        CoreDataManager.writeStoryToModel(entity: "CDStory", title: string, fact: fact)
+                    }
                 }
             }
         }
     }
-
 }
