@@ -14,6 +14,7 @@ private let customBlue = UIColor(red: 16/255, green: 102/255, blue: 178/255, alp
 private let customOrange = UIColor(red: 255/255, green: 161/255, blue: 0/255, alpha: 1.0)
 private let customGreen =  UIColor(red: 0, green: 128/255, blue: 0, alpha: 1.0)
 private let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
+private let cardViewBG = "news_paper"
 
 class ViewController: UIViewController {
     @IBOutlet weak var kolodaView: KolodaView!
@@ -77,13 +78,23 @@ class ViewController: UIViewController {
         while tempArray.count > 0 {
             let randomIndex = Int(arc4random_uniform(UInt32(tempArray.count)))
             let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
-            if tempArray.count % 2 == 0 {
-                cardVC.backgroundColor = customBlue
-            } else {
-                cardVC.backgroundColor = customOrange
-            }
+            cardVC.bgImageView.image = UIImage(named: cardViewBG)
+            cardVC.bgImageView.clipsToBounds = true
+//            if tempArray.count % 2 == 0 {
+//                cardVC.backgroundColor = customBlue
+//            } else {
+//                cardVC.backgroundColor = customOrange
+//            }
+//            let strokeTextAttributes = [ NSFontAttributeName: UIFont(name: "Helvetica Light", size: 26.0)!,
+//                                         NSStrokeColorAttributeName : UIColor.black,
+//                                         NSForegroundColorAttributeName : UIColor.white,
+//                                         NSStrokeWidthAttributeName : -3.0
+//                ] as [String : Any]
+//            let text = tempArray[randomIndex].title
+//            cardVC.titleLabel.attributedText = NSAttributedString(string: text, attributes: strokeTextAttributes)
             cardVC.titleLabel.text = tempArray[randomIndex].title
-            cardVC.titleLabel.textColor = UIColor.white
+            cardVC.titleLabel.textColor = UIColor.black
+            
             arrayOfCardViews.append(cardVC)
             tempArray.remove(at: randomIndex)
         }

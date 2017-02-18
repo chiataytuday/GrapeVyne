@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,20 +15,32 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kye-65-1PD">
-                    <rect key="frame" x="16" y="205" width="343" height="256"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nSD-Tn-13h">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kye-65-1PD">
+                    <rect key="frame" x="16" y="206" width="343" height="256"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="256" id="g2R-aE-F7a"/>
+                        <constraint firstAttribute="height" constant="256" id="FW0-YG-g50"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="26"/>
+                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="32"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <constraints>
-                <constraint firstItem="kye-65-1PD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="ipL-39-gx0"/>
-                <constraint firstItem="kye-65-1PD" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="nsv-96-DQo"/>
-                <constraint firstItem="kye-65-1PD" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="owk-aR-nIR"/>
+                <constraint firstItem="nSD-Tn-13h" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3gj-kK-SN5"/>
+                <constraint firstAttribute="bottom" secondItem="nSD-Tn-13h" secondAttribute="bottom" id="8ja-d9-bKk"/>
+                <constraint firstItem="nSD-Tn-13h" firstAttribute="centerX" secondItem="kye-65-1PD" secondAttribute="centerX" id="PPm-tP-2zz"/>
+                <constraint firstItem="kye-65-1PD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="ZyI-LD-Oav"/>
+                <constraint firstAttribute="trailing" secondItem="nSD-Tn-13h" secondAttribute="trailing" id="fg1-oy-85f"/>
+                <constraint firstItem="nSD-Tn-13h" firstAttribute="centerY" secondItem="kye-65-1PD" secondAttribute="centerY" id="nwi-1t-lzG"/>
+                <constraint firstItem="nSD-Tn-13h" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="s4R-Fh-921"/>
             </constraints>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -35,9 +48,15 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="bgImageView" destination="nSD-Tn-13h" id="iaI-wf-U8J"/>
                 <outlet property="titleLabel" destination="kye-65-1PD" id="JxX-kG-Rtg"/>
             </connections>
             <point key="canvasLocation" x="75.5" y="53.5"/>
         </view>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="8d1-Y2-HR8">
+            <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <point key="canvasLocation" x="317" y="547"/>
+        </button>
     </objects>
 </document>
