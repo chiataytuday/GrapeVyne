@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     var dataSource : [CardView]?
     var countRight = 0
     var countWrong = 0
+    var count = 5
+    var timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +31,6 @@ class ViewController: UIViewController {
         kolodaView.dataSource = self
         kolodaView.delegate = self
         
-        trueButton.setImage(#imageLiteral(resourceName: "btn_true_pressed"), for: .highlighted)
-        falseButton.setImage(#imageLiteral(resourceName: "btn_false_pressed"), for: .highlighted)
         if (dataSource?.isEmpty)! {
             finishedLabel.isHidden = false
         } else {
@@ -39,7 +39,9 @@ class ViewController: UIViewController {
         rightCounter.textColor = customGreen
         wrongCounter.textColor = customRed
         
-        self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateTimer()})
+        timerLabel.text = "Timer Left: \(count)"
+        self.modalTransitionStyle = .coverVertical
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,24 +50,14 @@ class ViewController: UIViewController {
     }
     
     // MARK: IBOutlets
-    
-    @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var rightCounter: UILabel!
-    
-    @IBOutlet weak var falseButton: UIButton!
     @IBOutlet weak var wrongCounter: UILabel!
-    
     @IBOutlet weak var finishedLabel: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
+    
     
     // MARK: IBActions
     
-    @IBAction func trueButton(_ sender: UIButton) {
-        kolodaView.swipe(.right)
-    }
-    
-    @IBAction func falseButton(_ sender: UIButton) {
-        kolodaView.swipe(.left)
-    }
     
     // MARK: Private functions
     
@@ -80,18 +72,18 @@ class ViewController: UIViewController {
             let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
             cardVC.bgImageView.image = UIImage(named: cardViewBG)
             cardVC.bgImageView.clipsToBounds = true
-//            if tempArray.count % 2 == 0 {
-//                cardVC.backgroundColor = customBlue
-//            } else {
-//                cardVC.backgroundColor = customOrange
-//            }
-//            let strokeTextAttributes = [ NSFontAttributeName: UIFont(name: "Helvetica Light", size: 26.0)!,
-//                                         NSStrokeColorAttributeName : UIColor.black,
-//                                         NSForegroundColorAttributeName : UIColor.white,
-//                                         NSStrokeWidthAttributeName : -3.0
-//                ] as [String : Any]
-//            let text = tempArray[randomIndex].title
-//            cardVC.titleLabel.attributedText = NSAttributedString(string: text, attributes: strokeTextAttributes)
+            //            if tempArray.count % 2 == 0 {
+            //                cardVC.backgroundColor = customBlue
+            //            } else {
+            //                cardVC.backgroundColor = customOrange
+            //            }
+            //            let strokeTextAttributes = [ NSFontAttributeName: UIFont(name: "Helvetica Light", size: 26.0)!,
+            //                                         NSStrokeColorAttributeName : UIColor.black,
+            //                                         NSForegroundColorAttributeName : UIColor.white,
+            //                                         NSStrokeWidthAttributeName : -3.0
+            //                ] as [String : Any]
+            //            let text = tempArray[randomIndex].title
+            //            cardVC.titleLabel.attributedText = NSAttributedString(string: text, attributes: strokeTextAttributes)
             cardVC.titleLabel.text = tempArray[randomIndex].title
             cardVC.titleLabel.textColor = UIColor.black
             
@@ -101,28 +93,21 @@ class ViewController: UIViewController {
         return arrayOfCardViews
     }
     
-    func updateCounterLabel(counter: CounterLable) {
-        switch counter {
-        case .rightCounter:
-            rightCounter.pushTransition(duration: 0.4)
-            rightCounter.text = "\(countRight)"
-        case .wrongCounter:
-            wrongCounter.pushTransition(duration: 0.4)
-            wrongCounter.text = "\(countWrong)"
-        case .none:
-            break
+    func updateTimer() {
+        if(count > 0) {
+            count -= 1
+            timerLabel.text = "Time Left: \(count)"
+        } else {
+            //end game
+            //pop up results table
+            timer.invalidate()
+            let tableVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+            present(tableVC, animated: true, completion: nil)
         }
-        
     }
-    
-    enum CounterLable {
-        case rightCounter
-        case wrongCounter
-        case none
-    }
-    
 }
-extension UIView {
+
+extension UIView: CAAnimationDelegate {
     func pushTransition(duration:CFTimeInterval) {
         let animation = CATransition()
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
@@ -140,11 +125,14 @@ extension ViewController: KolodaViewDelegate {
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
         finishedLabel.isHidden = false
         CoreDataManager.writeMetricToModel(entity: "Metrics", value: true)
-        //        let tableVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
-        //        present(tableVC, animated: true, completion: nil)
     }
     
     func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
+    }
+    
+    func koloda(_ koloda: KolodaView, allowedDirectionsForIndex index: Int) -> [SwipeResultDirection] {
+        //add .up to pass card
+        return [.left, .right]
     }
     
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
@@ -154,35 +142,91 @@ extension ViewController: KolodaViewDelegate {
         let storyObject = CoreDataManager.fetchObject(entity: "CDStory", title: storyTitle)
         //Get the story's properties
         let storyFactValue = storyObject.value(forKey: "fact") as! Bool
+        //Determine result of user action
+        let userAnswer = isUserCorrectFor(factValue: storyFactValue, swipeDirection: direction)
         
-        var counterToUpdate : CounterLable = .none
-        switch direction {
+        updateCountersFor(userAns: userAnswer)
+        performAnimationsFor(userAns: userAnswer)
+        updateResultArrayFor(userAns: userAnswer, index: index)
+        
+        //Finally, delete the story from memory
+        CoreDataManager.deleteObject(entity: "CDStory", title: storyTitle)
+    }
+    
+    private func isUserCorrectFor(factValue: Bool, swipeDirection: SwipeResultDirection) -> Bool {
+        var isUserCorrect = false
+        switch swipeDirection {
         case .right:
-            if storyFactValue {
-                //User got it right
-                countRight += 1
-                counterToUpdate = .rightCounter
+            if factValue {
+                //User action correct
+                isUserCorrect = true
             } else {
-                //User got it wrong
-                countWrong += 1
-                counterToUpdate = .wrongCounter
+                //User action incorrect
+                isUserCorrect = false
             }
         case .left:
-            if storyFactValue {
-                //User got it wrong
-                countWrong += 1
-                counterToUpdate = .wrongCounter
+            if factValue {
+                //User action incorrect
+                isUserCorrect = false
             } else {
-                //User got it right
-                countRight += 1
-                counterToUpdate = .rightCounter
+                //User action correct
+                isUserCorrect = true
             }
         default:
             break
         }
-        updateCounterLabel(counter: counterToUpdate)
-        //Finally, delete the story from memory
-        CoreDataManager.deleteObject(entity: "CDStory", title: storyTitle)
+        return isUserCorrect
+    }
+    
+    private func updateCountersFor(userAns: Bool) {
+        if userAns {
+            countRight += 1
+            rightCounter.pushTransition(duration: 0.4)
+            rightCounter.text = "\(countRight)"
+        } else {
+            countWrong += 1
+            wrongCounter.pushTransition(duration: 0.4)
+            wrongCounter.text = "\(countWrong)"
+        }
+    }
+    
+    private func performAnimationsFor(userAns: Bool) {
+        let resultView = Bundle.main.loadNibNamed("SwipeOverlayResultView", owner: nil, options: nil)?[0] as! SwipeOverlayResultView
+        resultView.resultLabel.textColor = UIColor.white
+        resultView.setupAccordingTo(userAnswer: userAns)
+        resultView.alpha = 0
+        resultView.resultImage.alpha = 0.85
+        
+//        let blurEffect = UIBlurEffect(style: .light)
+//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+//        blurEffectView.frame = kolodaView.bounds
+//        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        blurEffectView.alpha = 0
+//        view.addSubview(blurEffectView)
+        
+        self.view.addSubview(resultView)
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut,
+                       animations: {
+                        //blurEffectView.alpha = 1
+                        resultView.alpha = 1},
+                       completion: { finished in
+                        UIView.animate(withDuration: 0.6, delay: 0,
+                                       animations: {
+                                        //blurEffectView.alpha = 0
+                                        resultView.alpha = 0},
+                                       completion: { finished in
+                                        resultView.removeFromSuperview()
+                                        //blurEffectView.removeFromSuperview()
+                        })
+        })
+    }
+    
+    private func updateResultArrayFor(userAns: Bool, index: Int) {
+        if (userAns) {
+            storyRepo.arrayOfCorrectStories.append(storyRepo.arrayOfStories[index])
+        } else {
+            storyRepo.arrayOfIncorrectStories.append(storyRepo.arrayOfStories[index])
+        }
     }
 }
 
@@ -197,10 +241,5 @@ extension ViewController: KolodaViewDataSource {
     
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         return dataSource![index]
-    }
-    
-    func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
-        return Bundle.main.loadNibNamed("SwipeOverlayView",
-                                        owner: self, options: nil)?[0] as? OverlayView
     }
 }

@@ -32,11 +32,18 @@ class TableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        var retVal = 0
+        if section == 0 {
+            retVal = storyRepo.arrayOfCorrectStories.count
+            return retVal
+        } else if section == 1 {
+            retVal = storyRepo.arrayOfIncorrectStories.count
+        }
+        return retVal
     }
 
     
