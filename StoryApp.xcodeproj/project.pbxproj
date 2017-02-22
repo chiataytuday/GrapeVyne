@@ -110,10 +110,8 @@
 			children = (
 				6166C99E1E14CF8E00BF5A54 /* Main.storyboard */,
 				6166C9A31E14CF8E00BF5A54 /* LaunchScreen.storyboard */,
-				61CA8FF61E1DF097005B389D /* CardView.swift */,
-				61CA90001E1DF868005B389D /* CardView.xib */,
-				613AF4F91E59ECFA00209765 /* SwipeOverlayResultView.swift */,
-				613AF4FB1E59ED0500209765 /* SwipeOverlayResultView.xib */,
+				61F971EE1E5D57BB0055DE4B /* Card */,
+				61F971EF1E5D57C10055DE4B /* SwipeOverlay */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -126,6 +124,24 @@
 				6156198E1E47C618007E5F27 /* TableViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		61F971EE1E5D57BB0055DE4B /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				61CA8FF61E1DF097005B389D /* CardView.swift */,
+				61CA90001E1DF868005B389D /* CardView.xib */,
+			);
+			name = Card;
+			sourceTree = "<group>";
+		};
+		61F971EF1E5D57C10055DE4B /* SwipeOverlay */ = {
+			isa = PBXGroup;
+			children = (
+				613AF4F91E59ECFA00209765 /* SwipeOverlayResultView.swift */,
+				613AF4FB1E59ED0500209765 /* SwipeOverlayResultView.xib */,
+			);
+			name = SwipeOverlay;
 			sourceTree = "<group>";
 		};
 		8B0E8B3A5E66E123F020E7BD /* Pods */ = {

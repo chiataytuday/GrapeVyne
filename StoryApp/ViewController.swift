@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     var dataSource : [CardView]?
     var countRight = 0
     var countWrong = 0
-    var count = 5
+    var count = 60
     var timer = Timer()
     
     override func viewDidLoad() {
@@ -72,18 +72,6 @@ class ViewController: UIViewController {
             let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
             cardVC.bgImageView.image = UIImage(named: cardViewBG)
             cardVC.bgImageView.clipsToBounds = true
-            //            if tempArray.count % 2 == 0 {
-            //                cardVC.backgroundColor = customBlue
-            //            } else {
-            //                cardVC.backgroundColor = customOrange
-            //            }
-            //            let strokeTextAttributes = [ NSFontAttributeName: UIFont(name: "Helvetica Light", size: 26.0)!,
-            //                                         NSStrokeColorAttributeName : UIColor.black,
-            //                                         NSForegroundColorAttributeName : UIColor.white,
-            //                                         NSStrokeWidthAttributeName : -3.0
-            //                ] as [String : Any]
-            //            let text = tempArray[randomIndex].title
-            //            cardVC.titleLabel.attributedText = NSAttributedString(string: text, attributes: strokeTextAttributes)
             cardVC.titleLabel.text = tempArray[randomIndex].title
             cardVC.titleLabel.textColor = UIColor.black
             
@@ -197,26 +185,16 @@ extension ViewController: KolodaViewDelegate {
         resultView.alpha = 0
         resultView.resultImage.alpha = 0.85
         
-//        let blurEffect = UIBlurEffect(style: .light)
-//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-//        blurEffectView.frame = kolodaView.bounds
-//        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        blurEffectView.alpha = 0
-//        view.addSubview(blurEffectView)
-        
         self.view.addSubview(resultView)
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut,
                        animations: {
-                        //blurEffectView.alpha = 1
                         resultView.alpha = 1},
                        completion: { finished in
                         UIView.animate(withDuration: 0.6, delay: 0,
                                        animations: {
-                                        //blurEffectView.alpha = 0
                                         resultView.alpha = 0},
                                        completion: { finished in
                                         resultView.removeFromSuperview()
-                                        //blurEffectView.removeFromSuperview()
                         })
         })
     }
