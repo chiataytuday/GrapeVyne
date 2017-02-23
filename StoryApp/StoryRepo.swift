@@ -10,9 +10,13 @@ import CoreData
 
 class StoryRepo {
     var arrayOfStories : [Story]
+    var arrayOfCorrectStories : [Story]
+    var arrayOfIncorrectStories : [Story]
     
     init() {
         arrayOfStories = []
+        arrayOfCorrectStories = []
+        arrayOfIncorrectStories = []
     }
     
     func appendTitlesAsStoriesAndWriteToCD(array : [String], fact : Bool) {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		613AF4FA1E59ECFA00209765 /* SwipeOverlayResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613AF4F91E59ECFA00209765 /* SwipeOverlayResultView.swift */; };
+		613AF4FC1E59ED0500209765 /* SwipeOverlayResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 613AF4FB1E59ED0500209765 /* SwipeOverlayResultView.xib */; };
 		6156196C1E47AD9E007E5F27 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6156196A1E47AD9E007E5F27 /* Model.xcdatamodeld */; };
 		6156198F1E47C618007E5F27 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6156198E1E47C618007E5F27 /* TableViewController.swift */; };
 		615619911E481829007E5F27 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615619901E481829007E5F27 /* CoreDataManager.swift */; };
@@ -15,8 +17,6 @@
 		6166C9A01E14CF8E00BF5A54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6166C99E1E14CF8E00BF5A54 /* Main.storyboard */; };
 		6166C9A51E14CF8E00BF5A54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6166C9A31E14CF8E00BF5A54 /* LaunchScreen.storyboard */; };
 		617426211E1E0F0B009BFC75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 617426201E1E0F0B009BFC75 /* Assets.xcassets */; };
-		6174D2E11E42E225006C292E /* SwipeOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6174D2E01E42E225006C292E /* SwipeOverlayView.xib */; };
-		6174D2E31E42E235006C292E /* SwipeOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6174D2E21E42E235006C292E /* SwipeOverlayView.swift */; };
 		619BE2C01E3D1B400085023B /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619BE2BF1E3D1B400085023B /* Network.swift */; };
 		619BE2C51E3D3F610085023B /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619BE2C41E3D3F610085023B /* JSONParser.swift */; };
 		61CA8FF71E1DF097005B389D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA8FF61E1DF097005B389D /* CardView.swift */; };
@@ -28,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		29F41655618E1D6824B53921 /* Pods_StoryApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StoryApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		613AF4F91E59ECFA00209765 /* SwipeOverlayResultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeOverlayResultView.swift; sourceTree = "<group>"; };
+		613AF4FB1E59ED0500209765 /* SwipeOverlayResultView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwipeOverlayResultView.xib; sourceTree = "<group>"; };
 		6156196B1E47AD9E007E5F27 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		6156198E1E47C618007E5F27 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		615619901E481829007E5F27 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -38,8 +40,6 @@
 		6166C9A41E14CF8E00BF5A54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6166C9A61E14CF8E00BF5A54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		617426201E1E0F0B009BFC75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6174D2E01E42E225006C292E /* SwipeOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwipeOverlayView.xib; sourceTree = "<group>"; };
-		6174D2E21E42E235006C292E /* SwipeOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeOverlayView.swift; sourceTree = "<group>"; };
 		619BE2BF1E3D1B400085023B /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		619BE2C41E3D3F610085023B /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		61CA8FF61E1DF097005B389D /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -110,10 +110,8 @@
 			children = (
 				6166C99E1E14CF8E00BF5A54 /* Main.storyboard */,
 				6166C9A31E14CF8E00BF5A54 /* LaunchScreen.storyboard */,
-				61CA8FF61E1DF097005B389D /* CardView.swift */,
-				61CA90001E1DF868005B389D /* CardView.xib */,
-				6174D2E01E42E225006C292E /* SwipeOverlayView.xib */,
-				6174D2E21E42E235006C292E /* SwipeOverlayView.swift */,
+				61F971EE1E5D57BB0055DE4B /* Card */,
+				61F971EF1E5D57C10055DE4B /* SwipeOverlay */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -126,6 +124,24 @@
 				6156198E1E47C618007E5F27 /* TableViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		61F971EE1E5D57BB0055DE4B /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				61CA8FF61E1DF097005B389D /* CardView.swift */,
+				61CA90001E1DF868005B389D /* CardView.xib */,
+			);
+			name = Card;
+			sourceTree = "<group>";
+		};
+		61F971EF1E5D57C10055DE4B /* SwipeOverlay */ = {
+			isa = PBXGroup;
+			children = (
+				613AF4F91E59ECFA00209765 /* SwipeOverlayResultView.swift */,
+				613AF4FB1E59ED0500209765 /* SwipeOverlayResultView.xib */,
+			);
+			name = SwipeOverlay;
 			sourceTree = "<group>";
 		};
 		8B0E8B3A5E66E123F020E7BD /* Pods */ = {
@@ -209,7 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6166C9A51E14CF8E00BF5A54 /* LaunchScreen.storyboard in Resources */,
-				6174D2E11E42E225006C292E /* SwipeOverlayView.xib in Resources */,
+				613AF4FC1E59ED0500209765 /* SwipeOverlayResultView.xib in Resources */,
 				61CA90011E1DF868005B389D /* CardView.xib in Resources */,
 				617426211E1E0F0B009BFC75 /* Assets.xcassets in Resources */,
 				6166C9A01E14CF8E00BF5A54 /* Main.storyboard in Resources */,
@@ -273,10 +289,10 @@
 			files = (
 				6166C99D1E14CF8E00BF5A54 /* ViewController.swift in Sources */,
 				61F7FF111E175D40004E14FA /* StoryRepo.swift in Sources */,
+				613AF4FA1E59ECFA00209765 /* SwipeOverlayResultView.swift in Sources */,
 				619BE2C51E3D3F610085023B /* JSONParser.swift in Sources */,
 				619BE2C01E3D1B400085023B /* Network.swift in Sources */,
 				6166C99B1E14CF8E00BF5A54 /* AppDelegate.swift in Sources */,
-				6174D2E31E42E235006C292E /* SwipeOverlayView.swift in Sources */,
 				615619911E481829007E5F27 /* CoreDataManager.swift in Sources */,
 				6156198F1E47C618007E5F27 /* TableViewController.swift in Sources */,
 				61CA8FF71E1DF097005B389D /* CardView.swift in Sources */,

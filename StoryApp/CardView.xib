@@ -42,21 +42,11 @@
                 <constraint firstItem="nSD-Tn-13h" firstAttribute="centerY" secondItem="kye-65-1PD" secondAttribute="centerY" id="nwi-1t-lzG"/>
                 <constraint firstItem="nSD-Tn-13h" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="s4R-Fh-921"/>
             </constraints>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                    <integer key="value" value="20"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="bgImageView" destination="nSD-Tn-13h" id="iaI-wf-U8J"/>
                 <outlet property="titleLabel" destination="kye-65-1PD" id="JxX-kG-Rtg"/>
             </connections>
             <point key="canvasLocation" x="75.5" y="53.5"/>
         </view>
-        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="8d1-Y2-HR8">
-            <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <point key="canvasLocation" x="317" y="547"/>
-        </button>
     </objects>
 </document>
