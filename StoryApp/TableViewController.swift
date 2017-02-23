@@ -9,6 +9,8 @@
 import UIKit
 import SafariServices
 
+private let customLightGray = UIColor(red: 243/255, green: 243/255, blue: 243/255, alpha: 1.0)
+
 class ResultTableViewCell: UITableViewCell {
     var storyURLasString = ""
     var parentVC : TableViewController?
@@ -42,9 +44,17 @@ class TableViewController: UITableViewController {
 
     // MARK: - Table view data source
     
-    @IBAction func linkToStoryButton(_ sender: UIButton) {
-        
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerLabel = UILabel()
+        headerLabel.textAlignment = .center
+        if section == 0 {
+            headerLabel.text = "Correct"
+        } else if section == 1 {
+            headerLabel.text = "Incorrect"
+        }
+        return headerLabel
     }
+    
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var str = ""
@@ -75,6 +85,10 @@ class TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ResultTableViewCell
         cell.selectionStyle = .none
         cell.parentVC = self
+        
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = customLightGray
+        }
         
         if indexPath.section == 0 {
             configureCell(cell: cell, story: storyRepo.arrayOfCorrectStories[indexPath.row], userCorrect: true)

@@ -15,14 +15,18 @@ private let customOrange = UIColor(red: 255/255, green: 161/255, blue: 0/255, al
 private let customGreen =  UIColor(red: 0, green: 128/255, blue: 0, alpha: 1.0)
 private let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
 private let cardViewBG = "news_paper"
+private let animationDuration = 0.4
 
 class ViewController: UIViewController {
     @IBOutlet weak var kolodaView: KolodaView!
     var dataSource : [CardView]?
     var countRight = 0
     var countWrong = 0
-    var count = 60
-    var timer = Timer()
+    var gameTime = 60
+    var gameTimer = Timer()
+    var countDownTime = 3
+    var countDownTimer = Timer()
+    var blurEffectView = UIVisualEffectView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +34,7 @@ class ViewController: UIViewController {
         dataSource = getDataSource()
         kolodaView.dataSource = self
         kolodaView.delegate = self
+        kolodaView.layer.cornerRadius = 20
         
         if (dataSource?.isEmpty)! {
             finishedLabel.isHidden = false
@@ -39,14 +44,23 @@ class ViewController: UIViewController {
         rightCounter.textColor = customGreen
         wrongCounter.textColor = customRed
         
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateTimer()})
-        timerLabel.text = "Timer Left: \(count)"
-        self.modalTransitionStyle = .coverVertical
+        let blurEffect = UIBlurEffect(style: .light)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.alpha = 0.98
+        blurEffectView.layer.cornerRadius = 20
+        blurEffectView.layer.masksToBounds = true
+        blurEffectView.frame = kolodaView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        kolodaView.addSubview(blurEffectView)
+        
+        countDownLabel.text = String(countDownTime)
+        countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
+        
+        timerLabel.text = "\(gameTime)"
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: IBOutlets
@@ -54,7 +68,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var wrongCounter: UILabel!
     @IBOutlet weak var finishedLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
-    
+    @IBOutlet weak var countDownLabel: UILabel!
     
     // MARK: IBActions
     
@@ -62,8 +76,6 @@ class ViewController: UIViewController {
     // MARK: Private functions
     
     private func getDataSource() -> [CardView] {
-        //        var tempStory = Story(title: "test", fact: true)
-        //        var tempArray : [Story] = [tempStory]
         var tempArray = storyRepo.arrayOfStories
         var arrayOfCardViews : [CardView] = []
         
@@ -81,22 +93,56 @@ class ViewController: UIViewController {
         return arrayOfCardViews
     }
     
-    func updateTimer() {
-        if(count > 0) {
-            count -= 1
-            timerLabel.text = "Time Left: \(count)"
+    private func updateCountDownTimer() {
+        if countDownTime > 1 {
+            countDownTime -= 1
+            countDownLabel.pushTransition()
+            countDownLabel.text = String(countDownTime)
+        } else {
+            //end timer
+            //start game
+            startGame()
+        }
+    }
+    
+    private func updateGameTimer() {
+        countDownLabel.isHidden = true
+        UIView.animate(withDuration: 0.3, animations: {self.blurEffectView.alpha = 0}, completion: {finished in self.blurEffectView.removeFromSuperview()})
+        if gameTime > 0 {
+            gameTime -= 1
+            timerLabel.pushTransitionWith(duration: 0.2)
+            timerLabel.text = "\(gameTime)"
         } else {
             //end game
-            //pop up results table
-            timer.invalidate()
-            let tableVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
-            present(tableVC, animated: true, completion: nil)
+            stopGame()
         }
+    }
+    
+    func startGame() {
+        countDownLabel.pushTransition()
+        countDownLabel.text = "Go!"
+        countDownTimer.invalidate()
+        gameTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateGameTimer()})
+    }
+    
+    func stopGame() {
+        gameTimer.invalidate()
+        let tableVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+        present(tableVC, animated: true, completion: nil)
     }
 }
 
 extension UIView: CAAnimationDelegate {
-    func pushTransition(duration:CFTimeInterval) {
+    func pushTransition() {
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.type = kCATransitionPush
+        animation.subtype = kCATransitionFromTop
+        animation.duration = animationDuration
+        self.layer.add(animation, forKey: kCATransitionPush)
+    }
+    
+    func pushTransitionWith(duration: CFTimeInterval) {
         let animation = CATransition()
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         animation.type = kCATransitionPush
@@ -111,6 +157,7 @@ extension UIView: CAAnimationDelegate {
 extension ViewController: KolodaViewDelegate {
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
+        stopGame()
         finishedLabel.isHidden = false
         CoreDataManager.writeMetricToModel(entity: "Metrics", value: true)
     }
@@ -134,7 +181,7 @@ extension ViewController: KolodaViewDelegate {
         let userAnswer = isUserCorrectFor(factValue: storyFactValue, swipeDirection: direction)
         
         updateCountersFor(userAns: userAnswer)
-        performAnimationsFor(userAns: userAnswer)
+        performSwipeResultAnimationFor(userAns: userAnswer)
         updateResultArrayFor(userAns: userAnswer, index: index)
         
         //Finally, delete the story from memory
@@ -169,16 +216,16 @@ extension ViewController: KolodaViewDelegate {
     private func updateCountersFor(userAns: Bool) {
         if userAns {
             countRight += 1
-            rightCounter.pushTransition(duration: 0.4)
+            rightCounter.pushTransition()
             rightCounter.text = "\(countRight)"
         } else {
             countWrong += 1
-            wrongCounter.pushTransition(duration: 0.4)
+            wrongCounter.pushTransition()
             wrongCounter.text = "\(countWrong)"
         }
     }
     
-    private func performAnimationsFor(userAns: Bool) {
+    private func performSwipeResultAnimationFor(userAns: Bool) {
         let resultView = Bundle.main.loadNibNamed("SwipeOverlayResultView", owner: nil, options: nil)?[0] as! SwipeOverlayResultView
         resultView.resultLabel.textColor = UIColor.white
         resultView.setupAccordingTo(userAnswer: userAns)
