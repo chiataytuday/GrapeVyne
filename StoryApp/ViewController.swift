@@ -96,7 +96,7 @@ class ViewController: UIViewController {
     private func updateCountDownTimer() {
         if countDownTime > 1 {
             countDownTime -= 1
-            countDownLabel.pushTransition()
+            countDownLabel.pushTransitionFromBottom()
             countDownLabel.text = String(countDownTime)
         } else {
             //end timer
@@ -110,7 +110,7 @@ class ViewController: UIViewController {
         UIView.animate(withDuration: 0.3, animations: {self.blurEffectView.alpha = 0}, completion: {finished in self.blurEffectView.removeFromSuperview()})
         if gameTime > 0 {
             gameTime -= 1
-            timerLabel.pushTransitionWith(duration: 0.2)
+            timerLabel.pushTransitionFromBottomWith(duration: 0.2)
             timerLabel.text = "\(gameTime)"
         } else {
             //end game
@@ -119,7 +119,7 @@ class ViewController: UIViewController {
     }
     
     func startGame() {
-        countDownLabel.pushTransition()
+        countDownLabel.pushTransitionFromBottom()
         countDownLabel.text = "Go!"
         countDownTimer.invalidate()
         gameTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateGameTimer()})
@@ -133,7 +133,8 @@ class ViewController: UIViewController {
 }
 
 extension UIView: CAAnimationDelegate {
-    func pushTransition() {
+    
+    func pushTransitionFromTop() {
         let animation = CATransition()
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         animation.type = kCATransitionPush
@@ -142,11 +143,29 @@ extension UIView: CAAnimationDelegate {
         self.layer.add(animation, forKey: kCATransitionPush)
     }
     
-    func pushTransitionWith(duration: CFTimeInterval) {
+    func pushTransitionFromBottom() {
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.type = kCATransitionPush
+        animation.subtype = kCATransitionFromBottom
+        animation.duration = animationDuration
+        self.layer.add(animation, forKey: kCATransitionPush)
+    }
+    
+    func pushTransitionFromTopWith(duration: CFTimeInterval) {
         let animation = CATransition()
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         animation.type = kCATransitionPush
         animation.subtype = kCATransitionFromTop
+        animation.duration = duration
+        self.layer.add(animation, forKey: kCATransitionPush)
+    }
+    
+    func pushTransitionFromBottomWith(duration: CFTimeInterval) {
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.type = kCATransitionPush
+        animation.subtype = kCATransitionFromBottom
         animation.duration = duration
         self.layer.add(animation, forKey: kCATransitionPush)
     }
@@ -215,11 +234,11 @@ extension ViewController: KolodaViewDelegate {
     private func updateCountersFor(userAns: Bool) {
         if userAns {
             countRight += 1
-            rightCounter.pushTransition()
+            rightCounter.pushTransitionFromTop()
             rightCounter.text = "\(countRight)"
         } else {
             countWrong += 1
-            wrongCounter.pushTransition()
+            wrongCounter.pushTransitionFromTop()
             wrongCounter.text = "\(countWrong)"
         }
     }
