@@ -19,7 +19,7 @@ class ResultTableViewCell: UITableViewCell {
     @IBOutlet weak var userAnsLabel: UILabel!
     
     @IBAction func linkButton(_ sender: UIButton) {
-        let svc = SFSafariViewController(url: URL(string:"http://stackoverflow.com")!)
+        let svc = SFSafariViewController(url: URL(string: storyURLasString)!)
         parentVC?.present(svc, animated: true, completion: nil)
     }
     
@@ -110,6 +110,7 @@ class TableViewController: UITableViewController {
         } else {
             cell.userAnsLabel.text = "You said: \(String(!story.fact))"
         }
+        cell.storyURLasString = story.urlString
     }
 
     /*

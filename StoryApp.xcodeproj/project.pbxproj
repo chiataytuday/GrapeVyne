@@ -17,6 +17,7 @@
 		6166C9A01E14CF8E00BF5A54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6166C99E1E14CF8E00BF5A54 /* Main.storyboard */; };
 		6166C9A51E14CF8E00BF5A54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6166C9A31E14CF8E00BF5A54 /* LaunchScreen.storyboard */; };
 		617426211E1E0F0B009BFC75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 617426201E1E0F0B009BFC75 /* Assets.xcassets */; };
+		619161C61E60343500CCE5E1 /* articles.json in Resources */ = {isa = PBXBuildFile; fileRef = 619161C51E60343500CCE5E1 /* articles.json */; };
 		619BE2C01E3D1B400085023B /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619BE2BF1E3D1B400085023B /* Network.swift */; };
 		619BE2C51E3D3F610085023B /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619BE2C41E3D3F610085023B /* JSONParser.swift */; };
 		61CA8FF71E1DF097005B389D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA8FF61E1DF097005B389D /* CardView.swift */; };
@@ -40,6 +41,7 @@
 		6166C9A41E14CF8E00BF5A54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6166C9A61E14CF8E00BF5A54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		617426201E1E0F0B009BFC75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		619161C51E60343500CCE5E1 /* articles.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = articles.json; sourceTree = "<group>"; };
 		619BE2BF1E3D1B400085023B /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		619BE2C41E3D3F610085023B /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		61CA8FF61E1DF097005B389D /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 		619BE2C11E3D1B530085023B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				619161C51E60343500CCE5E1 /* articles.json */,
 				61F7FF0E1E175D10004E14FA /* Story.swift */,
 				61F7FF101E175D40004E14FA /* StoryRepo.swift */,
 				619BE2C41E3D3F610085023B /* JSONParser.swift */,
@@ -228,6 +231,7 @@
 				613AF4FC1E59ED0500209765 /* SwipeOverlayResultView.xib in Resources */,
 				61CA90011E1DF868005B389D /* CardView.xib in Resources */,
 				617426211E1E0F0B009BFC75 /* Assets.xcassets in Resources */,
+				619161C61E60343500CCE5E1 /* articles.json in Resources */,
 				6166C9A01E14CF8E00BF5A54 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

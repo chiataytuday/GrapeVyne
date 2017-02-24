@@ -9,6 +9,21 @@
 import Foundation
 
 private let api_key = "t_mLCwaTNSTu"
+private let jsonFile = "articles.json"
+
+class MockedJSON {
+   static public func getData() -> Data {
+    var data = Data()
+        if let path = Bundle.main.path(forResource: "articles", ofType: "json") {
+            do {
+                data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+    return data
+    }
+}
 
 class Network {
     

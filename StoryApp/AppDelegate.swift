@@ -15,36 +15,26 @@ var storyRepo = StoryRepo()
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    let networkCall = Network()
     let jsonParser = JSONParser()
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        let metricsManagedObject = CoreDataManager.fetchModel(entity: "Metrics")
-        for metric in metricsManagedObject {
-            let result = metric.value(forKey: "hasViewedAll") as! Bool
-            if result {
-                // User has viewed all cards
-                return true
-            }
-        }
-        
         let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
         if managedObject.isEmpty {
-            // Nothing in core data
-            storyRepo.appendTitlesAsStoriesAndWriteToCD(array: jsonParser.parseStories(data: networkCall.getLastReadyRunData(token: .trueProject)), fact: true)
-            storyRepo.appendTitlesAsStoriesAndWriteToCD(array: jsonParser.parseStories(data: networkCall.getLastReadyRunData(token: .falseProject)), fact: false)
+            //Nothing in Core Data
+            let s = jsonParser.parseStories(data: MockedJSON.getData())
+            storyRepo.arrayOfStories = s
+            storyRepo.writeToCD(array: s)
         } else {
-            // Something in core data
-            var arrayOfUnviewedStories : [Story] = []
-            for story in managedObject {
-                    let title = story.value(forKey: "title") as! String
-                    let fact = story.value(forKey: "fact") as! Bool
-                    
-                    let story = Story(title: title, fact: fact)
-                    arrayOfUnviewedStories.append(story)
+            //Something in Core Data
+            for object in managedObject {
+                let title = object.value(forKey: "title") as! String
+                let factValue = object.value(forKey: "fact") as! Bool
+                let urlString = object.value(forKey: "urlString") as! String
+                let tempStory = Story(title: title, fact: factValue, urlStr: urlString)
+                storyRepo.arrayOfStories.append(tempStory)
             }
-            storyRepo.arrayOfStories = arrayOfUnviewedStories
         }
+        print(storyRepo.arrayOfStories.count)
         return true
     }
     

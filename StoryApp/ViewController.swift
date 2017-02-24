@@ -159,7 +159,6 @@ extension ViewController: KolodaViewDelegate {
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
         stopGame()
         finishedLabel.isHidden = false
-        CoreDataManager.writeMetricToModel(entity: "Metrics", value: true)
     }
     
     func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
