@@ -127,8 +127,10 @@ class ViewController: UIViewController {
     
     func stopGame() {
         gameTimer.invalidate()
-        let tableVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
-        present(tableVC, animated: true, completion: nil)
+        let resultTableVC = storyboard?.instantiateViewController(withIdentifier: "ResultTableViewController") as! ResultTableViewController
+        present(resultTableVC, animated: true, completion: nil)
+        //let tableVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+        //present(tableVC, animated: true, completion: nil)
     }
 }
 
@@ -189,18 +191,24 @@ extension ViewController: KolodaViewDelegate {
     }
     
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
-        //Get the story title
+        //Use the card display title to store the story title
         let storyTitle = (dataSource?[index].titleLabel.text!)!
-        //Get the story object
+        //Get the story object by searching on the story title
         let storyObject = CoreDataManager.fetchObject(entity: "CDStory", title: storyTitle)
-        //Get the story's properties
+        
+        //Get the story's other properties
         let storyFactValue = storyObject.value(forKey: "fact") as! Bool
+        let storyURLString = storyObject.value(forKey: "urlString") as! String
+        
+        //Create a temporary story property
+        let tempStory = Story(title: storyTitle, fact: storyFactValue, urlStr: storyURLString)
+        
         //Determine result of user action
         let userAnswer = isUserCorrectFor(factValue: storyFactValue, swipeDirection: direction)
         
         updateCountersFor(userAns: userAnswer)
         performSwipeResultAnimationFor(userAns: userAnswer)
-        updateResultArrayFor(userAns: userAnswer, index: index)
+        updateResultArrayFor(userAns: userAnswer, story: tempStory)
         
         //Finally, delete the story from memory
         CoreDataManager.deleteObject(entity: "CDStory", title: storyTitle)
@@ -264,11 +272,11 @@ extension ViewController: KolodaViewDelegate {
         })
     }
     
-    private func updateResultArrayFor(userAns: Bool, index: Int) {
+    private func updateResultArrayFor(userAns: Bool, story: Story) {
         if (userAns) {
-            storyRepo.arrayOfCorrectStories.append(storyRepo.arrayOfStories[index])
+            storyRepo.arrayOfCorrectStories.append(story)
         } else {
-            storyRepo.arrayOfIncorrectStories.append(storyRepo.arrayOfStories[index])
+            storyRepo.arrayOfIncorrectStories.append(story)
         }
     }
 }

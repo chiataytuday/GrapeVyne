@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 storyRepo.arrayOfStories.append(tempStory)
             }
         }
-        print(storyRepo.arrayOfStories.count)
+        print("*** Number of stories currently in memory \(storyRepo.arrayOfStories.count) ***")
         return true
     }
     
