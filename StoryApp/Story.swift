@@ -9,9 +9,11 @@
 class Story {
     var title : String
     var fact : Bool
+    var urlString : String
     
-    init(title: String, fact: Bool) {
+    init(title: String, fact: Bool, urlStr: String) {
         self.title = title
         self.fact = fact
+        self.urlString = urlStr
     }
 }

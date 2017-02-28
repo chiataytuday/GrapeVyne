@@ -19,17 +19,9 @@ class StoryRepo {
         arrayOfIncorrectStories = []
     }
     
-    func appendTitlesAsStoriesAndWriteToCD(array : [String], fact : Bool) {
-        for string in array {
-            if !string.isEmpty {
-                if !(string.characters.count < 10) {
-                    let tempStory = Story(title: string, fact: fact)
-                    if !arrayOfStories.contains(where: {$0.title == tempStory.title}) {
-                        arrayOfStories.append(Story(title: string, fact: fact))
-                        CoreDataManager.writeStoryToModel(entity: "CDStory", title: string, fact: fact)
-                    }
-                }
-            }
+    func writeToCD(array: [Story]) {
+        for story in arrayOfStories {
+            CoreDataManager.writeStoryToModel(entity: "CDStory", title: story.title, fact: story.fact, urlStr: story.urlString)
         }
     }
 }

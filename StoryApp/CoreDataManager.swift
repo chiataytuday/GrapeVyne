@@ -12,13 +12,14 @@ import CoreData
 
 class CoreDataManager {
     
-    static func writeStoryToModel(entity: String, title: String, fact: Bool) {
+    static func writeStoryToModel(entity: String, title: String, fact: Bool, urlStr: String) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: entity, in: context)
         let story = NSManagedObject(entity: entity!, insertInto: context)
         story.setValue(title, forKey: "title")
         story.setValue(fact, forKey: "fact")
+        story.setValue(urlStr, forKey: "urlString")
         do {
             try context.save()
         } catch let error as NSError  {
@@ -55,7 +56,7 @@ class CoreDataManager {
     }
     
     static func fetchObject(entity: String, title: String) -> NSManagedObject {
-        var managedObject = NSManagedObject()
+        var managedObject : NSManagedObject?
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
@@ -71,7 +72,7 @@ class CoreDataManager {
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         }
-        return managedObject
+        return managedObject!
     }
     
     static func deleteObject(entity: String, title: String) {
