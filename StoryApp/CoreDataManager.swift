@@ -56,7 +56,7 @@ class CoreDataManager {
     }
     
     static func fetchObject(entity: String, title: String) -> NSManagedObject {
-        var managedObject = NSManagedObject()
+        var managedObject : NSManagedObject?
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
@@ -72,7 +72,7 @@ class CoreDataManager {
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         }
-        return managedObject
+        return managedObject!
     }
     
     static func deleteObject(entity: String, title: String) {

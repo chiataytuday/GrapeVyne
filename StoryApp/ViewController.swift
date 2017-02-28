@@ -9,16 +9,25 @@
 import UIKit
 import Koloda
 
+// MARK: Global properties
+// Colors
 private let customLightBlue = UIColor(red: 161/255, green: 203/255, blue: 255/255, alpha: 1.0)
 private let customBlue = UIColor(red: 16/255, green: 102/255, blue: 178/255, alpha: 1.0)
 private let customOrange = UIColor(red: 255/255, green: 161/255, blue: 0/255, alpha: 1.0)
 private let customGreen =  UIColor(red: 0, green: 128/255, blue: 0, alpha: 1.0)
 private let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
+// UI Configuration
 private let cardViewBG = "news_paper"
-private let animationDuration = 0.4
+private let cardCornerRadius : CGFloat = 20
+// Animations
+private let countDownAnimationDuration = 0.4
+private let gameTimerAnimationDuration = 0.2
+private let revealAnimationDuration = 0.3
+// Taptic Engine
+private let cardSwipeTaptic = UISelectionFeedbackGenerator()
+private let gameFinishTaptic = UINotificationFeedbackGenerator()
 
 class ViewController: UIViewController {
-    @IBOutlet weak var kolodaView: KolodaView!
     var dataSource : [CardView]?
     var countRight = 0
     var countWrong = 0
@@ -28,52 +37,57 @@ class ViewController: UIViewController {
     var countDownTimer = Timer()
     var blurEffectView = UIVisualEffectView()
     
+    // MARK: IBOutlets
+    @IBOutlet weak var kolodaView: KolodaView!
+    @IBOutlet weak var noMoreCardsLabel: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var countDownLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = customLightBlue
         dataSource = getDataSource()
         kolodaView.dataSource = self
         kolodaView.delegate = self
-        kolodaView.layer.cornerRadius = 20
-        
-        if (dataSource?.isEmpty)! {
-            finishedLabel.isHidden = false
-        } else {
-            finishedLabel.isHidden = true
-        }
-        rightCounter.textColor = customGreen
-        wrongCounter.textColor = customRed
-        
-        let blurEffect = UIBlurEffect(style: .light)
-        blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.alpha = 0.98
-        blurEffectView.layer.cornerRadius = 20
-        blurEffectView.layer.masksToBounds = true
-        blurEffectView.frame = kolodaView.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        kolodaView.addSubview(blurEffectView)
-        
-        countDownLabel.text = String(countDownTime)
-        countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
-        
-        timerLabel.text = "\(gameTime)"
+        configureUI()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    // MARK: IBOutlets
-    @IBOutlet weak var rightCounter: UILabel!
-    @IBOutlet weak var wrongCounter: UILabel!
-    @IBOutlet weak var finishedLabel: UILabel!
-    @IBOutlet weak var timerLabel: UILabel!
-    @IBOutlet weak var countDownLabel: UILabel!
-    
     // MARK: IBActions
     
-    
     // MARK: Private functions
+    
+    private func configureUI() {
+        kolodaView.layer.cornerRadius = cardCornerRadius
+        
+        if (dataSource?.isEmpty)! {
+            noMoreCardsLabel.isHidden = false
+        } else {
+            noMoreCardsLabel.isHidden = true
+        }
+        
+        setupCardBlurEffectView()
+        
+        countDownLabel.text = String(countDownTime)
+        //game starts with this completion handler
+        countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
+        
+        timerLabel.text = "\(gameTime)"
+    }
+    
+    private func setupCardBlurEffectView() {
+        let blurEffect = UIBlurEffect(style: .light)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.alpha = 0.98 //removing this line will stop the uivisualeffectview error
+        blurEffectView.layer.cornerRadius = kolodaView.layer.cornerRadius
+        blurEffectView.layer.masksToBounds = true
+        blurEffectView.frame = kolodaView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        kolodaView.addSubview(blurEffectView)
+    }
     
     private func getDataSource() -> [CardView] {
         var tempArray = storyRepo.arrayOfStories
@@ -96,7 +110,7 @@ class ViewController: UIViewController {
     private func updateCountDownTimer() {
         if countDownTime > 1 {
             countDownTime -= 1
-            countDownLabel.pushTransitionFromBottom()
+            countDownLabel.pushTransitionFromBottomWith(duration: countDownAnimationDuration)
             countDownLabel.text = String(countDownTime)
         } else {
             //end timer
@@ -107,52 +121,37 @@ class ViewController: UIViewController {
     
     private func updateGameTimer() {
         countDownLabel.isHidden = true
-        UIView.animate(withDuration: 0.3, animations: {self.blurEffectView.alpha = 0}, completion: {finished in self.blurEffectView.removeFromSuperview()})
+        UIView.animate(withDuration: revealAnimationDuration, animations: {self.blurEffectView.effect = nil}, completion: {finished in self.blurEffectView.removeFromSuperview()})
         if gameTime > 0 {
             gameTime -= 1
-            timerLabel.pushTransitionFromBottomWith(duration: 0.2)
+            timerLabel.pushTransitionFromBottomWith(duration: gameTimerAnimationDuration)
             timerLabel.text = "\(gameTime)"
         } else {
             //end game
-            stopGame()
+            endGame()
         }
     }
     
+    // MARK: Class functions
+    
     func startGame() {
-        countDownLabel.pushTransitionFromBottom()
+        countDownLabel.pushTransitionFromBottomWith(duration: countDownAnimationDuration)
         countDownLabel.text = "Go!"
         countDownTimer.invalidate()
         gameTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateGameTimer()})
     }
     
-    func stopGame() {
+    func endGame() {
         gameTimer.invalidate()
+        gameFinishTaptic.notificationOccurred(.success)
         let resultTableVC = storyboard?.instantiateViewController(withIdentifier: "ResultTableViewController") as! ResultTableViewController
         present(resultTableVC, animated: true, completion: nil)
-        //let tableVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
-        //present(tableVC, animated: true, completion: nil)
     }
 }
 
+// MARK: Animations
+
 extension UIView: CAAnimationDelegate {
-    
-    func pushTransitionFromTop() {
-        let animation = CATransition()
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        animation.type = kCATransitionPush
-        animation.subtype = kCATransitionFromTop
-        animation.duration = animationDuration
-        self.layer.add(animation, forKey: kCATransitionPush)
-    }
-    
-    func pushTransitionFromBottom() {
-        let animation = CATransition()
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        animation.type = kCATransitionPush
-        animation.subtype = kCATransitionFromBottom
-        animation.duration = animationDuration
-        self.layer.add(animation, forKey: kCATransitionPush)
-    }
     
     func pushTransitionFromTopWith(duration: CFTimeInterval) {
         let animation = CATransition()
@@ -178,8 +177,8 @@ extension UIView: CAAnimationDelegate {
 extension ViewController: KolodaViewDelegate {
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-        stopGame()
-        finishedLabel.isHidden = false
+        endGame()
+        noMoreCardsLabel.isHidden = false
     }
     
     func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
@@ -206,13 +205,23 @@ extension ViewController: KolodaViewDelegate {
         //Determine result of user action
         let userAnswer = isUserCorrectFor(factValue: storyFactValue, swipeDirection: direction)
         
-        updateCountersFor(userAns: userAnswer)
         performSwipeResultAnimationFor(userAns: userAnswer)
         updateResultArrayFor(userAns: userAnswer, story: tempStory)
         
         //Finally, delete the story from memory
         CoreDataManager.deleteObject(entity: "CDStory", title: storyTitle)
     }
+    
+    func kolodaShouldTransparentizeNextCard(_ koloda: KolodaView) -> Bool {
+        return false
+    }
+    
+    func koloda(_ koloda: KolodaView, shouldDragCardAt index: Int) -> Bool {
+        cardSwipeTaptic.selectionChanged()
+        return true
+    }
+    
+    // MARK: KolodaViewDelegate private functions
     
     private func isUserCorrectFor(factValue: Bool, swipeDirection: SwipeResultDirection) -> Bool {
         var isUserCorrect = false
@@ -239,18 +248,6 @@ extension ViewController: KolodaViewDelegate {
         return isUserCorrect
     }
     
-    private func updateCountersFor(userAns: Bool) {
-        if userAns {
-            countRight += 1
-            rightCounter.pushTransitionFromTop()
-            rightCounter.text = "\(countRight)"
-        } else {
-            countWrong += 1
-            wrongCounter.pushTransitionFromTop()
-            wrongCounter.text = "\(countWrong)"
-        }
-    }
-    
     private func performSwipeResultAnimationFor(userAns: Bool) {
         let resultView = Bundle.main.loadNibNamed("SwipeOverlayResultView", owner: nil, options: nil)?[0] as! SwipeOverlayResultView
         resultView.resultLabel.textColor = UIColor.white
@@ -259,11 +256,11 @@ extension ViewController: KolodaViewDelegate {
         resultView.resultImage.alpha = 0.85
         
         self.view.addSubview(resultView)
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut,
+        UIView.animate(withDuration: revealAnimationDuration, delay: 0, options: .curveEaseOut,
                        animations: {
                         resultView.alpha = 1},
                        completion: { finished in
-                        UIView.animate(withDuration: 0.6, delay: 0,
+                        UIView.animate(withDuration: revealAnimationDuration * 2, delay: 0,
                                        animations: {
                                         resultView.alpha = 0},
                                        completion: { finished in

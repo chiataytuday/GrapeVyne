@@ -32,25 +32,21 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func doneButton(_ sender: UIButton) {
+    @IBAction func doneButton(_ sender: UIBarButtonItem) {
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    // MARK: - Table view data source
+    // MARK: Table view data source
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerLabel = UILabel()
