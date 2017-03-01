@@ -21,9 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
         if managedObject.isEmpty {
             //Nothing in Core Data
-            let s = jsonParser.parseStories(data: MockedJSON.getData())
-            storyRepo.arrayOfStories = s
-            storyRepo.writeToCD(array: s)
+            print("Time taken to parse JSON: ",timeElapsedInSecondsWhenRunningCode {
+                let stories = jsonParser.parseStories(data: MockedJSON.getData())
+                storyRepo.arrayOfStories = stories
+                storyRepo.writeToCD(array: stories)
+            })
+            //            let s = jsonParser.parseStories(data: MockedJSON.getData())
+            //            storyRepo.arrayOfStories = s
+            //            storyRepo.writeToCD(array: s)
         } else {
             //Something in Core Data
             for object in managedObject {
@@ -36,6 +41,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         print("*** Number of stories currently in memory \(storyRepo.arrayOfStories.count) ***")
         return true
+    }
+    
+    private func timeElapsedInSecondsWhenRunningCode(operation:()->()) -> Double {
+        let startTime = CFAbsoluteTimeGetCurrent()
+        operation()
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        return Double(timeElapsed)
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

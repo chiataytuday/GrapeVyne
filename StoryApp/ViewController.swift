@@ -17,7 +17,7 @@ private let customOrange = UIColor(red: 255/255, green: 161/255, blue: 0/255, al
 private let customGreen =  UIColor(red: 0, green: 128/255, blue: 0, alpha: 1.0)
 private let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
 // UI Configuration
-private let cardViewBG = "news_paper"
+private let cardViewBG = #imageLiteral(resourceName: "news_paper")
 private let cardCornerRadius : CGFloat = 20
 // Animations
 private let countDownAnimationDuration = 0.4
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
         while tempArray.count > 0 {
             let randomIndex = Int(arc4random_uniform(UInt32(tempArray.count)))
             let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
-            cardVC.bgImageView.image = UIImage(named: cardViewBG)
+            cardVC.bgImageView.image = cardViewBG
             cardVC.bgImageView.clipsToBounds = true
             cardVC.titleLabel.text = tempArray[randomIndex].title
             cardVC.titleLabel.textColor = UIColor.black

@@ -10,6 +10,8 @@ import UIKit
 import SafariServices
 
 private let customLightGray = UIColor(red: 243/255, green: 243/255, blue: 243/255, alpha: 1.0)
+private let correctUnderlayImage = #imageLiteral(resourceName: "underlay_correct")
+private let incorrectUnderlayImage = #imageLiteral(resourceName: "underlay_incorrect")
 
 class ResultTableViewCell: UITableViewCell {
     var storyURLasString = ""
@@ -17,6 +19,7 @@ class ResultTableViewCell: UITableViewCell {
     @IBOutlet weak var storyLabel: UILabel!
     @IBOutlet weak var correctAnsLabel: UILabel!
     @IBOutlet weak var userAnsLabel: UILabel!
+    @IBOutlet weak var bgImage: UIImageView!
     
     @IBAction func linkButton(_ sender: UIButton) {
         let svc = SFSafariViewController(url: URL(string: storyURLasString)!)
@@ -89,10 +92,6 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         cell.selectionStyle = .none
         cell.parentVC = self
         
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = customLightGray
-        }
-        
         if indexPath.section == 0 {
             configureCell(cell: cell, story: storyRepo.arrayOfCorrectStories[indexPath.row], userCorrect: true)
         } else if indexPath.section == 1 {
@@ -103,11 +102,15 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     private func configureCell(cell: ResultTableViewCell, story: Story, userCorrect: Bool) {
         cell.storyLabel.text = story.title
-        cell.correctAnsLabel.text = "Answer: \(story.fact)"
+        cell.correctAnsLabel.text = "Answer\n \(story.fact)"
         if userCorrect {
-            cell.userAnsLabel.text = "You said: \(String(story.fact))"
+            cell.userAnsLabel.text = "You said\n \(String(story.fact))"
+            cell.bgImage.image = correctUnderlayImage
+            cell.bgImage.contentMode = .scaleAspectFit
         } else {
-            cell.userAnsLabel.text = "You said: \(String(!story.fact))"
+            cell.userAnsLabel.text = "You said\n \(String(!story.fact))"
+            cell.bgImage.image = incorrectUnderlayImage
+            cell.bgImage.contentMode = .scaleAspectFit
         }
         cell.storyURLasString = story.urlString
     }
