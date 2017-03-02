@@ -29,7 +29,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hj1-qY-KbL">
-                                <rect key="frame" x="188" y="354.33333333333331" width="39" height="29"/>
+                                <rect key="frame" x="186.66666666666666" y="352" width="41" height="32"/>
                                 <fontDescription key="fontDescription" name="ProximaNovaSoft-Regular" family="Proxima Nova Soft" pointSize="17"/>
                                 <state key="normal" title="Start!"/>
                                 <connections>
@@ -61,25 +61,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No more cards. Thanks for playing!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQT-xt-LrS">
-                                <rect key="frame" x="33" y="233" width="346" height="270"/>
+                                <rect key="frame" x="33" y="232" width="346" height="271"/>
                                 <fontDescription key="fontDescription" name="ProximaNovaSoft-Regular" family="Proxima Nova Soft" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k13-cG-7zt" customClass="KolodaView" customModule="Koloda">
-                                <rect key="frame" x="20" y="104" width="374" height="529"/>
+                                <rect key="frame" x="20" y="104" width="374" height="528"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="aiJ-6G-5QW">
-                                <rect key="frame" x="142.33333333333331" y="38" width="128.33333333333331" height="26"/>
+                                <rect key="frame" x="142.66666666666663" y="38" width="128.33333333333337" height="26"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time left: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRb-pX-v3l">
-                                        <rect key="frame" x="0.0" y="0.0" width="111.33333333333331" height="26"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="111.33333333333334" height="26"/>
                                         <fontDescription key="fontDescription" name="ProximaNovaSoft-Regular" family="Proxima Nova Soft" pointSize="26"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKy-BA-Ldl">
-                                        <rect key="frame" x="112.33333333333331" y="0.0" width="16.000000000000028" height="26"/>
+                                        <rect key="frame" x="112.33333333333334" y="0.0" width="16" height="26"/>
                                         <fontDescription key="fontDescription" name="ProximaNovaSoft-Regular" family="Proxima Nova Soft" pointSize="26"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -87,7 +87,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KG6-f2-LAo">
-                                <rect key="frame" x="52.333333333333343" y="303.66666666666669" width="310.33333333333337" height="130"/>
+                                <rect key="frame" x="52.666666666666657" y="303.33333333333331" width="310.33333333333337" height="130"/>
                                 <fontDescription key="fontDescription" name="ProximaNovaSoft-Regular" family="Proxima Nova Soft" pointSize="130"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -140,7 +140,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="185"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jR3-0S-pBZ" id="I6T-MF-qNW">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="185"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="184.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sde-LS-khS">
