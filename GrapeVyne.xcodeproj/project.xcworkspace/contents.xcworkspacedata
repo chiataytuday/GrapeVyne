@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:StoryApp.xcodeproj">
+      location = "self:/Users/umairsharif/Personal projects/StoryApp/GrapeVyne.xcodeproj">
    </FileRef>
 </Workspace>

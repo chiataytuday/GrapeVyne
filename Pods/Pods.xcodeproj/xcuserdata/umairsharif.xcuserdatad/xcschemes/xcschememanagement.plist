@@ -2,6 +2,29 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Koloda.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-GrapeVyne.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>pop.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>20151774CE2F5FA6B8126D4F5ED1C5FE</key>
@@ -9,7 +32,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>468E2BA3CBA5D548FF8B2743519A2EDD</key>
+		<key>7F0A30C56CC7BD7AD3AF0E3DCD0C5C64</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -19,7 +42,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ED3A14DB0F3A584D92E5854D4DCA495E</key>
+		<key>C5E96BAAB34DE5032EF4F0ADE63AE0EB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		535088F643C55F125C4FB71D /* Pods_GrapeVyne.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9F7A96FD249BA41BC2A6EA /* Pods_GrapeVyne.framework */; };
 		613AF4FA1E59ECFA00209765 /* SwipeOverlayResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613AF4F91E59ECFA00209765 /* SwipeOverlayResultView.swift */; };
 		613AF4FC1E59ED0500209765 /* SwipeOverlayResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 613AF4FB1E59ED0500209765 /* SwipeOverlayResultView.xib */; };
 		6156196C1E47AD9E007E5F27 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6156196A1E47AD9E007E5F27 /* Model.xcdatamodeld */; };
@@ -25,17 +26,15 @@
 		61CA90011E1DF868005B389D /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61CA90001E1DF868005B389D /* CardView.xib */; };
 		61F7FF0F1E175D10004E14FA /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F7FF0E1E175D10004E14FA /* Story.swift */; };
 		61F7FF111E175D40004E14FA /* StoryRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F7FF101E175D40004E14FA /* StoryRepo.swift */; };
-		A3D96D1E12504BB12A5C4A46 /* Pods_StoryApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F41655618E1D6824B53921 /* Pods_StoryApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		29F41655618E1D6824B53921 /* Pods_StoryApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StoryApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		613AF4F91E59ECFA00209765 /* SwipeOverlayResultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeOverlayResultView.swift; sourceTree = "<group>"; };
 		613AF4FB1E59ED0500209765 /* SwipeOverlayResultView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwipeOverlayResultView.xib; sourceTree = "<group>"; };
 		6156196B1E47AD9E007E5F27 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		615619901E481829007E5F27 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		615CF5FE1E67972200FDB995 /* ProximaNovaSoft-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaSoft-Regular.otf"; sourceTree = "<group>"; };
-		6166C9971E14CF8E00BF5A54 /* StoryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6166C9971E14CF8E00BF5A54 /* GrapeVyne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrapeVyne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6166C99A1E14CF8E00BF5A54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6166C99C1E14CF8E00BF5A54 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6166C99F1E14CF8E00BF5A54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -50,8 +49,9 @@
 		61CA90001E1DF868005B389D /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		61F7FF0E1E175D10004E14FA /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		61F7FF101E175D40004E14FA /* StoryRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryRepo.swift; sourceTree = "<group>"; };
-		8D522043645C048F26E39921 /* Pods-StoryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StoryApp/Pods-StoryApp.release.xcconfig"; sourceTree = "<group>"; };
-		E01F6AB6A9000F6D2C3EACB8 /* Pods-StoryApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StoryApp/Pods-StoryApp.debug.xcconfig"; sourceTree = "<group>"; };
+		B92358B76E206F2E30023194 /* Pods-GrapeVyne.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrapeVyne.release.xcconfig"; path = "Pods/Target Support Files/Pods-GrapeVyne/Pods-GrapeVyne.release.xcconfig"; sourceTree = "<group>"; };
+		DC9F7A96FD249BA41BC2A6EA /* Pods_GrapeVyne.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrapeVyne.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE2BB1838D93F1FA30C6C10D /* Pods-GrapeVyne.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrapeVyne.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GrapeVyne/Pods-GrapeVyne.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3D96D1E12504BB12A5C4A46 /* Pods_StoryApp.framework in Frameworks */,
+				535088F643C55F125C4FB71D /* Pods_GrapeVyne.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,22 +78,22 @@
 		6166C98E1E14CF8E00BF5A54 = {
 			isa = PBXGroup;
 			children = (
-				6166C9991E14CF8E00BF5A54 /* StoryApp */,
+				6166C9991E14CF8E00BF5A54 /* GrapeVyne */,
 				6166C9981E14CF8E00BF5A54 /* Products */,
-				8B0E8B3A5E66E123F020E7BD /* Pods */,
-				FA239E89C36FE7BBF9329F1E /* Frameworks */,
+				923CDE95A73DAE7BAFCF9015 /* Pods */,
+				EA991156F1C2CEA378A622C6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		6166C9981E14CF8E00BF5A54 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6166C9971E14CF8E00BF5A54 /* StoryApp.app */,
+				6166C9971E14CF8E00BF5A54 /* GrapeVyne.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6166C9991E14CF8E00BF5A54 /* StoryApp */ = {
+		6166C9991E14CF8E00BF5A54 /* GrapeVyne */ = {
 			isa = PBXGroup;
 			children = (
 				615CF5FD1E6796FA00FDB995 /* Resources */,
@@ -104,7 +104,7 @@
 				617426201E1E0F0B009BFC75 /* Assets.xcassets */,
 				6166C9A61E14CF8E00BF5A54 /* Info.plist */,
 			);
-			path = StoryApp;
+			path = GrapeVyne;
 			sourceTree = "<group>";
 		};
 		619BE2C11E3D1B530085023B /* Model */ = {
@@ -158,19 +158,19 @@
 			name = SwipeOverlay;
 			sourceTree = "<group>";
 		};
-		8B0E8B3A5E66E123F020E7BD /* Pods */ = {
+		923CDE95A73DAE7BAFCF9015 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E01F6AB6A9000F6D2C3EACB8 /* Pods-StoryApp.debug.xcconfig */,
-				8D522043645C048F26E39921 /* Pods-StoryApp.release.xcconfig */,
+				FE2BB1838D93F1FA30C6C10D /* Pods-GrapeVyne.debug.xcconfig */,
+				B92358B76E206F2E30023194 /* Pods-GrapeVyne.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		FA239E89C36FE7BBF9329F1E /* Frameworks */ = {
+		EA991156F1C2CEA378A622C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				29F41655618E1D6824B53921 /* Pods_StoryApp.framework */,
+				DC9F7A96FD249BA41BC2A6EA /* Pods_GrapeVyne.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -178,24 +178,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6166C9961E14CF8E00BF5A54 /* StoryApp */ = {
+		6166C9961E14CF8E00BF5A54 /* GrapeVyne */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6166C9A91E14CF8E00BF5A54 /* Build configuration list for PBXNativeTarget "StoryApp" */;
+			buildConfigurationList = 6166C9A91E14CF8E00BF5A54 /* Build configuration list for PBXNativeTarget "GrapeVyne" */;
 			buildPhases = (
-				B056C375823E012183A2B3AB /* [CP] Check Pods Manifest.lock */,
+				CD3244550215FC6903E3E581 /* [CP] Check Pods Manifest.lock */,
 				6166C9931E14CF8E00BF5A54 /* Sources */,
 				6166C9941E14CF8E00BF5A54 /* Frameworks */,
 				6166C9951E14CF8E00BF5A54 /* Resources */,
-				EBF75CB86F95515ECAF2BBBE /* [CP] Embed Pods Frameworks */,
-				199E1C325FED364F0504D35D /* [CP] Copy Pods Resources */,
+				DC5F459A8D5749C210E70738 /* [CP] Embed Pods Frameworks */,
+				F953612D48A3FF8919541A32 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = StoryApp;
+			name = GrapeVyne;
 			productName = StoryApp;
-			productReference = 6166C9971E14CF8E00BF5A54 /* StoryApp.app */;
+			productReference = 6166C9971E14CF8E00BF5A54 /* GrapeVyne.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -210,12 +210,12 @@
 				TargetAttributes = {
 					6166C9961E14CF8E00BF5A54 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = JXTYT79G8A;
+						DevelopmentTeam = 9X2E4AFPJ4;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = 6166C9921E14CF8E00BF5A54 /* Build configuration list for PBXProject "StoryApp" */;
+			buildConfigurationList = 6166C9921E14CF8E00BF5A54 /* Build configuration list for PBXProject "GrapeVyne" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -228,7 +228,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6166C9961E14CF8E00BF5A54 /* StoryApp */,
+				6166C9961E14CF8E00BF5A54 /* GrapeVyne */,
 			);
 		};
 /* End PBXProject section */
@@ -251,22 +251,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		199E1C325FED364F0504D35D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StoryApp/Pods-StoryApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B056C375823E012183A2B3AB /* [CP] Check Pods Manifest.lock */ = {
+		CD3244550215FC6903E3E581 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -281,7 +266,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		EBF75CB86F95515ECAF2BBBE /* [CP] Embed Pods Frameworks */ = {
+		DC5F459A8D5749C210E70738 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -293,7 +278,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StoryApp/Pods-StoryApp-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GrapeVyne/Pods-GrapeVyne-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F953612D48A3FF8919541A32 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GrapeVyne/Pods-GrapeVyne-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -434,14 +434,14 @@
 		};
 		6166C9AA1E14CF8E00BF5A54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E01F6AB6A9000F6D2C3EACB8 /* Pods-StoryApp.debug.xcconfig */;
+			baseConfigurationReference = FE2BB1838D93F1FA30C6C10D /* Pods-GrapeVyne.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = JXTYT79G8A;
-				INFOPLIST_FILE = StoryApp/Info.plist;
+				DEVELOPMENT_TEAM = 9X2E4AFPJ4;
+				INFOPLIST_FILE = GrapeVyne/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.usharif.StoryApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.usharif.grapevyne;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -449,14 +449,14 @@
 		};
 		6166C9AB1E14CF8E00BF5A54 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8D522043645C048F26E39921 /* Pods-StoryApp.release.xcconfig */;
+			baseConfigurationReference = B92358B76E206F2E30023194 /* Pods-GrapeVyne.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = JXTYT79G8A;
-				INFOPLIST_FILE = StoryApp/Info.plist;
+				DEVELOPMENT_TEAM = 9X2E4AFPJ4;
+				INFOPLIST_FILE = GrapeVyne/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.usharif.StoryApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.usharif.grapevyne;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -465,7 +465,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6166C9921E14CF8E00BF5A54 /* Build configuration list for PBXProject "StoryApp" */ = {
+		6166C9921E14CF8E00BF5A54 /* Build configuration list for PBXProject "GrapeVyne" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6166C9A71E14CF8E00BF5A54 /* Debug */,
@@ -474,7 +474,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6166C9A91E14CF8E00BF5A54 /* Build configuration list for PBXNativeTarget "StoryApp" */ = {
+		6166C9A91E14CF8E00BF5A54 /* Build configuration list for PBXNativeTarget "GrapeVyne" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6166C9AA1E14CF8E00BF5A54 /* Debug */,
