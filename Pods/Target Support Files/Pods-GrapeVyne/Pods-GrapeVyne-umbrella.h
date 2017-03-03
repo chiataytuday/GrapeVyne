@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_StoryAppVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_StoryAppVersionString[];
+FOUNDATION_EXPORT double Pods_GrapeVyneVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_GrapeVyneVersionString[];
 

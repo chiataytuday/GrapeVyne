@@ -2,7 +2,7 @@ PODS:
   - Koloda (4.0):
     - pop (~> 1.0)
   - pop (1.0.9)
-  - SwiftyJSON (3.1.1)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Koloda (from `https://github.com/Yalantis/Koloda.git`, branch `swift-3`)
@@ -21,8 +21,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Koloda: b133e13cee0444c545e788d87950131bfac47389
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
-  SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 9a6ecffd597225ed6cf17e9cc5c86c4d0cabe65f
+PODFILE CHECKSUM: d5acaf893683c9bded5938f21d8a2da91a2e5e90
 
 COCOAPODS: 1.2.0.beta.3
