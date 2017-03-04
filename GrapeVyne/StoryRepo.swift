@@ -10,11 +10,13 @@ import CoreData
 
 class StoryRepo {
     var arrayOfStories : [Story]
+    var arrayOfSwipedStories : [Story]
     var arrayOfCorrectStories : [Story]
     var arrayOfIncorrectStories : [Story]
     
     init() {
         arrayOfStories = []
+        arrayOfSwipedStories = []
         arrayOfCorrectStories = []
         arrayOfIncorrectStories = []
     }
