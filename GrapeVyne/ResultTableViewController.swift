@@ -46,6 +46,8 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
+        storyRepo.arrayOfCorrectStories = []
+        storyRepo.arrayOfIncorrectStories = []
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
