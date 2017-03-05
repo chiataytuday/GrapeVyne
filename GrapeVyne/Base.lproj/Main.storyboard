@@ -29,7 +29,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hj1-qY-KbL">
-                                <rect key="frame" x="186.66666666666666" y="352" width="41" height="32"/>
+                                <rect key="frame" x="187.66666666666666" y="353.66666666666669" width="39" height="29"/>
                                 <fontDescription key="fontDescription" name="ProximaNovaSoft-Regular" family="Proxima Nova Soft" pointSize="17"/>
                                 <state key="normal" title="Start!"/>
                                 <connections>
@@ -51,7 +51,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="StoryApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="GrapeVyne" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -66,46 +66,36 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKy-BA-Ldl">
+                                <rect key="frame" x="199" y="28" width="16" height="26"/>
+                                <fontDescription key="fontDescription" name="ProximaNovaSoft-Regular" family="Proxima Nova Soft" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k13-cG-7zt" customClass="KolodaView" customModule="Koloda">
-                                <rect key="frame" x="20" y="104" width="374" height="528"/>
+                                <rect key="frame" x="20" y="62" width="374" height="528"/>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="aiJ-6G-5QW">
-                                <rect key="frame" x="142.66666666666663" y="38" width="128.33333333333337" height="26"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time left: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRb-pX-v3l">
-                                        <rect key="frame" x="0.0" y="0.0" width="111.33333333333334" height="26"/>
-                                        <fontDescription key="fontDescription" name="ProximaNovaSoft-Regular" family="Proxima Nova Soft" pointSize="26"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKy-BA-Ldl">
-                                        <rect key="frame" x="112.33333333333334" y="0.0" width="16" height="26"/>
-                                        <fontDescription key="fontDescription" name="ProximaNovaSoft-Regular" family="Proxima Nova Soft" pointSize="26"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KG6-f2-LAo">
-                                <rect key="frame" x="52.666666666666657" y="303.33333333333331" width="310.33333333333337" height="130"/>
+                                <rect key="frame" x="45" y="303" width="334" height="130"/>
                                 <fontDescription key="fontDescription" name="ProximaNovaSoft-Regular" family="Proxima Nova Soft" pointSize="130"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hQT-xt-LrS" secondAttribute="bottom" constant="233" id="Bbr-ON-E4I"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="centerY" secondItem="hQT-xt-LrS" secondAttribute="centerY" id="Ti1-nF-FgZ"/>
-                            <constraint firstItem="aiJ-6G-5QW" firstAttribute="centerX" secondItem="hQT-xt-LrS" secondAttribute="centerX" id="dOF-RX-cKx"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="gJn-la-vbl"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="centerX" secondItem="KG6-f2-LAo" secondAttribute="centerX" id="hP6-Z4-KbH"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="top" secondItem="aiJ-6G-5QW" secondAttribute="bottom" constant="40" id="pfe-oB-wd0"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ru5-wH-P4D"/>
-                            <constraint firstItem="hQT-xt-LrS" firstAttribute="centerY" secondItem="KG6-f2-LAo" secondAttribute="centerY" id="tKw-hX-zsk"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hQT-xt-LrS" secondAttribute="trailing" constant="15" id="ten-Ob-2S2"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="v1T-zC-Lcr"/>
-                            <constraint firstItem="aiJ-6G-5QW" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="18" id="xZK-r3-gsc"/>
-                            <constraint firstItem="hQT-xt-LrS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="13" id="zxl-eY-IgN"/>
+                            <constraint firstItem="WKy-BA-Ldl" firstAttribute="centerX" secondItem="k13-cG-7zt" secondAttribute="centerX" id="2cf-8w-Hz5"/>
+                            <constraint firstItem="KG6-f2-LAo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="25" id="5fN-9z-XWT"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="7K5-Ya-T4E"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="top" secondItem="WKy-BA-Ldl" secondAttribute="bottom" constant="8" symbolic="YES" id="9na-7g-1sa"/>
+                            <constraint firstItem="hQT-xt-LrS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="13" id="Lfz-xO-mM4"/>
+                            <constraint firstItem="WKy-BA-Ldl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="PWP-LJ-cg4"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="V1b-UJ-gnh"/>
+                            <constraint firstItem="hQT-xt-LrS" firstAttribute="trailing" secondItem="KG6-f2-LAo" secondAttribute="trailing" id="cSz-G1-aIf"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hQT-xt-LrS" secondAttribute="bottom" constant="233" id="iAc-bf-iFz"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="k13-cG-7zt" secondAttribute="bottom" constant="146" id="kQv-1q-zpy"/>
+                            <constraint firstItem="hQT-xt-LrS" firstAttribute="centerY" secondItem="KG6-f2-LAo" secondAttribute="centerY" id="mhx-6U-Wu6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hQT-xt-LrS" secondAttribute="trailing" constant="15" id="yk7-Q2-lLM"/>
+                            <constraint firstItem="hQT-xt-LrS" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zJW-Zf-Peb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eHa-pI-klz"/>
@@ -123,7 +113,7 @@
         <!--Result Table View Controller-->
         <scene sceneID="RHE-II-Cdf">
             <objects>
-                <viewController storyboardIdentifier="ResultTableViewController" id="bFM-08-jVv" customClass="ResultTableViewController" customModule="StoryApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResultTableViewController" id="bFM-08-jVv" customClass="ResultTableViewController" customModule="GrapeVyne" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Gnb-dW-XYs"/>
                         <viewControllerLayoutGuide type="bottom" id="A75-z8-tt5"/>
@@ -136,11 +126,11 @@
                                 <rect key="frame" x="0.0" y="72" width="414" height="664"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="185" id="jR3-0S-pBZ" customClass="ResultTableViewCell" customModule="StoryApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="185" id="jR3-0S-pBZ" customClass="ResultTableViewCell" customModule="GrapeVyne" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="185"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jR3-0S-pBZ" id="I6T-MF-qNW">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="184.66666666666666"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="184"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sde-LS-khS">
