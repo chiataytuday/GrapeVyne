@@ -206,6 +206,7 @@ extension ViewController: KolodaViewDelegate {
         let userAnswer = isUserCorrectFor(factValue: storyFactValue, swipeDirection: direction)
         
         performSwipeResultAnimationFor(userAns: userAnswer)
+        storyRepo.arrayOfSwipedStories.append(tempStory)
         updateResultArrayFor(userAns: userAnswer, story: tempStory)
         
         //Finally, delete the story from memory

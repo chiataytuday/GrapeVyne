@@ -46,6 +46,7 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
+        storyRepo.arrayOfSwipedStories = []
         storyRepo.arrayOfCorrectStories = []
         storyRepo.arrayOfIncorrectStories = []
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -53,40 +54,12 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: Table view data source
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerLabel = UILabel()
-        headerLabel.textAlignment = .center
-        if section == 0 {
-            headerLabel.text = "Correct"
-        } else if section == 1 {
-            headerLabel.text = "Incorrect"
-        }
-        return headerLabel
-    }
-    
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        var str = ""
-        if section == 0 {
-            str = "Correct"
-        } else if section == 1 {
-            str = "Incorrect"
-        }
-        return str
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numRows = 0
-        if section == 0 {
-            numRows = storyRepo.arrayOfCorrectStories.count
-        } else if section == 1 {
-            numRows = storyRepo.arrayOfIncorrectStories.count
-        }
-        return numRows
+        return storyRepo.arrayOfSwipedStories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -94,10 +67,12 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         cell.selectionStyle = .none
         cell.parentVC = self
         
-        if indexPath.section == 0 {
-            configureCell(cell: cell, story: storyRepo.arrayOfCorrectStories[indexPath.row], userCorrect: true)
-        } else if indexPath.section == 1 {
-            configureCell(cell: cell, story: storyRepo.arrayOfIncorrectStories[indexPath.row], userCorrect: false)
+        if storyRepo.arrayOfCorrectStories.contains(where: {$0.title == storyRepo.arrayOfSwipedStories[indexPath.row].title}) {
+            //correct answer cell
+            configureCell(cell: cell, story: storyRepo.arrayOfSwipedStories[indexPath.row], userCorrect: true)
+        } else if storyRepo.arrayOfIncorrectStories.contains(where: {$0.title == storyRepo.arrayOfSwipedStories[indexPath.row].title}) {
+            //incorrect answer cell
+            configureCell(cell: cell, story: storyRepo.arrayOfSwipedStories[indexPath.row], userCorrect: false)
         }
         return cell
     }
