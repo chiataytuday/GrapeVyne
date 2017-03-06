@@ -16,10 +16,16 @@ private let customBlue = UIColor(red: 16/255, green: 102/255, blue: 178/255, alp
 private let customOrange = UIColor(red: 255/255, green: 161/255, blue: 0/255, alpha: 1.0)
 private let customGreen =  UIColor(red: 0, green: 128/255, blue: 0, alpha: 1.0)
 private let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
-// UI Configuration
+// Color Config
+private let viewBackgroundColor = UIColor.black
+private let cardViewTextColor_1 = CustomColor.textPurple
+private let cardViewTextColor_2 = CustomColor.textGreen
+private let cardViewBorderColor = UIColor.lightGray
+private let timerLabelTextColor = UIColor.lightGray
+// Card Config
 private let cardViewBG = #imageLiteral(resourceName: "news_paper")
 private let cardCornerRadius : CGFloat = 20
-// Animations
+// Animation Times
 private let countDownAnimationDuration = 0.4
 private let gameTimerAnimationDuration = 0.2
 private let revealAnimationDuration = 0.3
@@ -45,22 +51,19 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = customLightBlue
+        self.view.backgroundColor = viewBackgroundColor
         dataSource = getDataSource()
         kolodaView.dataSource = self
         kolodaView.delegate = self
-        configureUI()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        self.modalTransitionStyle = .crossDissolve
+        configureViewUI()
     }
     
     // MARK: IBActions
     
     // MARK: Private functions
     
-    private func configureUI() {
+    private func configureViewUI() {
         kolodaView.layer.cornerRadius = cardCornerRadius
         
         if (dataSource?.isEmpty)! {
@@ -69,17 +72,17 @@ class ViewController: UIViewController {
             noMoreCardsLabel.isHidden = true
         }
         
-        setupCardBlurEffectView()
+        configureCardBlurEffectView()
         
         countDownLabel.text = String(countDownTime)
         
         //game starts with this completion handler
         countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
-        
+        timerLabel.textColor = timerLabelTextColor
         updateTimerLabel()
     }
     
-    private func setupCardBlurEffectView() {
+    private func configureCardBlurEffectView() {
         let blurEffect = UIBlurEffect(style: .light)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.alpha = 0.98 //removing this line will stop the uivisualeffectview error
@@ -96,16 +99,30 @@ class ViewController: UIViewController {
         
         while tempArray.count > 0 {
             let randomIndex = Int(arc4random_uniform(UInt32(tempArray.count)))
-            let cardVC = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
-            cardVC.bgImageView.image = cardViewBG
-            cardVC.bgImageView.clipsToBounds = true
-            cardVC.titleLabel.text = tempArray[randomIndex].title
-            cardVC.titleLabel.textColor = UIColor.black
-            
-            arrayOfCardViews.append(cardVC)
+            let cardView = configureCardUI(title: tempArray[randomIndex].title, arrayCount: tempArray.count)
+            arrayOfCardViews.append(cardView)
             tempArray.remove(at: randomIndex)
         }
         return arrayOfCardViews
+    }
+    
+    private func configureCardUI(title: String, arrayCount: Int) -> CardView {
+        let cardView = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
+        cardView.titleLabel.text = title
+        
+        cardView.bgImageView.image = cardViewBG
+        cardView.bgImageView.clipsToBounds = true
+        //        cardView.layer.borderWidth = 2
+        //        cardView.layer.borderColor = cardViewBorderColor.cgColor
+        cardView.layer.cornerRadius = cardCornerRadius
+        
+        if arrayCount % 2 == 0 {
+            cardView.titleLabel.textColor = cardViewTextColor_1
+        } else {
+            cardView.titleLabel.textColor = cardViewTextColor_2
+        }
+        
+        return cardView
     }
     
     private func updateCountDownTimer() {
@@ -134,7 +151,7 @@ class ViewController: UIViewController {
     
     private func updateTimerLabel() {
         if gameTime < 11 {
-            timerLabel.textColor = UIColor.red
+            timerLabel.textColor = CustomColor.customRed
         }
         var concatStr = ""
         if gameTime % 60 < 10 {
@@ -160,6 +177,7 @@ class ViewController: UIViewController {
         gameTimer.invalidate()
         gameFinishTaptic.notificationOccurred(.success)
         let resultTableVC = storyboard?.instantiateViewController(withIdentifier: "ResultTableViewController") as! ResultTableViewController
+        resultTableVC.modalTransitionStyle = self.modalTransitionStyle
         present(resultTableVC, animated: true, completion: nil)
     }
 }
