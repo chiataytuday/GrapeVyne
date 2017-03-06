@@ -19,8 +19,8 @@ private let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
 // Color Config
 private let viewBackgroundColor = UIColor.black
 private let cardViewTextColor = UIColor.black
-private let cardViewBorderColor = UIColor.lightGray
-private let timerLabelTextColor = UIColor.lightGray
+private let timerLabelTextColor = CustomColor.customLightGray
+private let noMoreCardsLabelTextColor = CustomColor.customLightGray
 // Card Config
 private let cardViewBG = #imageLiteral(resourceName: "cardBG")
 private let cardCornerRadius : CGFloat = 20
@@ -75,6 +75,7 @@ class ViewController: UIViewController {
         configureCardBlurEffectView()
         
         countDownLabel.text = String(countDownTime)
+        noMoreCardsLabel.textColor = noMoreCardsLabelTextColor
         
         //game starts with this completion handler
         countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
