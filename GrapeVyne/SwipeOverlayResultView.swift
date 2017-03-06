@@ -15,23 +15,14 @@ private let swipeIncorrect = CustomColor.swipeIncorrectRed
 
 class SwipeOverlayResultView: UIView {
 
-    @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var resultImage: UIImageView!
     
     func setupAccordingTo(userAnswer: Bool) {
-        resultLabel.isHidden = true
+        resultImage.contentMode = .scaleAspectFill
         if userAnswer {
-            //resultLabel.text = "Correct!"
-            //resultImage.backgroundColor = customGreen
-            //resultImage.backgroundColor = swipeCorrect
             resultImage.image = #imageLiteral(resourceName: "correctBanner")
-            resultImage.contentMode = .scaleAspectFill
         } else {
             resultImage.image = #imageLiteral(resourceName: "incorrectBanner")
-            resultImage.contentMode = .scaleAspectFill
-            //resultLabel.text = "Incorrect"
-            //resultImage.backgroundColor = customRed
-            //resultImage.backgroundColor = swipeIncorrect
         }
     }
 }

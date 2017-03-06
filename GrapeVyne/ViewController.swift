@@ -51,6 +51,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = viewBackgroundColor
+
         dataSource = getDataSource()
         kolodaView.dataSource = self
         kolodaView.delegate = self
@@ -276,10 +277,10 @@ extension ViewController: KolodaViewDelegate {
     
     private func performSwipeResultAnimationFor(userAns: Bool) {
         let resultView = Bundle.main.loadNibNamed("SwipeOverlayResultView", owner: nil, options: nil)?[0] as! SwipeOverlayResultView
-        resultView.resultLabel.textColor = UIColor.white
         resultView.setupAccordingTo(userAnswer: userAns)
         resultView.alpha = 0
         resultView.resultImage.alpha = 0.85
+        resultView.center = kolodaView.center
         
         self.view.addSubview(resultView)
         UIView.animate(withDuration: revealAnimationDuration, delay: 0, options: .curveEaseOut,
