@@ -72,10 +72,11 @@ class ViewController: UIViewController {
         setupCardBlurEffectView()
         
         countDownLabel.text = String(countDownTime)
+        
         //game starts with this completion handler
         countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
         
-        timerLabel.text = "\(gameTime)"
+        updateTimerLabel()
     }
     
     private func setupCardBlurEffectView() {
@@ -124,12 +125,26 @@ class ViewController: UIViewController {
         UIView.animate(withDuration: revealAnimationDuration, animations: {self.blurEffectView.effect = nil}, completion: {finished in self.blurEffectView.removeFromSuperview()})
         if gameTime > 0 {
             gameTime -= 1
-            timerLabel.pushTransitionFromBottomWith(duration: gameTimerAnimationDuration)
-            timerLabel.text = "\(gameTime)"
+            updateTimerLabel()
         } else {
             //end game
             endGame()
         }
+    }
+    
+    private func updateTimerLabel() {
+        if gameTime < 11 {
+            timerLabel.textColor = UIColor.red
+        }
+        var concatStr = ""
+        if gameTime % 60 < 10 {
+            concatStr = "0"
+        }
+        let minutes = String(gameTime / 60)
+        let seconds = String(gameTime % 60)
+        
+        //timerLabel.pushTransitionFromBottomWith(duration: gameTimerAnimationDuration)
+        timerLabel.text = "\(minutes):\(concatStr)\(seconds)"
     }
     
     // MARK: Class functions
