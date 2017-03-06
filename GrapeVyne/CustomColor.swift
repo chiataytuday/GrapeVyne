@@ -17,8 +17,12 @@ class CustomColor: UIColor {
     static let swipeCorrectGreen =  UIColor(red: 0, green: 128/255, blue: 0, alpha: 1.0)
     static let swipeIncorrectRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
     
+    // Others
+    static let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0) // used in timerLabel
+    static let customLightGray = UIColor(red: 192, green: 193, blue: 193, alpha: 1.0)
+    
     // Legacy
     // static let customLightGreen = UIColor(red: 177/255, green: 217/255, blue: 166/255, alpha: 1.0)
     // static let customLightBlue = UIColor(red: 161/255, green: 203/255, blue: 255/255, alpha: 1.0)
-    static let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
+    
 }

@@ -34,6 +34,9 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "splash"))
+        //tableView.separatorColor = UIColor.clear
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
