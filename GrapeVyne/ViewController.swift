@@ -18,12 +18,11 @@ private let customGreen =  UIColor(red: 0, green: 128/255, blue: 0, alpha: 1.0)
 private let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
 // Color Config
 private let viewBackgroundColor = UIColor.black
-private let cardViewTextColor_1 = CustomColor.textPurple
-private let cardViewTextColor_2 = CustomColor.textGreen
+private let cardViewTextColor = UIColor.black
 private let cardViewBorderColor = UIColor.lightGray
 private let timerLabelTextColor = UIColor.lightGray
 // Card Config
-private let cardViewBG = #imageLiteral(resourceName: "news_paper")
+private let cardViewBG = #imageLiteral(resourceName: "cardBG")
 private let cardCornerRadius : CGFloat = 20
 // Animation Times
 private let countDownAnimationDuration = 0.4
@@ -112,15 +111,8 @@ class ViewController: UIViewController {
         
         cardView.bgImageView.image = cardViewBG
         cardView.bgImageView.clipsToBounds = true
-        //        cardView.layer.borderWidth = 2
-        //        cardView.layer.borderColor = cardViewBorderColor.cgColor
         cardView.layer.cornerRadius = cardCornerRadius
-        
-        if arrayCount % 2 == 0 {
-            cardView.titleLabel.textColor = cardViewTextColor_1
-        } else {
-            cardView.titleLabel.textColor = cardViewTextColor_2
-        }
+        cardView.titleLabel.textColor = cardViewTextColor
         
         return cardView
     }

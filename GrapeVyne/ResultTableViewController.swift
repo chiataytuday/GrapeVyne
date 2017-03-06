@@ -10,8 +10,8 @@ import UIKit
 import SafariServices
 
 private let customLightGray = UIColor(red: 243/255, green: 243/255, blue: 243/255, alpha: 1.0)
-private let correctUnderlayImage = #imageLiteral(resourceName: "underlay_correct")
-private let incorrectUnderlayImage = #imageLiteral(resourceName: "underlay_incorrect")
+private let correctUnderlayImage = #imageLiteral(resourceName: "CorrectBanner")
+private let incorrectUnderlayImage = #imageLiteral(resourceName: "IncorrectBanner")
 
 class ResultTableViewCell: UITableViewCell {
     var storyURLasString = ""
@@ -83,11 +83,11 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         if userCorrect {
             cell.userAnsLabel.text = "You said\n \(String(story.fact))"
             cell.bgImage.image = correctUnderlayImage
-            cell.bgImage.contentMode = .scaleAspectFit
+            cell.bgImage.contentMode = .scaleAspectFill
         } else {
             cell.userAnsLabel.text = "You said\n \(String(!story.fact))"
             cell.bgImage.image = incorrectUnderlayImage
-            cell.bgImage.contentMode = .scaleAspectFit
+            cell.bgImage.contentMode = .scaleAspectFill
         }
         cell.storyURLasString = story.urlString
     }
