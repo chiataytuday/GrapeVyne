@@ -9,9 +9,8 @@
 import UIKit
 import SafariServices
 
-private let customLightGray = UIColor(red: 243/255, green: 243/255, blue: 243/255, alpha: 1.0)
-private let correctUnderlayImage = #imageLiteral(resourceName: "CorrectBanner")
-private let incorrectUnderlayImage = #imageLiteral(resourceName: "IncorrectBanner")
+private let correctUnderlayImage = #imageLiteral(resourceName: "correctBanner")
+private let incorrectUnderlayImage = #imageLiteral(resourceName: "incorrectBanner")
 
 class ResultTableViewCell: UITableViewCell {
     var storyURLasString = ""

@@ -24,10 +24,10 @@ class SwipeOverlayResultView: UIView {
             //resultLabel.text = "Correct!"
             //resultImage.backgroundColor = customGreen
             //resultImage.backgroundColor = swipeCorrect
-            resultImage.image = #imageLiteral(resourceName: "CorrectBanner")
+            resultImage.image = #imageLiteral(resourceName: "correctBanner")
             resultImage.contentMode = .scaleAspectFill
         } else {
-            resultImage.image = #imageLiteral(resourceName: "IncorrectBanner")
+            resultImage.image = #imageLiteral(resourceName: "incorrectBanner")
             resultImage.contentMode = .scaleAspectFill
             //resultLabel.text = "Incorrect"
             //resultImage.backgroundColor = customRed
