@@ -19,7 +19,7 @@ class CustomColor: UIColor {
     
     // Others
     static let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0) // used in timerLabel
-    static let customLightGray = UIColor(red: 192, green: 193, blue: 193, alpha: 1.0)
+    static let customLightGray = UIColor(red: 192/255, green: 193/255, blue: 193/255, alpha: 1.0)
     
     // Legacy
     // static let customLightGreen = UIColor(red: 177/255, green: 217/255, blue: 166/255, alpha: 1.0)

@@ -86,7 +86,6 @@ class ViewController: UIViewController {
     private func configureCardBlurEffectView() {
         let blurEffect = UIBlurEffect(style: .light)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.alpha = 0.98 //removing this line will stop the uivisualeffectview error
         blurEffectView.layer.cornerRadius = kolodaView.layer.cornerRadius
         blurEffectView.layer.masksToBounds = true
         blurEffectView.frame = kolodaView.bounds
