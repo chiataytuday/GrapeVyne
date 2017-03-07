@@ -18,12 +18,11 @@ private let customGreen =  UIColor(red: 0, green: 128/255, blue: 0, alpha: 1.0)
 private let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
 // Color Config
 private let viewBackgroundColor = UIColor.black
-private let cardViewTextColor_1 = CustomColor.textPurple
-private let cardViewTextColor_2 = CustomColor.textGreen
-private let cardViewBorderColor = UIColor.lightGray
-private let timerLabelTextColor = UIColor.lightGray
+private let cardViewTextColor = UIColor.black
+private let timerLabelTextColor = CustomColor.customLightGray
+private let noMoreCardsLabelTextColor = CustomColor.customLightGray
 // Card Config
-private let cardViewBG = #imageLiteral(resourceName: "news_paper")
+private let cardViewBG = #imageLiteral(resourceName: "cardBG")
 private let cardCornerRadius : CGFloat = 20
 // Animation Times
 private let countDownAnimationDuration = 0.4
@@ -52,6 +51,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = viewBackgroundColor
+
         dataSource = getDataSource()
         kolodaView.dataSource = self
         kolodaView.delegate = self
@@ -75,6 +75,7 @@ class ViewController: UIViewController {
         configureCardBlurEffectView()
         
         countDownLabel.text = String(countDownTime)
+        noMoreCardsLabel.textColor = noMoreCardsLabelTextColor
         
         //game starts with this completion handler
         countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
@@ -112,15 +113,8 @@ class ViewController: UIViewController {
         
         cardView.bgImageView.image = cardViewBG
         cardView.bgImageView.clipsToBounds = true
-        //        cardView.layer.borderWidth = 2
-        //        cardView.layer.borderColor = cardViewBorderColor.cgColor
         cardView.layer.cornerRadius = cardCornerRadius
-        
-        if arrayCount % 2 == 0 {
-            cardView.titleLabel.textColor = cardViewTextColor_1
-        } else {
-            cardView.titleLabel.textColor = cardViewTextColor_2
-        }
+        cardView.titleLabel.textColor = cardViewTextColor
         
         return cardView
     }
@@ -284,10 +278,9 @@ extension ViewController: KolodaViewDelegate {
     
     private func performSwipeResultAnimationFor(userAns: Bool) {
         let resultView = Bundle.main.loadNibNamed("SwipeOverlayResultView", owner: nil, options: nil)?[0] as! SwipeOverlayResultView
-        resultView.resultLabel.textColor = UIColor.white
         resultView.setupAccordingTo(userAnswer: userAns)
         resultView.alpha = 0
-        resultView.resultImage.alpha = 0.85
+        resultView.center = kolodaView.center
         
         self.view.addSubview(resultView)
         UIView.animate(withDuration: revealAnimationDuration, delay: 0, options: .curveEaseOut,

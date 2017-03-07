@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "underlay_correct.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "greenStart.png",
       "scale" : "2x"
     },
     {
