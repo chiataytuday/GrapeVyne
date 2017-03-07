@@ -35,7 +35,7 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "splash"))
-        //tableView.separatorColor = UIColor.clear
+        tableView.separatorColor = UIColor.black
         
     }
     

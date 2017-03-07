@@ -280,7 +280,6 @@ extension ViewController: KolodaViewDelegate {
         let resultView = Bundle.main.loadNibNamed("SwipeOverlayResultView", owner: nil, options: nil)?[0] as! SwipeOverlayResultView
         resultView.setupAccordingTo(userAnswer: userAns)
         resultView.alpha = 0
-        resultView.resultImage.alpha = 0.85
         resultView.center = kolodaView.center
         
         self.view.addSubview(resultView)
