@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     var dataSource : [CardView]?
     var countRight = 0
     var countWrong = 0
-    var gameTime = 60
+    var gameTime = 10
     var gameTimer = Timer()
     var countDownTime = 3
     var countDownTimer = Timer()

@@ -22,6 +22,8 @@ class ResultTableViewCell: UITableViewCell {
     
     @IBAction func linkButton(_ sender: UIButton) {
         let svc = SFSafariViewController(url: URL(string: storyURLasString)!)
+        svc.modalTransitionStyle = .crossDissolve
+        svc.preferredBarTintColor = .black
         parentVC?.present(svc, animated: true, completion: nil)
     }
     
