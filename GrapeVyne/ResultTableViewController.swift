@@ -81,13 +81,13 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     private func configureCell(cell: ResultTableViewCell, story: Story, userCorrect: Bool) {
         cell.storyLabel.text = story.title
-        cell.correctAnsLabel.text = "Answer\n \(story.fact)"
+        cell.correctAnsLabel.text = "Answer\n\(story.fact)"
         if userCorrect {
-            cell.userAnsLabel.text = "You said\n \(String(story.fact))"
+            cell.userAnsLabel.text = "You said\n\(String(story.fact))"
             cell.bgImage.image = correctUnderlayImage
             cell.bgImage.contentMode = .scaleAspectFill
         } else {
-            cell.userAnsLabel.text = "You said\n \(String(!story.fact))"
+            cell.userAnsLabel.text = "You said\n\(String(!story.fact))"
             cell.bgImage.image = incorrectUnderlayImage
             cell.bgImage.contentMode = .scaleAspectFill
         }

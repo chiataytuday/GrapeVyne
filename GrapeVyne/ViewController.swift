@@ -31,6 +31,8 @@ private let revealAnimationDuration = 0.3
 // Taptic Engine
 private let cardSwipeTaptic = UISelectionFeedbackGenerator()
 private let gameFinishTaptic = UINotificationFeedbackGenerator()
+//Swipe Sensitivity
+private let swipeSensitivityPercentage : CGFloat = 20/100
 
 class ViewController: UIViewController {
     var dataSource : [CardView]?
@@ -246,6 +248,10 @@ extension ViewController: KolodaViewDelegate {
     func koloda(_ koloda: KolodaView, shouldDragCardAt index: Int) -> Bool {
         cardSwipeTaptic.selectionChanged()
         return true
+    }
+    
+    func kolodaSwipeThresholdRatioMargin(_ koloda: KolodaView) -> CGFloat? {
+        return swipeSensitivityPercentage
     }
     
     // MARK: KolodaViewDelegate private functions

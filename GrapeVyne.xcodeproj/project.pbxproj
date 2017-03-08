@@ -10,6 +10,7 @@
 		535088F643C55F125C4FB71D /* Pods_GrapeVyne.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9F7A96FD249BA41BC2A6EA /* Pods_GrapeVyne.framework */; };
 		613AF4FA1E59ECFA00209765 /* SwipeOverlayResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613AF4F91E59ECFA00209765 /* SwipeOverlayResultView.swift */; };
 		613AF4FC1E59ED0500209765 /* SwipeOverlayResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 613AF4FB1E59ED0500209765 /* SwipeOverlayResultView.xib */; };
+		614620271E6F7EB000141C30 /* ProximaNovaSoft-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 614620261E6F7EA700141C30 /* ProximaNovaSoft-Bold.otf */; };
 		614D64311E6CE2C60051AB6D /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614D64301E6CE2C60051AB6D /* CustomColor.swift */; };
 		6152E3251E6E1EF7006633C0 /* clanpro-book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6152E3241E6E1EF1006633C0 /* clanpro-book.ttf */; };
 		6156196C1E47AD9E007E5F27 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6156196A1E47AD9E007E5F27 /* Model.xcdatamodeld */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		613AF4F91E59ECFA00209765 /* SwipeOverlayResultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeOverlayResultView.swift; sourceTree = "<group>"; };
 		613AF4FB1E59ED0500209765 /* SwipeOverlayResultView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwipeOverlayResultView.xib; sourceTree = "<group>"; };
+		614620261E6F7EA700141C30 /* ProximaNovaSoft-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaSoft-Bold.otf"; sourceTree = "<group>"; };
 		614D64301E6CE2C60051AB6D /* CustomColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
 		6152E3241E6E1EF1006633C0 /* clanpro-book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "clanpro-book.ttf"; sourceTree = "<group>"; };
 		6156196B1E47AD9E007E5F27 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			children = (
 				619161C51E60343500CCE5E1 /* articles.json */,
 				615CF5FE1E67972200FDB995 /* ProximaNovaSoft-Regular.otf */,
+				614620261E6F7EA700141C30 /* ProximaNovaSoft-Bold.otf */,
 				6152E3241E6E1EF1006633C0 /* clanpro-book.ttf */,
 			);
 			name = Resources;
@@ -251,6 +254,7 @@
 				61CA90011E1DF868005B389D /* CardView.xib in Resources */,
 				617426211E1E0F0B009BFC75 /* Assets.xcassets in Resources */,
 				619161C61E60343500CCE5E1 /* articles.json in Resources */,
+				614620271E6F7EB000141C30 /* ProximaNovaSoft-Bold.otf in Resources */,
 				6166C9A01E14CF8E00BF5A54 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
