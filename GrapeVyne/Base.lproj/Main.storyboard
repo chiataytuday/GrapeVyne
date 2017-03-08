@@ -246,6 +246,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <textAttributes key="titleTextAttributes">
                                     <fontDescription key="fontDescription" name="ClanPro-Book" family="ClanPro" pointSize="26"/>
+                                    <color key="textColor" red="0.75294117650000003" green="0.75686274509999996" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Results" id="yxe-Kj-cbu">
