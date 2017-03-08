@@ -14,7 +14,12 @@ class JSONParser {
         var arrayOfStories = [Story]()
         for i in 0..<jsonResponse["articles"].count {
             let title = jsonResponse["articles"][i]["title"].string!
+            if arrayOfStories.contains(where: {$0.title == title}) {
+                // if the story is already in the array of stories, i.e duplicate stories
+                continue
+            }
             if jsonResponse["articles"][i]["fact"].string! == "mixture" || jsonResponse["articles"][i]["fact"].string! == "undetermined" || jsonResponse["articles"][i]["fact"].string! == "legend" {
+                // if there are undetermied fact values
                 continue
             }
             let factString = jsonResponse["articles"][i]["fact"].string!
