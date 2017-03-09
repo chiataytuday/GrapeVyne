@@ -15,14 +15,13 @@ class LaunchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        modalTransitionStyle = .crossDissolve
+        modalTransitionStyle = appModalTransitionStyle
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loadCards()
-        let landingVC = (storyboard?.instantiateViewController(withIdentifier: "LandingViewController"))! as UIViewController
-        landingVC.modalTransitionStyle = self.modalTransitionStyle
+        let landingVC = storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
         present(landingVC, animated: true, completion: nil)
     }
     

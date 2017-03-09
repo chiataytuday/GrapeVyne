@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+let appModalTransitionStyle = UIModalTransitionStyle.crossDissolve
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     

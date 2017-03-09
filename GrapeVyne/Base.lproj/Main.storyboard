@@ -33,17 +33,33 @@
                     <view key="view" contentMode="scaleToFill" id="Fe0-bv-ZCq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="vUQ-ij-lmV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="2H2-f2-9cz">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vUQ-ij-lmV" firstAttribute="top" secondItem="Fe0-bv-ZCq" secondAttribute="top" id="2SG-ur-Df6"/>
+                            <constraint firstAttribute="trailing" secondItem="vUQ-ij-lmV" secondAttribute="trailing" id="L5K-qQ-KuB"/>
+                            <constraint firstItem="vUQ-ij-lmV" firstAttribute="centerY" secondItem="2H2-f2-9cz" secondAttribute="centerY" id="Q2z-nb-Z1H"/>
+                            <constraint firstItem="vUQ-ij-lmV" firstAttribute="leading" secondItem="Fe0-bv-ZCq" secondAttribute="leading" id="WMg-zb-iAn"/>
+                            <constraint firstItem="vUQ-ij-lmV" firstAttribute="centerX" secondItem="2H2-f2-9cz" secondAttribute="centerX" id="XDI-4F-YmV"/>
+                            <constraint firstItem="vUQ-ij-lmV" firstAttribute="bottom" secondItem="EFs-Pf-XYW" secondAttribute="top" id="xmY-hH-uCQ"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jnh-L5-cCg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1996" y="72"/>
+            <point key="canvasLocation" x="-1996" y="71.514242878560722"/>
         </scene>
-        <!--View Controller-->
+        <!--Landing View Controller-->
         <scene sceneID="KuR-LV-Oe6">
             <objects>
-                <viewController storyboardIdentifier="LandingViewController" id="Nvd-zZ-N6L" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LandingViewController" id="Nvd-zZ-N6L" customClass="LandingViewController" customModule="GrapeVyne" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o5h-uW-qQr"/>
                         <viewControllerLayoutGuide type="bottom" id="6SY-Xr-fKc"/>
@@ -78,10 +94,10 @@
             </objects>
             <point key="canvasLocation" x="-1119.2" y="71.514242878560722"/>
         </scene>
-        <!--View Controller-->
+        <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="GrapeVyne" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="GameViewController" customModule="GrapeVyne" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -302,6 +318,7 @@
         <image name="arrow_left" width="150" height="150"/>
         <image name="arrow_right" width="150" height="150"/>
         <image name="landing" width="549" height="934"/>
+        <image name="splash" width="550" height="933"/>
         <image name="start" width="61" height="32"/>
     </resources>
 </document>
