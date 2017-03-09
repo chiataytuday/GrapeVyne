@@ -18,27 +18,26 @@ class JSONParser {
                 // if the story is already in the array of stories, i.e duplicate stories
                 continue
             }
-            if jsonResponse["articles"][i]["fact"].string! == "mixture" || jsonResponse["articles"][i]["fact"].string! == "undetermined" || jsonResponse["articles"][i]["fact"].string! == "legend" {
-                // if there are undetermied fact values
+            let factString = jsonResponse["articles"][i]["fact"].string!
+            let isStoryReliable = determineStoryReliable(factString: factString)
+            if isStoryReliable == nil {
                 continue
             }
-            let factString = jsonResponse["articles"][i]["fact"].string!
-            let factAsBool = factString.toBool()
+            let factAsBool = isStoryReliable!
             let url = jsonResponse["articles"][i]["url"].string!
-            arrayOfStories.append(Story(title: title, fact: factAsBool!, urlStr: url))
+            arrayOfStories.append(Story(title: title, fact: factAsBool, urlStr: url))
         }
         return arrayOfStories
     }
-}
-extension String {
-    func toBool() -> Bool? {
-        switch self {
+    
+    private func determineStoryReliable(factString: String) -> Bool? {
+        switch factString {
         case "True", "true", "mtrue":
             return true
         case "False", "false", "mfalse":
             return false
         default:
-            return false
+            return nil
         }
     }
 }
