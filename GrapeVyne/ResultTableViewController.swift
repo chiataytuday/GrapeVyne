@@ -22,7 +22,6 @@ class ResultTableViewCell: UITableViewCell {
     
     @IBAction func linkButton(_ sender: UIButton) {
         let svc = SFSafariViewController(url: URL(string: storyURLasString)!)
-        svc.modalTransitionStyle = .crossDissolve
         svc.preferredBarTintColor = .black
         parentVC?.present(svc, animated: true, completion: nil)
     }
@@ -34,11 +33,11 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        modalTransitionStyle = appModalTransitionStyle
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "splash"))
         tableView.separatorColor = UIColor.black
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

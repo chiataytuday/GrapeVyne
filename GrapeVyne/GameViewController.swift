@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  GameViewController.swift
 //  StoryApp
 //
 //  Created by Umair Sharif on 12/28/16.
@@ -34,7 +34,7 @@ private let gameFinishTaptic = UINotificationFeedbackGenerator()
 //Swipe Sensitivity
 private let swipeSensitivityPercentage : CGFloat = 20/100
 
-class ViewController: UIViewController {
+class GameViewController: UIViewController {
     var dataSource : [CardView]?
     var gameTime = 60
     var gameTimer = Timer()
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
         dataSource = getDataSource()
         kolodaView.dataSource = self
         kolodaView.delegate = self
-        self.modalTransitionStyle = .crossDissolve
+        modalTransitionStyle = appModalTransitionStyle
         configureViewUI()
     }
     
@@ -200,7 +200,7 @@ extension UIView: CAAnimationDelegate {
 
 // MARK: KolodaViewDelegate
 
-extension ViewController: KolodaViewDelegate {
+extension GameViewController: KolodaViewDelegate {
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
         endGame()
@@ -311,7 +311,7 @@ extension ViewController: KolodaViewDelegate {
 
 // MARK: KolodaViewDataSource
 
-extension ViewController: KolodaViewDataSource {
+extension GameViewController: KolodaViewDataSource {
     
     func kolodaNumberOfCards(_ koloda:KolodaView) -> Int {
         return dataSource!.count

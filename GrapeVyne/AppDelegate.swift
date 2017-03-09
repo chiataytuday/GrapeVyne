@@ -9,49 +9,18 @@
 import UIKit
 import CoreData
 
-var storyRepo = StoryRepo()
+let appModalTransitionStyle = UIModalTransitionStyle.crossDissolve
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    let jsonParser = JSONParser()
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
-        if managedObject.isEmpty {
-            //Nothing in Core Data
-            print("Time taken to parse JSON: ",timeElapsedInSecondsWhenRunningCode {
-                let stories = jsonParser.parseStories(data: MockedJSON.getData())
-                storyRepo.arrayOfStories = stories
-                storyRepo.writeToCD(array: stories)
-            })
-            //            let s = jsonParser.parseStories(data: MockedJSON.getData())
-            //            storyRepo.arrayOfStories = s
-            //            storyRepo.writeToCD(array: s)
-        } else {
-            //Something in Core Data
-            for object in managedObject {
-                let title = object.value(forKey: "title") as! String
-                let factValue = object.value(forKey: "fact") as! Bool
-                let urlString = object.value(forKey: "urlString") as! String
-                let tempStory = Story(title: title, fact: factValue, urlStr: urlString)
-                storyRepo.arrayOfStories.append(tempStory)
-            }
-        }
-        print("*** Number of stories currently in memory \(storyRepo.arrayOfStories.count) ***")
         return true
     }
     
-    private func timeElapsedInSecondsWhenRunningCode(operation:()->()) -> Double {
-        let startTime = CFAbsoluteTimeGetCurrent()
-        operation()
-        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-        return Double(timeElapsed)
-    }
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         return true
     }
     
