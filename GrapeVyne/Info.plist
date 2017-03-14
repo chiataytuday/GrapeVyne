@@ -22,9 +22,8 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>ProximaNovaSoft-Bold.otf</string>
-		<string>clanpro-book.ttf</string>
-		<string>ProximaNovaSoft-Regular.otf</string>
+		<string>Quicksand-Bold.ttf</string>
+		<string>Gotham-Bold.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

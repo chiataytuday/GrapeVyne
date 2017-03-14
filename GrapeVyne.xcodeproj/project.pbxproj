@@ -11,12 +11,11 @@
 		61054C031E70F0B40015253B /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61054C021E70F0B40015253B /* LaunchViewController.swift */; };
 		613AF4FA1E59ECFA00209765 /* SwipeOverlayResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613AF4F91E59ECFA00209765 /* SwipeOverlayResultView.swift */; };
 		613AF4FC1E59ED0500209765 /* SwipeOverlayResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 613AF4FB1E59ED0500209765 /* SwipeOverlayResultView.xib */; };
-		614620271E6F7EB000141C30 /* ProximaNovaSoft-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 614620261E6F7EA700141C30 /* ProximaNovaSoft-Bold.otf */; };
+		613CC4A01E776A4E00F85F3E /* Gotham-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 613CC49F1E776A4E00F85F3E /* Gotham-Bold.ttf */; };
+		613CC4A21E776A7100F85F3E /* Quicksand-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 613CC4A11E776A7100F85F3E /* Quicksand-Bold.ttf */; };
 		614D64311E6CE2C60051AB6D /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614D64301E6CE2C60051AB6D /* CustomColor.swift */; };
-		6152E3251E6E1EF7006633C0 /* clanpro-book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6152E3241E6E1EF1006633C0 /* clanpro-book.ttf */; };
 		6156196C1E47AD9E007E5F27 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6156196A1E47AD9E007E5F27 /* Model.xcdatamodeld */; };
 		615619911E481829007E5F27 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615619901E481829007E5F27 /* CoreDataManager.swift */; };
-		615CF5FF1E67973C00FDB995 /* ProximaNovaSoft-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 615CF5FE1E67972200FDB995 /* ProximaNovaSoft-Regular.otf */; };
 		6166C99B1E14CF8E00BF5A54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166C99A1E14CF8E00BF5A54 /* AppDelegate.swift */; };
 		6166C99D1E14CF8E00BF5A54 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166C99C1E14CF8E00BF5A54 /* GameViewController.swift */; };
 		6166C9A01E14CF8E00BF5A54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6166C99E1E14CF8E00BF5A54 /* Main.storyboard */; };
@@ -37,12 +36,11 @@
 		61054C021E70F0B40015253B /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		613AF4F91E59ECFA00209765 /* SwipeOverlayResultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeOverlayResultView.swift; sourceTree = "<group>"; };
 		613AF4FB1E59ED0500209765 /* SwipeOverlayResultView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwipeOverlayResultView.xib; sourceTree = "<group>"; };
-		614620261E6F7EA700141C30 /* ProximaNovaSoft-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaSoft-Bold.otf"; sourceTree = "<group>"; };
+		613CC49F1E776A4E00F85F3E /* Gotham-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Bold.ttf"; sourceTree = "<group>"; };
+		613CC4A11E776A7100F85F3E /* Quicksand-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.ttf"; sourceTree = "<group>"; };
 		614D64301E6CE2C60051AB6D /* CustomColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
-		6152E3241E6E1EF1006633C0 /* clanpro-book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "clanpro-book.ttf"; sourceTree = "<group>"; };
 		6156196B1E47AD9E007E5F27 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		615619901E481829007E5F27 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		615CF5FE1E67972200FDB995 /* ProximaNovaSoft-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaSoft-Regular.otf"; sourceTree = "<group>"; };
 		6166C9971E14CF8E00BF5A54 /* GrapeVyne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrapeVyne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6166C99A1E14CF8E00BF5A54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6166C99C1E14CF8E00BF5A54 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -79,10 +77,9 @@
 		615CF5FD1E6796FA00FDB995 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				613CC49F1E776A4E00F85F3E /* Gotham-Bold.ttf */,
+				613CC4A11E776A7100F85F3E /* Quicksand-Bold.ttf */,
 				619161C51E60343500CCE5E1 /* articles.json */,
-				615CF5FE1E67972200FDB995 /* ProximaNovaSoft-Regular.otf */,
-				614620261E6F7EA700141C30 /* ProximaNovaSoft-Bold.otf */,
-				6152E3241E6E1EF1006633C0 /* clanpro-book.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -255,13 +252,12 @@
 			files = (
 				6166C9A51E14CF8E00BF5A54 /* LaunchScreen.storyboard in Resources */,
 				613AF4FC1E59ED0500209765 /* SwipeOverlayResultView.xib in Resources */,
-				615CF5FF1E67973C00FDB995 /* ProximaNovaSoft-Regular.otf in Resources */,
-				6152E3251E6E1EF7006633C0 /* clanpro-book.ttf in Resources */,
 				61CA90011E1DF868005B389D /* CardView.xib in Resources */,
 				617426211E1E0F0B009BFC75 /* Assets.xcassets in Resources */,
 				619161C61E60343500CCE5E1 /* articles.json in Resources */,
-				614620271E6F7EB000141C30 /* ProximaNovaSoft-Bold.otf in Resources */,
 				6166C9A01E14CF8E00BF5A54 /* Main.storyboard in Resources */,
+				613CC4A01E776A4E00F85F3E /* Gotham-Bold.ttf in Resources */,
+				613CC4A21E776A7100F85F3E /* Quicksand-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

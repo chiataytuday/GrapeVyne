@@ -18,11 +18,10 @@ private let customGreen =  UIColor(red: 0, green: 128/255, blue: 0, alpha: 1.0)
 private let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
 // Color Config
 private let viewBackgroundColor = UIColor.black
-private let cardViewTextColor = UIColor.black
-private let timerLabelTextColor = CustomColor.customLightGray
-private let noMoreCardsLabelTextColor = CustomColor.customLightGray
+private let cardViewTextColor = UIColor.white
+private let timerLabelTextColor = UIColor.white
+private let noMoreCardsLabelTextColor = UIColor.white
 // Card Config
-private let cardViewBG = #imageLiteral(resourceName: "cardBG")
 private let cardCornerRadius : CGFloat = 20
 // Animation Times
 private let countDownAnimationDuration = 0.4
@@ -110,8 +109,6 @@ class GameViewController: UIViewController {
         let cardView = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
         cardView.titleLabel.text = title
         
-        cardView.bgImageView.image = cardViewBG
-        cardView.bgImageView.clipsToBounds = true
         cardView.layer.cornerRadius = cardCornerRadius
         cardView.titleLabel.textColor = cardViewTextColor
         

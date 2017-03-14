@@ -11,14 +11,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="ProximaNovaSoft-Bold.otf">
-            <string>ProximaNovaSoft-Bold</string>
+        <array key="Gotham-Bold.ttf">
+            <string>Gotham-Bold</string>
         </array>
         <array key="ProximaNovaSoft-Regular.otf">
             <string>ProximaNovaSoft-Regular</string>
         </array>
-        <array key="clanpro-book.ttf">
-            <string>ClanPro-Book</string>
+        <array key="Quicksand-Bold.ttf">
+            <string>Quicksand-Bold</string>
         </array>
     </customFonts>
     <scenes>
@@ -38,8 +38,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlZ-Kh-wUO">
-                                <rect key="frame" x="139" y="300" width="97" height="25"/>
-                                <fontDescription key="fontDescription" name="ClanPro-Book" family="ClanPro" pointSize="25"/>
+                                <rect key="frame" x="136" y="300" width="103.5" height="25"/>
+                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="25"/>
                                 <color key="textColor" red="0.75294117650000003" green="0.75686274509999996" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -80,8 +80,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hj1-qY-KbL">
-                                <rect key="frame" x="157" y="564" width="61" height="32"/>
-                                <state key="normal" image="start"/>
+                                <rect key="frame" x="136" y="532" width="103" height="64"/>
+                                <state key="normal" image="play_button"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="presentation" id="I7O-0a-E3x"/>
                                 </connections>
@@ -89,12 +89,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="top" secondItem="4oX-nx-ZDJ" secondAttribute="top" id="3xg-N7-3SE"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="centerX" secondItem="Hj1-qY-KbL" secondAttribute="centerX" id="IGJ-4O-O0K"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="leading" secondItem="4oX-nx-ZDJ" secondAttribute="leading" id="PUO-9E-LCE"/>
-                            <constraint firstItem="6SY-Xr-fKc" firstAttribute="top" secondItem="Hj1-qY-KbL" secondAttribute="bottom" constant="71" id="um2-yX-4OP"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="bottom" secondItem="6SY-Xr-fKc" secondAttribute="top" id="woJ-3v-hM5"/>
-                            <constraint firstAttribute="trailing" secondItem="Xye-cU-OLH" secondAttribute="trailing" id="ye8-pq-biA"/>
+                            <constraint firstItem="6SY-Xr-fKc" firstAttribute="top" secondItem="Hj1-qY-KbL" secondAttribute="bottom" constant="71" id="FqQ-0y-QAf"/>
+                            <constraint firstItem="Xye-cU-OLH" firstAttribute="leading" secondItem="4oX-nx-ZDJ" secondAttribute="leading" id="GGo-we-ad0"/>
+                            <constraint firstItem="Xye-cU-OLH" firstAttribute="top" secondItem="4oX-nx-ZDJ" secondAttribute="top" id="M1F-jI-kiQ"/>
+                            <constraint firstItem="Xye-cU-OLH" firstAttribute="centerX" secondItem="Hj1-qY-KbL" secondAttribute="centerX" id="YBG-eD-HeP"/>
+                            <constraint firstItem="Xye-cU-OLH" firstAttribute="bottom" secondItem="6SY-Xr-fKc" secondAttribute="top" id="q5v-qV-9kL"/>
+                            <constraint firstAttribute="trailing" secondItem="Xye-cU-OLH" secondAttribute="trailing" id="r2u-hw-HSO"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -116,66 +116,45 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No more cards. Thanks for playing!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQT-xt-LrS">
                                 <rect key="frame" x="29" y="233" width="315" height="201"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="201" id="eOc-QJ-ixi"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="ClanPro-Book" family="ClanPro" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k13-cG-7zt" customClass="KolodaView" customModule="Koloda">
+                                <rect key="frame" x="29" y="146" width="315" height="468"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KG6-f2-LAo">
+                                <rect key="frame" x="80" y="262" width="214" height="142"/>
+                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="130"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKy-BA-Ldl">
-                                <rect key="frame" x="150" y="28" width="75" height="23"/>
+                                <rect key="frame" x="105" y="51" width="164" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="75" id="jHc-CX-U29"/>
+                                    <constraint firstAttribute="height" constant="50" id="2VB-rH-AMr"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ClanPro-Book" family="ClanPro" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="xQ0-Fx-ug7">
-                                <rect key="frame" x="259" y="547" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="Ilj-Sg-VJg"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_left" translatesAutoresizingMaskIntoConstraints="NO" id="xDI-aH-Tci">
-                                <rect key="frame" x="16" y="547" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="AZJ-WK-6RE"/>
-                                    <constraint firstAttribute="height" constant="100" id="Msr-JP-eBx"/>
-                                </constraints>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k13-cG-7zt" customClass="KolodaView" customModule="Koloda">
-                                <rect key="frame" x="16" y="82" width="343" height="458"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KG6-f2-LAo">
-                                <rect key="frame" x="41" y="257" width="303" height="142"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="142" id="AwV-Oi-VAZ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="ClanPro-Book" family="ClanPro" pointSize="130"/>
+                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="51"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="xDI-aH-Tci" firstAttribute="top" secondItem="k13-cG-7zt" secondAttribute="bottom" constant="7" id="0xe-xh-fHM"/>
-                            <constraint firstItem="xDI-aH-Tci" firstAttribute="top" secondItem="xQ0-Fx-ug7" secondAttribute="top" id="3GG-wy-ZrC"/>
-                            <constraint firstItem="KG6-f2-LAo" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="257" id="4rd-Id-6S4"/>
-                            <constraint firstItem="xDI-aH-Tci" firstAttribute="bottom" secondItem="xQ0-Fx-ug7" secondAttribute="bottom" id="8lM-G6-a2F"/>
-                            <constraint firstItem="WKy-BA-Ldl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="L0Q-ij-7A3"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="MsH-gO-TFz"/>
-                            <constraint firstItem="WKy-BA-Ldl" firstAttribute="centerX" secondItem="k13-cG-7zt" secondAttribute="centerX" id="d82-2W-SGm"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="top" secondItem="WKy-BA-Ldl" secondAttribute="bottom" constant="31" id="d9u-Yt-dg8"/>
-                            <constraint firstItem="KG6-f2-LAo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="25" id="ePb-tR-ATw"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="gN8-sP-QUA"/>
-                            <constraint firstItem="hQT-xt-LrS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="13" id="jUZ-E8-DKj"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="leading" secondItem="xDI-aH-Tci" secondAttribute="leading" id="lsk-8h-2Ln"/>
-                            <constraint firstAttribute="bottom" secondItem="xDI-aH-Tci" secondAttribute="bottom" constant="20" symbolic="YES" id="qdg-11-Adz"/>
-                            <constraint firstItem="k13-cG-7zt" firstAttribute="trailing" secondItem="xQ0-Fx-ug7" secondAttribute="trailing" id="sXx-SM-hLB"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="KG6-f2-LAo" secondAttribute="trailing" constant="15" id="uk1-Tk-8wR"/>
-                            <constraint firstItem="hQT-xt-LrS" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="wuK-v6-HhR"/>
-                            <constraint firstItem="hQT-xt-LrS" firstAttribute="trailing" secondItem="KG6-f2-LAo" secondAttribute="trailing" id="xAt-PR-dD4"/>
+                            <constraint firstItem="KG6-f2-LAo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="64" id="1hU-sw-Q9o"/>
+                            <constraint firstItem="hQT-xt-LrS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="13" id="4kd-Iz-vGZ"/>
+                            <constraint firstItem="hQT-xt-LrS" firstAttribute="centerY" secondItem="KG6-f2-LAo" secondAttribute="centerY" id="7Yi-l0-Ef9"/>
+                            <constraint firstItem="WKy-BA-Ldl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8Mi-4O-SMW"/>
+                            <constraint firstItem="KG6-f2-LAo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="AbP-b7-yeF"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="trailing" secondItem="hQT-xt-LrS" secondAttribute="trailing" id="GMz-bn-vdr"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="k13-cG-7zt" secondAttribute="bottom" constant="53" id="Gmv-8g-nCa"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="leading" secondItem="hQT-xt-LrS" secondAttribute="leading" id="Mqu-jm-MX6"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="KG6-f2-LAo" secondAttribute="bottom" constant="263" id="Wrk-El-cD4"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hQT-xt-LrS" secondAttribute="bottom" constant="233" id="X9x-hL-fRw"/>
+                            <constraint firstItem="WKy-BA-Ldl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="31" id="aAr-O3-taX"/>
+                            <constraint firstItem="hQT-xt-LrS" firstAttribute="centerX" secondItem="KG6-f2-LAo" secondAttribute="centerX" id="ezW-nt-gCb"/>
+                            <constraint firstItem="WKy-BA-Ldl" firstAttribute="centerX" secondItem="KG6-f2-LAo" secondAttribute="centerX" id="gxJ-Or-mri"/>
+                            <constraint firstItem="k13-cG-7zt" firstAttribute="top" secondItem="WKy-BA-Ldl" secondAttribute="bottom" constant="45" id="ngA-ol-JyZ"/>
+                            <constraint firstItem="WKy-BA-Ldl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="89" id="zet-LN-9aE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eHa-pI-klz"/>
@@ -219,7 +198,7 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.34999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="k1e-Pl-ece">
                                                     <rect key="frame" x="8" y="8" width="359" height="86"/>
-                                                    <fontDescription key="fontDescription" name="ProximaNovaSoft-Bold" family="Proxima Nova Soft" pointSize="32"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="32"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -323,10 +302,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow_left" width="150" height="150"/>
-        <image name="arrow_right" width="150" height="150"/>
-        <image name="landing" width="549" height="934"/>
-        <image name="splash" width="550" height="933"/>
-        <image name="start" width="61" height="32"/>
+        <image name="landing" width="170" height="303"/>
+        <image name="play_button" width="103" height="64"/>
+        <image name="splash" width="170" height="303"/>
     </resources>
 </document>

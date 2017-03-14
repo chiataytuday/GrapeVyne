@@ -9,8 +9,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="ProximaNovaSoft-Bold.otf">
-            <string>ProximaNovaSoft-Bold</string>
+        <array key="Quicksand-Bold.ttf">
+            <string>Quicksand-Bold</string>
         </array>
     </customFonts>
     <objects>
@@ -20,38 +20,48 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nSD-Tn-13h">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="20"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="instruction_false" translatesAutoresizingMaskIntoConstraints="NO" id="p0v-99-b32">
+                    <rect key="frame" x="16" y="537" width="110" height="110"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="110" id="4Gu-zW-eON"/>
+                        <constraint firstAttribute="height" constant="110" id="Xvz-3z-b4v"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="instruction_true" translatesAutoresizingMaskIntoConstraints="NO" id="XBG-oj-6OL">
+                    <rect key="frame" x="249" y="537" width="110" height="110"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="110" id="az0-kS-Fpr"/>
+                    </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kye-65-1PD">
-                    <rect key="frame" x="16" y="206" width="343" height="256"/>
+                    <rect key="frame" x="16" y="33" width="343" height="256"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="256" id="FW0-YG-g50"/>
+                        <constraint firstAttribute="height" constant="256" id="uRF-Vp-cii"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="ProximaNovaSoft-Bold" family="Proxima Nova Soft" pointSize="33"/>
+                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="34"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
+            <color key="backgroundColor" red="0.53333333333333333" green="0.34509803921568627" blue="0.63921568627450975" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="nSD-Tn-13h" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3gj-kK-SN5"/>
-                <constraint firstAttribute="bottom" secondItem="nSD-Tn-13h" secondAttribute="bottom" id="8ja-d9-bKk"/>
-                <constraint firstItem="nSD-Tn-13h" firstAttribute="centerX" secondItem="kye-65-1PD" secondAttribute="centerX" id="PPm-tP-2zz"/>
-                <constraint firstItem="kye-65-1PD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="ZyI-LD-Oav"/>
-                <constraint firstAttribute="trailing" secondItem="nSD-Tn-13h" secondAttribute="trailing" id="fg1-oy-85f"/>
-                <constraint firstItem="nSD-Tn-13h" firstAttribute="centerY" secondItem="kye-65-1PD" secondAttribute="centerY" id="nwi-1t-lzG"/>
-                <constraint firstItem="nSD-Tn-13h" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="s4R-Fh-921"/>
+                <constraint firstItem="kye-65-1PD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="33" id="8ub-st-mxH"/>
+                <constraint firstItem="kye-65-1PD" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="FzY-yA-Qkg"/>
+                <constraint firstItem="kye-65-1PD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="HYT-30-CZe"/>
+                <constraint firstItem="p0v-99-b32" firstAttribute="bottom" secondItem="XBG-oj-6OL" secondAttribute="bottom" id="Mif-mm-vDR"/>
+                <constraint firstItem="p0v-99-b32" firstAttribute="top" secondItem="XBG-oj-6OL" secondAttribute="top" id="Qcm-J2-0Hp"/>
+                <constraint firstAttribute="bottom" secondItem="p0v-99-b32" secondAttribute="bottom" constant="20" id="QvB-on-qu6"/>
+                <constraint firstItem="kye-65-1PD" firstAttribute="leading" secondItem="p0v-99-b32" secondAttribute="leading" id="Sis-9m-KM3"/>
+                <constraint firstItem="kye-65-1PD" firstAttribute="trailing" secondItem="XBG-oj-6OL" secondAttribute="trailing" id="nSd-0K-gEL"/>
             </constraints>
             <connections>
-                <outlet property="bgImageView" destination="nSD-Tn-13h" id="iaI-wf-U8J"/>
                 <outlet property="titleLabel" destination="kye-65-1PD" id="JxX-kG-Rtg"/>
             </connections>
             <point key="canvasLocation" x="75.5" y="53.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="instruction_false" width="40" height="45"/>
+        <image name="instruction_true" width="40" height="43"/>
+    </resources>
 </document>
