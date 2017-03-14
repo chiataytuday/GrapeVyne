@@ -25,6 +25,7 @@
 		619161CA1E60AD7300CCE5E1 /* ResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619161C91E60AD7300CCE5E1 /* ResultTableViewController.swift */; };
 		619BE2C01E3D1B400085023B /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619BE2BF1E3D1B400085023B /* Network.swift */; };
 		619BE2C51E3D3F610085023B /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619BE2C41E3D3F610085023B /* JSONParser.swift */; };
+		61B75A2C1E7778F6008A14ED /* Instruction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61B75A2B1E7778F6008A14ED /* Instruction.xib */; };
 		61CA8FF71E1DF097005B389D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA8FF61E1DF097005B389D /* CardView.swift */; };
 		61CA90011E1DF868005B389D /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61CA90001E1DF868005B389D /* CardView.xib */; };
 		61CE01DC1E70F87700366024 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE01DB1E70F87700366024 /* LandingViewController.swift */; };
@@ -52,6 +53,7 @@
 		619161C91E60AD7300CCE5E1 /* ResultTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultTableViewController.swift; sourceTree = "<group>"; };
 		619BE2BF1E3D1B400085023B /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		619BE2C41E3D3F610085023B /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
+		61B75A2B1E7778F6008A14ED /* Instruction.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Instruction.xib; sourceTree = "<group>"; };
 		61CA8FF61E1DF097005B389D /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		61CA90001E1DF868005B389D /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		61CE01DB1E70F87700366024 /* LandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				61F971EE1E5D57BB0055DE4B /* Card */,
 				61F971EF1E5D57C10055DE4B /* SwipeOverlay */,
 				614D64301E6CE2C60051AB6D /* CustomColor.swift */,
+				61B75A2B1E7778F6008A14ED /* Instruction.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				61CA90011E1DF868005B389D /* CardView.xib in Resources */,
 				617426211E1E0F0B009BFC75 /* Assets.xcassets in Resources */,
 				619161C61E60343500CCE5E1 /* articles.json in Resources */,
+				61B75A2C1E7778F6008A14ED /* Instruction.xib in Resources */,
 				6166C9A01E14CF8E00BF5A54 /* Main.storyboard in Resources */,
 				613CC4A01E776A4E00F85F3E /* Gotham-Bold.ttf in Resources */,
 				613CC4A21E776A7100F85F3E /* Quicksand-Bold.ttf in Resources */,
