@@ -30,6 +30,6 @@
         </view>
     </objects>
     <resources>
-        <image name="instruction" width="172" height="303"/>
+        <image name="instruction" width="355" height="630"/>
     </resources>
 </document>

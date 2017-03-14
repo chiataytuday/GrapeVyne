@@ -38,13 +38,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlZ-Kh-wUO">
-                                <rect key="frame" x="136" y="300" width="103.5" height="25"/>
+                                <rect key="frame" x="143" y="300" width="91" height="30"/>
                                 <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="25"/>
                                 <color key="textColor" red="0.75294117650000003" green="0.75686274509999996" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="2H2-f2-9cz">
-                                <rect key="frame" x="169" y="333" width="37" height="37"/>
+                                <rect key="frame" x="169" y="338" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -302,8 +302,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="landing" width="170" height="303"/>
+        <image name="landing" width="355" height="630"/>
         <image name="play_button" width="103" height="64"/>
-        <image name="splash" width="170" height="303"/>
+        <image name="splash" width="355" height="630"/>
     </resources>
 </document>
