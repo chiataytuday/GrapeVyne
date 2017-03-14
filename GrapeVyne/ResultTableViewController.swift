@@ -9,8 +9,15 @@
 import UIKit
 import SafariServices
 
-private let correctUnderlayImage = #imageLiteral(resourceName: "correctBanner")
-private let incorrectUnderlayImage = #imageLiteral(resourceName: "incorrectBanner")
+// Mark: Global properties
+// Images
+private let trueImage = #imageLiteral(resourceName: "result_true")
+private let falseImage = #imageLiteral(resourceName: "result_false")
+// Color config
+private let tableViewBackgroundColor = CustomColor.customPurple
+private let cellBackgroundColor = UIColor.white.withAlphaComponent(0.3)
+private let storyLabelTextColor = UIColor.white
+private let resultTextColor = UIColor.white.withAlphaComponent(0.7)
 
 class ResultTableViewCell: UITableViewCell {
     var storyURLasString = ""
@@ -18,7 +25,8 @@ class ResultTableViewCell: UITableViewCell {
     @IBOutlet weak var storyLabel: UILabel!
     @IBOutlet weak var correctAnsLabel: UILabel!
     @IBOutlet weak var userAnsLabel: UILabel!
-    @IBOutlet weak var bgImage: UIImageView!
+    @IBOutlet weak var correctAnsImage: UIImageView!
+    @IBOutlet weak var userAnsImage: UIImageView!
     
     @IBAction func linkButton(_ sender: UIButton) {
         let svc = SFSafariViewController(url: URL(string: storyURLasString)!)
@@ -36,8 +44,9 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         modalTransitionStyle = appModalTransitionStyle
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "splash"))
-        tableView.separatorColor = UIColor.black
+        tableView.separatorColor = UIColor.clear
+        tableView.backgroundColor = tableViewBackgroundColor
+        tableView.layer.cornerRadius = cardCornerRadius
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,7 +57,7 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func doneButton(_ sender: UIBarButtonItem) {
+    @IBAction func doneButton(_ sender: UIButton) {
         storyRepo.arrayOfSwipedStories = []
         storyRepo.arrayOfCorrectStories = []
         storyRepo.arrayOfIncorrectStories = []
@@ -69,30 +78,32 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ResultTableViewCell
         cell.selectionStyle = .none
         cell.parentVC = self
+        cell.storyLabel.textColor =  storyLabelTextColor
+        cell.correctAnsLabel.textColor = resultTextColor
+        cell.userAnsLabel.textColor = resultTextColor
+        cell.backgroundColor = cellBackgroundColor
+        cell.layer.cornerRadius = cardCornerRadius
         
-        if storyRepo.arrayOfCorrectStories.contains(where: {$0.title == storyRepo.arrayOfSwipedStories[indexPath.row].title}) {
-            //correct answer cell
-            configureCell(cell: cell, story: storyRepo.arrayOfSwipedStories[indexPath.row], userCorrect: true)
-        } else if storyRepo.arrayOfIncorrectStories.contains(where: {$0.title == storyRepo.arrayOfSwipedStories[indexPath.row].title}) {
-            //incorrect answer cell
-            configureCell(cell: cell, story: storyRepo.arrayOfSwipedStories[indexPath.row], userCorrect: false)
+        let story = storyRepo.arrayOfSwipedStories[indexPath.row]
+        cell.storyLabel.text = story.title
+        cell.storyURLasString = story.urlString
+        if storyRepo.arrayOfCorrectStories.contains(where: {$0.title == story.title}) {
+            if story.fact {
+                cell.correctAnsImage.image = trueImage
+                cell.userAnsImage.image = trueImage
+            } else {
+                cell.correctAnsImage.image = falseImage
+                cell.userAnsImage.image = falseImage
+            }
+        } else if storyRepo.arrayOfIncorrectStories.contains(where: {$0.title == story.title}) {
+            if story.fact {
+                cell.correctAnsImage.image = trueImage
+                cell.userAnsImage.image = falseImage
+            } else {
+                cell.correctAnsImage.image = falseImage
+                cell.userAnsImage.image = trueImage
+            }
         }
         return cell
     }
-    
-    private func configureCell(cell: ResultTableViewCell, story: Story, userCorrect: Bool) {
-        cell.storyLabel.text = story.title
-        cell.correctAnsLabel.text = "Answer\n\(story.fact)"
-        if userCorrect {
-            cell.userAnsLabel.text = "You said\n\(String(story.fact))"
-            cell.bgImage.image = correctUnderlayImage
-            cell.bgImage.contentMode = .scaleAspectFill
-        } else {
-            cell.userAnsLabel.text = "You said\n\(String(!story.fact))"
-            cell.bgImage.image = incorrectUnderlayImage
-            cell.bgImage.contentMode = .scaleAspectFill
-        }
-        cell.storyURLasString = story.urlString
-    }
-
 }

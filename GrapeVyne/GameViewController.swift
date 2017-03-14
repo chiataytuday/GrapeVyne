@@ -18,7 +18,7 @@ private let noMoreCardsLabelTextColor = UIColor.white
 private let countDownLabelTextColor = UIColor.white
 private let timeEndingWarningColor = CustomColor.red
 // Card Config
-private let cardCornerRadius : CGFloat = 20
+let cardCornerRadius : CGFloat = 20
 // Animation Times
 private let instructionAnimationDuration = 0.8
 private let countDownAnimationDuration = 0.4
@@ -32,9 +32,9 @@ private let swipeSensitivityPercentage : CGFloat = 20/100
 
 class GameViewController: UIViewController {
     var dataSource : [CardView]?
-    var gameTime = 60
+    var gameTime = 5
     var gameTimer = Timer()
-    var countDownTime = 5
+    var countDownTime = 2
     var countDownTimer = Timer()
     var blurEffectView = UIVisualEffectView()
     let instructionView = Bundle.main.loadNibNamed("Instruction", owner: nil, options: nil)?[0] as! UIView
@@ -118,7 +118,7 @@ class GameViewController: UIViewController {
     private func updateCountDownTimer() {
         if countDownTime > 1 {
             countDownTime -= 1
-            if countDownTime == 2 {
+            if countDownTime <= 2 {
                 //remove instructions
                 UIView.animate(withDuration: instructionAnimationDuration, animations: {self.instructionView.alpha = 0}, completion: {finished in self.instructionView.removeFromSuperview()})
             }
