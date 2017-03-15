@@ -16,16 +16,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fua-Bl-az3">
-                    <rect key="frame" x="0.0" y="269" width="375" height="128"/>
+                    <rect key="frame" x="100" y="246" width="175" height="175"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="128" id="RTz-Xd-MYK"/>
+                        <constraint firstAttribute="width" constant="175" id="GxB-AL-dQG"/>
+                        <constraint firstAttribute="height" constant="175" id="v5f-e6-Obo"/>
                     </constraints>
                 </imageView>
             </subviews>
             <constraints>
-                <constraint firstItem="fua-Bl-az3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Rio-uf-1Nr"/>
-                <constraint firstAttribute="trailing" secondItem="fua-Bl-az3" secondAttribute="trailing" id="pEc-by-T0d"/>
-                <constraint firstItem="fua-Bl-az3" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="sdc-Ob-xUI"/>
+                <constraint firstItem="fua-Bl-az3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Mxe-Tw-wbD"/>
+                <constraint firstItem="fua-Bl-az3" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="voy-Ik-dRm"/>
             </constraints>
             <connections>
                 <outlet property="resultImage" destination="fua-Bl-az3" id="RUc-GZ-Fuc"/>
