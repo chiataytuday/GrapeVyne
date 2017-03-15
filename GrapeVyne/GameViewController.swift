@@ -32,7 +32,7 @@ private let swipeSensitivityPercentage : CGFloat = 20/100
 
 class GameViewController: UIViewController {
     var dataSource : [CardView]?
-    var gameTime = 5
+    var gameTime = 15
     var gameTimer = Timer()
     var countDownTime = 2
     var countDownTimer = Timer()
@@ -55,7 +55,7 @@ class GameViewController: UIViewController {
         modalTransitionStyle = appModalTransitionStyle
         configureViewUI()
         //game starts with this completion handler
-        view.insertSubview(instructionView, at: view.subviews.count - 3)
+        view.insertSubview(instructionView, belowSubview: countDownLabel)
         countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
     }
     

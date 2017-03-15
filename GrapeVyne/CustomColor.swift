@@ -10,6 +10,8 @@ import UIKit
 
 class CustomColor: UIColor {
     static let customPurple = UIColor(red: 136/255, green: 88/255, blue: 163/255, alpha: 1.0)
+    static let customGreen = UIColor(red: 172/255, green: 219/255, blue: 25/255, alpha: 1.0)
+    static let customDarkRed = UIColor(red: 142/255, green: 0, blue: 0, alpha: 1.0)
     
     // SwipeOverlayResult
     static let swipeCorrectGreen =  UIColor(red: 0, green: 128/255, blue: 0, alpha: 1.0)

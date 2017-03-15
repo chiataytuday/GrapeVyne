@@ -14,7 +14,10 @@ import SafariServices
 private let trueImage = #imageLiteral(resourceName: "result_true")
 private let falseImage = #imageLiteral(resourceName: "result_false")
 // Color config
+private let viewBackgroundColor = CustomColor.customPurple
 private let tableViewBackgroundColor = CustomColor.customPurple
+private let correctCounterLabelTextColor = CustomColor.customGreen
+private let incorrectCounterLabelTextColor = CustomColor.customDarkRed
 private let cellBackgroundColor = UIColor.white.withAlphaComponent(0.3)
 private let storyLabelTextColor = UIColor.white
 private let resultTextColor = UIColor.white.withAlphaComponent(0.7)
@@ -36,15 +39,34 @@ class ResultTableViewCell: UITableViewCell {
 
 class ResultTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var resultCounterLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         modalTransitionStyle = appModalTransitionStyle
+        view.backgroundColor = viewBackgroundColor
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorColor = UIColor.clear
-        tableView.backgroundColor = tableViewBackgroundColor
+        tableView.backgroundColor = parent?.view.backgroundColor
         tableView.layer.cornerRadius = cardCornerRadius
+        
+        //resultCounterLabel.text = "\(storyRepo.arrayOfCorrectStories.count) CORRECT\n\(storyRepo.arrayOfIncorrectStories.count) INCORRECT"
+        let resultCounterString = "\(storyRepo.arrayOfCorrectStories.count) CORRECT\n\(storyRepo.arrayOfIncorrectStories.count) INCORRECT"
+        let correctCounterString = "\(storyRepo.arrayOfCorrectStories.count) CORRECT\n"
+        let correctRange = NSRange(location: 0, length: correctCounterString.characters.count)
+        
+        let incorrectCounterString = "\(storyRepo.arrayOfIncorrectStories.count) INCORRECT"
+        let incorrectRange = NSRange(location: correctCounterString.characters.count, length: incorrectCounterString.characters.count)
+        
+        
+        var myMutableString = NSMutableAttributedString()
+        
+        myMutableString = NSMutableAttributedString(string: resultCounterString, attributes: nil)
+        myMutableString.addAttribute(NSForegroundColorAttributeName, value: correctCounterLabelTextColor, range: correctRange)
+        myMutableString.addAttribute(NSForegroundColorAttributeName, value: incorrectCounterLabelTextColor, range: incorrectRange)
+        resultCounterLabel.attributedText = myMutableString
     }
     
     override func viewWillAppear(_ animated: Bool) {
