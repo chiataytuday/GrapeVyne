@@ -77,7 +77,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hj1-qY-KbL">
-                                <rect key="frame" x="136" y="532" width="103" height="64"/>
+                                <rect key="frame" x="101" y="488" width="173" height="108"/>
                                 <state key="normal" image="play_button"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="presentation" id="I7O-0a-E3x"/>
@@ -293,7 +293,7 @@
     <resources>
         <image name="done_button" width="181" height="48"/>
         <image name="landing" width="355" height="630"/>
-        <image name="play_button" width="103" height="64"/>
+        <image name="play_button" width="173" height="108"/>
         <image name="splash" width="355" height="630"/>
         <image name="storylink_button" width="107" height="27"/>
     </resources>

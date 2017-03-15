@@ -32,9 +32,9 @@ private let swipeSensitivityPercentage : CGFloat = 20/100
 
 class GameViewController: UIViewController {
     var dataSource : [CardView]?
-    var gameTime = 15
+    var gameTime = 60
     var gameTimer = Timer()
-    var countDownTime = 2
+    var countDownTime = 5
     var countDownTimer = Timer()
     var blurEffectView = UIVisualEffectView()
     let instructionView = Bundle.main.loadNibNamed("Instruction", owner: nil, options: nil)?[0] as! UIView
