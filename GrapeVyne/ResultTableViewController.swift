@@ -25,8 +25,6 @@ class ResultTableViewCell: UITableViewCell {
     @IBOutlet weak var storyLabel: UILabel!
     @IBOutlet weak var correctAnsLabel: UILabel!
     @IBOutlet weak var userAnsLabel: UILabel!
-    @IBOutlet weak var correctAnsImage: UIImageView!
-    @IBOutlet weak var userAnsImage: UIImageView!
     
     @IBAction func linkButton(_ sender: UIButton) {
         let svc = SFSafariViewController(url: URL(string: storyURLasString)!)
@@ -83,27 +81,43 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         cell.userAnsLabel.textColor = resultTextColor
         cell.backgroundColor = cellBackgroundColor
         cell.layer.cornerRadius = cardCornerRadius
-        
+
         let story = storyRepo.arrayOfSwipedStories[indexPath.row]
         cell.storyLabel.text = story.title
         cell.storyURLasString = story.urlString
         if storyRepo.arrayOfCorrectStories.contains(where: {$0.title == story.title}) {
+            //user was correct, now just match result images
             if story.fact {
-                cell.correctAnsImage.image = trueImage
-                cell.userAnsImage.image = trueImage
+                cell.correctAnsLabel.addImage(image: trueImage)
+                cell.userAnsLabel.addImage(image: trueImage)
             } else {
-                cell.correctAnsImage.image = falseImage
-                cell.userAnsImage.image = falseImage
+                cell.correctAnsLabel.addImage(image: falseImage)
+                cell.userAnsLabel.addImage(image: falseImage)
             }
         } else if storyRepo.arrayOfIncorrectStories.contains(where: {$0.title == story.title}) {
+            //user was incorrect, now opposite images
             if story.fact {
-                cell.correctAnsImage.image = trueImage
-                cell.userAnsImage.image = falseImage
+                cell.correctAnsLabel.addImage(image: trueImage)
+                cell.userAnsLabel.addImage(image: falseImage)
             } else {
-                cell.correctAnsImage.image = falseImage
-                cell.userAnsImage.image = trueImage
+                cell.correctAnsLabel.addImage(image: falseImage)
+                cell.userAnsLabel.addImage(image: trueImage)
             }
         }
         return cell
+    }
+    
+}
+extension UILabel {
+    func addImage(image: UIImage) {
+        let attachment = NSTextAttachment()
+        attachment.image = image
+
+        attachment.bounds = CGRect(x: 8.0, y: -5.0, width: (attachment.image?.size.width)!, height: (attachment.image?.size.height)!)
+        let attachmentString = NSAttributedString(attachment: attachment)
+        let myString = NSMutableAttributedString(string: self.text!)
+        myString.append(attachmentString)
+        
+        self.attributedText = myString
     }
 }

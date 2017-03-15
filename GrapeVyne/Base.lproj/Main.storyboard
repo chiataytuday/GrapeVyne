@@ -190,68 +190,41 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="147"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.34999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="k1e-Pl-ece">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.34999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="k1e-Pl-ece">
                                                     <rect key="frame" x="8" y="8" width="327" height="80"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLh-qL-ZBe">
-                                                    <rect key="frame" x="236" y="101" width="107" height="27"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="you said" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DiD-l2-sJw">
+                                                    <rect key="frame" x="8" y="86" width="101" height="53"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="answer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ygn-bp-fvM">
+                                                    <rect key="frame" x="117" y="92" width="95" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLh-qL-ZBe">
+                                                    <rect key="frame" x="234" y="99" width="107" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="storylink_button"/>
                                                     <connections>
                                                         <action selector="linkButton:" destination="jR3-0S-pBZ" eventType="touchUpInside" id="WAQ-EF-F7h"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="you said" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DiD-l2-sJw">
-                                                    <rect key="frame" x="8" y="89" width="45" height="50"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="11"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ibe-dg-AGu">
-                                                    <rect key="frame" x="61" y="94" width="40" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="8PJ-tD-rTk"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="answer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ygn-bp-fvM">
-                                                    <rect key="frame" x="120" y="107" width="39" height="14"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="11"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FvH-J3-o0i">
-                                                    <rect key="frame" x="167" y="94" width="40" height="40"/>
-                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.53333333329999999" green="0.34509803919999998" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstItem="k1e-Pl-ece" firstAttribute="leading" secondItem="I6T-MF-qNW" secondAttribute="leadingMargin" id="0Yj-Vk-tac"/>
-                                                <constraint firstItem="Ibe-dg-AGu" firstAttribute="top" secondItem="FvH-J3-o0i" secondAttribute="top" id="4hN-NK-PIQ"/>
-                                                <constraint firstItem="FvH-J3-o0i" firstAttribute="centerY" secondItem="PLh-qL-ZBe" secondAttribute="centerY" id="5dz-VH-nFE"/>
-                                                <constraint firstItem="ygn-bp-fvM" firstAttribute="centerY" secondItem="FvH-J3-o0i" secondAttribute="centerY" id="9gH-dR-woZ"/>
-                                                <constraint firstItem="DiD-l2-sJw" firstAttribute="centerY" secondItem="Ibe-dg-AGu" secondAttribute="centerY" id="BUp-xT-59A"/>
-                                                <constraint firstItem="ygn-bp-fvM" firstAttribute="leading" secondItem="Ibe-dg-AGu" secondAttribute="trailing" constant="19" id="Jek-Xl-Tkk"/>
-                                                <constraint firstItem="Ibe-dg-AGu" firstAttribute="bottom" secondItem="FvH-J3-o0i" secondAttribute="bottom" id="K1u-9u-MQK"/>
-                                                <constraint firstItem="FvH-J3-o0i" firstAttribute="leading" secondItem="ygn-bp-fvM" secondAttribute="trailing" constant="8" symbolic="YES" id="NyW-f6-v6k"/>
-                                                <constraint firstItem="k1e-Pl-ece" firstAttribute="trailing" secondItem="I6T-MF-qNW" secondAttribute="trailingMargin" id="QPx-Ao-QwR"/>
-                                                <constraint firstItem="k1e-Pl-ece" firstAttribute="leading" secondItem="DiD-l2-sJw" secondAttribute="leading" id="SBF-gE-IVQ"/>
-                                                <constraint firstItem="Ibe-dg-AGu" firstAttribute="top" secondItem="k1e-Pl-ece" secondAttribute="bottom" constant="6" id="SeM-OC-0E6"/>
-                                                <constraint firstItem="Ibe-dg-AGu" firstAttribute="leading" secondItem="DiD-l2-sJw" secondAttribute="trailing" constant="8" symbolic="YES" id="Vaa-Al-fpA"/>
-                                                <constraint firstItem="PLh-qL-ZBe" firstAttribute="top" secondItem="k1e-Pl-ece" secondAttribute="bottom" constant="13" id="Wax-81-7OP"/>
-                                                <constraint firstItem="PLh-qL-ZBe" firstAttribute="leading" secondItem="FvH-J3-o0i" secondAttribute="trailing" constant="29" id="krO-h9-H0U"/>
-                                                <constraint firstItem="DiD-l2-sJw" firstAttribute="top" secondItem="k1e-Pl-ece" secondAttribute="bottom" constant="1" id="qYu-Cm-SYE"/>
-                                                <constraint firstAttribute="trailing" secondItem="PLh-qL-ZBe" secondAttribute="trailing" id="rAA-NH-nfg"/>
-                                                <constraint firstItem="k1e-Pl-ece" firstAttribute="top" secondItem="I6T-MF-qNW" secondAttribute="topMargin" id="stJ-6S-wC8"/>
-                                                <constraint firstItem="DiD-l2-sJw" firstAttribute="bottom" secondItem="I6T-MF-qNW" secondAttribute="bottomMargin" id="t8k-dK-9yG"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="correctAnsImage" destination="FvH-J3-o0i" id="fi0-Cb-571"/>
                                             <outlet property="correctAnsLabel" destination="DiD-l2-sJw" id="veV-tC-9f3"/>
                                             <outlet property="storyLabel" destination="k1e-Pl-ece" id="zrU-mE-9Qf"/>
-                                            <outlet property="userAnsImage" destination="Ibe-dg-AGu" id="Cjz-E8-4Dy"/>
                                             <outlet property="userAnsLabel" destination="ygn-bp-fvM" id="uNz-EE-ABZ"/>
                                         </connections>
                                     </tableViewCell>
