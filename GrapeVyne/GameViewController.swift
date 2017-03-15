@@ -54,8 +54,9 @@ class GameViewController: UIViewController {
         kolodaView.delegate = self
         modalTransitionStyle = appModalTransitionStyle
         configureViewUI()
-        //game starts with this completion handler
+        instructionView.frame = view.bounds
         view.insertSubview(instructionView, belowSubview: countDownLabel)
+        //game starts with this completion handler
         countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
     }
     
@@ -162,7 +163,7 @@ class GameViewController: UIViewController {
     
     func startGame() {
         countDownLabel.pushTransitionFromBottomWith(duration: countDownAnimationDuration)
-        countDownLabel.text = "Go!"
+        countDownLabel.text = "GO!"
         countDownTimer.invalidate()
         gameTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateGameTimer()})
     }
