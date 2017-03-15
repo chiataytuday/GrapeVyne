@@ -40,6 +40,7 @@ class ResultTableViewCell: UITableViewCell {
 class ResultTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var resultCounterLabel: UILabel!
+    let cellSpacingHeight : CGFloat = 10
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,8 +49,8 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorColor = UIColor.clear
-        tableView.backgroundColor = parent?.view.backgroundColor
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor.clear
         tableView.layer.cornerRadius = cardCornerRadius
         
         //resultCounterLabel.text = "\(storyRepo.arrayOfCorrectStories.count) CORRECT\n\(storyRepo.arrayOfIncorrectStories.count) INCORRECT"
@@ -87,11 +88,21 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return storyRepo.arrayOfSwipedStories.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return storyRepo.arrayOfSwipedStories.count
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return cellSpacingHeight
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,7 +115,7 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         cell.backgroundColor = cellBackgroundColor
         cell.layer.cornerRadius = cardCornerRadius
 
-        let story = storyRepo.arrayOfSwipedStories[indexPath.row]
+        let story = storyRepo.arrayOfSwipedStories[indexPath.section]
         cell.storyLabel.text = story.title
         cell.storyURLasString = story.urlString
         if storyRepo.arrayOfCorrectStories.contains(where: {$0.title == story.title}) {
