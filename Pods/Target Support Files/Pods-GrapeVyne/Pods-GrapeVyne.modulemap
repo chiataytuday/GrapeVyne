@@ -1,0 +1,6 @@
+framework module Pods_GrapeVyne {
+  umbrella header "Pods-GrapeVyne-umbrella.h"
+
+  export *
+  module * { export * }
+}
