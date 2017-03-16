@@ -10,21 +10,17 @@ import UIKit
 import Koloda
 
 // MARK: Global properties
-// Colors
-private let customLightBlue = UIColor(red: 161/255, green: 203/255, blue: 255/255, alpha: 1.0)
-private let customBlue = UIColor(red: 16/255, green: 102/255, blue: 178/255, alpha: 1.0)
-private let customOrange = UIColor(red: 255/255, green: 161/255, blue: 0/255, alpha: 1.0)
-private let customGreen =  UIColor(red: 0, green: 128/255, blue: 0, alpha: 1.0)
-private let customRed = UIColor(red: 218/255, green: 0, blue: 0, alpha: 1.0)
 // Color Config
 private let viewBackgroundColor = UIColor.black
-private let cardViewTextColor = UIColor.black
-private let timerLabelTextColor = CustomColor.customLightGray
-private let noMoreCardsLabelTextColor = CustomColor.customLightGray
+private let cardViewTextColor = UIColor.white
+private let timerLabelTextColor = UIColor.white
+private let noMoreCardsLabelTextColor = UIColor.white
+private let countDownLabelTextColor = UIColor.white
+private let timeEndingWarningColor = CustomColor.red
 // Card Config
-private let cardViewBG = #imageLiteral(resourceName: "cardBG")
-private let cardCornerRadius : CGFloat = 20
+let cardCornerRadius : CGFloat = 20
 // Animation Times
+private let instructionAnimationDuration = 0.8
 private let countDownAnimationDuration = 0.4
 private let gameTimerAnimationDuration = 0.2
 private let revealAnimationDuration = 0.3
@@ -38,9 +34,10 @@ class GameViewController: UIViewController {
     var dataSource : [CardView]?
     var gameTime = 60
     var gameTimer = Timer()
-    var countDownTime = 3
+    var countDownTime = 5
     var countDownTimer = Timer()
     var blurEffectView = UIVisualEffectView()
+    let instructionView = Bundle.main.loadNibNamed("Instruction", owner: nil, options: nil)?[0] as! UIView
     
     // MARK: IBOutlets
     @IBOutlet weak var kolodaView: KolodaView!
@@ -57,6 +54,10 @@ class GameViewController: UIViewController {
         kolodaView.delegate = self
         modalTransitionStyle = appModalTransitionStyle
         configureViewUI()
+        instructionView.frame = view.bounds
+        view.insertSubview(instructionView, belowSubview: countDownLabel)
+        //game starts with this completion handler
+        countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
     }
     
     // MARK: IBActions
@@ -74,11 +75,10 @@ class GameViewController: UIViewController {
         
         configureCardBlurEffectView()
         
+        countDownLabel.textColor = countDownLabelTextColor
         countDownLabel.text = String(countDownTime)
         noMoreCardsLabel.textColor = noMoreCardsLabelTextColor
         
-        //game starts with this completion handler
-        countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
         timerLabel.textColor = timerLabelTextColor
         updateTimerLabel()
     }
@@ -110,8 +110,6 @@ class GameViewController: UIViewController {
         let cardView = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
         cardView.titleLabel.text = title
         
-        cardView.bgImageView.image = cardViewBG
-        cardView.bgImageView.clipsToBounds = true
         cardView.layer.cornerRadius = cardCornerRadius
         cardView.titleLabel.textColor = cardViewTextColor
         
@@ -121,6 +119,10 @@ class GameViewController: UIViewController {
     private func updateCountDownTimer() {
         if countDownTime > 1 {
             countDownTime -= 1
+            if countDownTime <= 2 {
+                //remove instructions
+                UIView.animate(withDuration: instructionAnimationDuration, animations: {self.instructionView.alpha = 0}, completion: {finished in self.instructionView.removeFromSuperview()})
+            }
             countDownLabel.pushTransitionFromBottomWith(duration: countDownAnimationDuration)
             countDownLabel.text = String(countDownTime)
         } else {
@@ -144,7 +146,7 @@ class GameViewController: UIViewController {
     
     private func updateTimerLabel() {
         if gameTime < 11 {
-            timerLabel.textColor = CustomColor.customRed
+            timerLabel.textColor = timeEndingWarningColor
         }
         var concatStr = ""
         if gameTime % 60 < 10 {
@@ -161,7 +163,7 @@ class GameViewController: UIViewController {
     
     func startGame() {
         countDownLabel.pushTransitionFromBottomWith(duration: countDownAnimationDuration)
-        countDownLabel.text = "Go!"
+        countDownLabel.text = "GO!"
         countDownTimer.invalidate()
         gameTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateGameTimer()})
     }
