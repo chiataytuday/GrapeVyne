@@ -23,7 +23,8 @@ class LandingViewController: UIViewController {
         })
         
         let viewCreditsAction = UIAlertAction(title: "Credits", style: .default, handler: {presentVC in
-            print("credits")
+            let creditsVC = self.storyboard?.instantiateViewController(withIdentifier: "CreditsViewController") as! CreditsViewController
+            self.present(creditsVC, animated: true, completion: nil)
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
