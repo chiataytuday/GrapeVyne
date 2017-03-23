@@ -13,7 +13,7 @@ class CreditsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        creditTextView.text = "Creator: Umair Sharif\n\nWeb Scraping: Walid Sharif\n\nDesigns: Daniel Haidermota\n\nOriginal idea: Eric Schwaber"
+        creditTextView.text = "iOS implementation: Umair Sharif\n\nWeb Scraping: Walid Sharif\n\nDesign: Daniel Haidermota & Cassie Naughton\n\nIdea: Eric Schwaber"
         
     }
     
