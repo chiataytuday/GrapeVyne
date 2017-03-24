@@ -1,10 +1,10 @@
 # The GrapeVyne
 
-The GrapeVyne is a game to test your knowledge of political, pop culture and general news rumors floating around.
+The GrapeVyne is an iOS game to test your knowledge of political, pop culture and general news rumors floating around.
 
 What'd you hear through The Grapevyne?
 
-Available on the [App Store](http://appstore.com/TheGrapeVyne)
+Available on the Apple [App Store](http://appstore.com/TheGrapeVyne)
 
 ## Release Notes
 
