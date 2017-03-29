@@ -14,4 +14,25 @@ class LandingViewController: UIViewController {
         super.viewDidLoad()
         modalTransitionStyle = appModalTransitionStyle
     }
+    @IBAction func questionButton(_ sender: UIButton) {
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let viewTutorialAction = UIAlertAction(title: "How To Play", style: .default, handler: {presentVC in
+            let instructionVC = self.storyboard?.instantiateViewController(withIdentifier: "InstructionViewController") as! InstructionViewController
+            self.present(instructionVC, animated: true, completion: nil)
+        })
+        
+        let viewCreditsAction = UIAlertAction(title: "Credits", style: .default, handler: {presentVC in
+            let creditsVC = self.storyboard?.instantiateViewController(withIdentifier: "CreditsViewController") as! CreditsViewController
+            self.present(creditsVC, animated: true, completion: nil)
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        optionMenu.addAction(viewTutorialAction)
+        optionMenu.addAction(viewCreditsAction)
+        optionMenu.addAction(cancelAction)
+        
+        present(optionMenu, animated: true, completion: nil)
+    }
 }
