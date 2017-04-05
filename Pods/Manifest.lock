@@ -1,10 +1,14 @@
 PODS:
+  - Alamofire (4.4.0)
+  - Kanna (2.1.1)
   - Koloda (4.0):
     - pop (~> 1.0)
   - pop (1.0.9)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.4.0)
+  - Kanna (~> 2.1.0)
   - Koloda (from `https://github.com/Yalantis/Koloda.git`, branch `swift-3`)
   - SwiftyJSON
 
@@ -19,10 +23,12 @@ CHECKOUT OPTIONS:
     :git: https://github.com/Yalantis/Koloda.git
 
 SPEC CHECKSUMS:
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   Koloda: b133e13cee0444c545e788d87950131bfac47389
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: d5acaf893683c9bded5938f21d8a2da91a2e5e90
+PODFILE CHECKSUM: 48bf4ac8d8300c69c34906ec966991534be13e8c
 
 COCOAPODS: 1.2.0.beta.3

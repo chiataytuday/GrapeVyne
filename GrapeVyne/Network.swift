@@ -7,9 +7,8 @@
 //
 
 import Foundation
-
-private let api_key = "t_mLCwaTNSTu"
-private let jsonFile = "articles.json"
+import Alamofire
+import Kanna
 
 class MockedJSON {
    static public func getData() -> Data {
@@ -26,21 +25,11 @@ class MockedJSON {
 }
 
 class Network {
-    
-    public func getLastReadyRunData(token : ProjectToken) -> Data {
-        
-        let url = URL(string: "https://www.parsehub.com/api/v2/projects/\(token.rawValue)/last_ready_run/data?api_key=\(api_key)")
-        var data : Data?
-        var error : Error?
-        
-        (data, _, error) = URLSession.shared.synchronousDataTask(with: url!)
-        if (error != nil) {
-            print(error.debugDescription)
-            data = nil
-        }
-        return data!
-    }
+
+
+
 }
+
 extension URLSession {
     func synchronousDataTask(with url: URL) -> (Data?, URLResponse?, Error?) {
         var data: Data?
@@ -62,9 +51,4 @@ extension URLSession {
         
         return (data, response, error)
     }
-}
-
-enum ProjectToken : String {
-    case falseProject = "t9eT0c4yuFGf"
-    case trueProject = "tKWsPC0omVB4"
 }
