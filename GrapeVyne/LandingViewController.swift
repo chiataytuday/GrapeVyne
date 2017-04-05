@@ -39,6 +39,7 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         optionMenu.addAction(viewCreditsAction)
         optionMenu.addAction(cancelAction)
         
+        optionMenu.view.tintColor = CustomColor.customPurple
         present(optionMenu, animated: true, completion: nil)
     }
     
