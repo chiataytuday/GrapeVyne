@@ -27,3 +27,12 @@ class StoryRepo {
         }
     }
 }
+struct Category {
+    var title: String
+    var url: String
+}
+struct Story {
+    var title: String
+    var url: String
+    var factValue: String?
+}

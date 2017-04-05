@@ -11,7 +11,6 @@ import UIKit
 var storyRepo = StoryRepo()
 
 class LaunchViewController: UIViewController {
-    let jsonParser = JSONParser()
 
     override func viewDidLoad() {
         super.viewDidLoad()
