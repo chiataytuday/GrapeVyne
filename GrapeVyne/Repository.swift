@@ -1,11 +1,10 @@
 //
-//  StoryRepo.swift
-//  StoryApp
+//  Repository.swift
+//  GrapeVyne
 //
-//  Created by Umair Sharif on 12/30/16.
-//  Copyright © 2016 usharif. All rights reserved.
+//  Created by Umair Sharif on 4/4/17.
+//  Copyright © 2017 usharif. All rights reserved.
 //
-import UIKit
 import CoreData
 
 class StoryRepo {
@@ -23,10 +22,18 @@ class StoryRepo {
     
     func writeToCD(array: [Story]) {
         for story in arrayOfStories {
-            CoreDataManager.writeStoryToModel(entity: "CDStory", title: story.title, fact: story.fact, urlStr: story.urlString)
+            CoreDataManager.writeStoryToModel(entity: "CDStory", title: story.title, fact: story.fact, urlStr: story.url)
         }
     }
 }
+class CategoryRepo {
+    var arrayOfCategories: [Category]
+    
+    init() {
+        arrayOfCategories = []
+    }
+}
+
 struct Category {
     var title: String
     var url: String
@@ -34,5 +41,5 @@ struct Category {
 struct Story {
     var title: String
     var url: String
-    var factValue: String?
+    var fact: Bool
 }

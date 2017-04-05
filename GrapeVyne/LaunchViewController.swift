@@ -11,7 +11,7 @@ import UIKit
 var storyRepo = StoryRepo()
 
 class LaunchViewController: UIViewController {
-
+    let network = Network()
     override func viewDidLoad() {
         super.viewDidLoad()
         modalTransitionStyle = appModalTransitionStyle
@@ -28,18 +28,20 @@ class LaunchViewController: UIViewController {
         let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
         if managedObject.isEmpty {
             //Nothing in Core Data
-            print("Time taken to parse JSON: ",timeElapsedInSecondsWhenRunningCode {
-                let stories = jsonParser.parseStories(data: MockedJSON.getData())
-                storyRepo.arrayOfStories = stories
-                storyRepo.writeToCD(array: stories)
-            })
+            
+            
+//            print("Time taken to parse JSON: ",timeElapsedInSecondsWhenRunningCode {
+//                let stories = jsonParser.parseStories(data: MockedJSON.getData())
+//                storyRepo.arrayOfStories = stories
+//                storyRepo.writeToCD(array: stories)
+//            })
         } else {
             //Something in Core Data
             for object in managedObject {
                 let title = object.value(forKey: "title") as! String
                 let factValue = object.value(forKey: "fact") as! Bool
                 let urlString = object.value(forKey: "urlString") as! String
-                let tempStory = Story(title: title, fact: factValue, urlStr: urlString)
+                let tempStory = Story(title: title, url: urlString, fact: factValue)
                 storyRepo.arrayOfStories.append(tempStory)
             }
         }

@@ -27,7 +27,7 @@ class MockedJSON {
 private let baseURL = "http://www.snopes.com/category/facts/"
 
 class Network {
-    private func getCategories(completion: @escaping (_ array: [Category]) -> Void) {
+    public func getCategories(completion: @escaping (_ array: [Category]) -> Void) {
         var array = [Category]()
         Alamofire.request(baseURL).responseString(completionHandler: { response in
             if let html = response.result.value {
@@ -37,7 +37,7 @@ class Network {
         })
     }
     
-    private func isValidCategory(category: Category, completion: @escaping (_ flag: Bool) -> Void) {
+    public func isValidCategory(category: Category, completion: @escaping (_ flag: Bool) -> Void) {
         var isValid = false
         Alamofire.request(category.url).responseString(completionHandler: {response in
             if let html = response.result.value {
@@ -50,7 +50,7 @@ class Network {
         })
     }
     
-    private func getStoriesFor(category: Category, completion:  @escaping (_ array: [Story]) -> Void) {
+    public func getStoriesFor(category: Category, completion:  @escaping (_ array: [Story]) -> Void) {
         var array = [Story]()
         Alamofire.request(category.url).responseString(completionHandler: { response in
             if let html = response.result.value {
@@ -60,11 +60,15 @@ class Network {
         })
     }
     
-    private func getFactValueFor(story: Story, completion: @escaping (_ story: Story) -> Void) {
+    public func getFactValueFor(story: Story, completion: @escaping (_ story: Story) -> Void) {
         var parsedStory = story
         Alamofire.request(story.url).responseString(completionHandler: { response in
             if let html = response.result.value {
-                parsedStory.factValue = self.scrapeFactValue(html: html)
+                if let factStringValue = self.scrapeFactValue(html: html) {
+                    if let fact = self.determineStoryReliable(factString: factStringValue) {
+                        parsedStory.fact = fact
+                    }
+                }
             }
             completion(parsedStory)
         })
@@ -93,7 +97,7 @@ class Network {
         var _arrayOfStories = [Story]()
         if let doc = Kanna.HTML(html: html, encoding: .utf8) {
             for story in doc.xpath("//*[@id='main-list']/article/a") {
-                var parsedStory = Story(title: "", url: "", factValue: nil)
+                var parsedStory = Story(title: "", url: "", fact: false)
                 if let url = story["href"] {
                     parsedStory.url = url
                 }
