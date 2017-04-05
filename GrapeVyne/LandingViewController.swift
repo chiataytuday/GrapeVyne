@@ -8,12 +8,18 @@
 
 import UIKit
 
-class LandingViewController: UIViewController {
-
+class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    @IBOutlet weak var picker: UIPickerView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        picker.dataSource = self
+        picker.delegate = self
         modalTransitionStyle = appModalTransitionStyle
+        picker.backgroundColor = UIColor.clear
     }
+    
     @IBAction func questionButton(_ sender: UIButton) {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -34,5 +40,31 @@ class LandingViewController: UIViewController {
         optionMenu.addAction(cancelAction)
         
         present(optionMenu, animated: true, completion: nil)
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categoryRepo.arrayOfCategories.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categoryRepo.arrayOfCategories[row].title
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        var pickerLabel = view as! UILabel!
+        if view == nil {  // if no label there yet
+            pickerLabel = UILabel()
+        }
+        let title = categoryRepo.arrayOfCategories[row].title.uppercased()
+        let attTitle = NSAttributedString(string: title, attributes: [
+            NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 22.0)!,
+            NSForegroundColorAttributeName: UIColor.white])
+        pickerLabel?.attributedText = attTitle
+        pickerLabel?.textAlignment = .center
+        return pickerLabel!
     }
 }
