@@ -20,8 +20,8 @@ class StoryRepo {
         arrayOfIncorrectStories = []
     }
     
-    func writeToCD(array: [Story]) {
-        for story in arrayOfStories {
+    func writeStoryToCD(array: [Story]) {
+        for story in array {
             CoreDataManager.writeStoryToModel(entity: "CDStory", title: story.title, fact: story.fact, urlStr: story.url)
         }
     }
@@ -31,6 +31,12 @@ class CategoryRepo {
     
     init() {
         arrayOfCategories = []
+    }
+    
+    func writeCategoryToCD(array: [Category]) {
+        for category in array {
+            CoreDataManager.writeCategoryToModel(entity: "CDCategory", title: category.title, urlStr: category.url)
+        }
     }
 }
 

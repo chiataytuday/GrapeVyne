@@ -9,6 +9,7 @@
 import UIKit
 
 var storyRepo = StoryRepo()
+var categoryRepo = CategoryRepo()
 
 class LaunchViewController: UIViewController {
     let network = Network()
@@ -19,39 +20,30 @@ class LaunchViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadCards()
-        let landingVC = storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
-        present(landingVC, animated: true, completion: nil)
+        loadCategories(completion: {
+            let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+            self.present(landingVC, animated: true, completion: nil)
+        })
     }
     
-    private func loadCards() {
-        let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
+    private func loadCategories(completion: @escaping () -> Void) {
+        let managedObject = CoreDataManager.fetchModel(entity: "CDCategory")
         if managedObject.isEmpty {
             //Nothing in Core Data
-            
-            
-//            print("Time taken to parse JSON: ",timeElapsedInSecondsWhenRunningCode {
-//                let stories = jsonParser.parseStories(data: MockedJSON.getData())
-//                storyRepo.arrayOfStories = stories
-//                storyRepo.writeToCD(array: stories)
-//            })
+            network.getCategories(completion: { categories in
+                categoryRepo.arrayOfCategories = categories
+                categoryRepo.writeCategoryToCD(array: categories)
+                completion()
+            })
         } else {
             //Something in Core Data
             for object in managedObject {
                 let title = object.value(forKey: "title") as! String
-                let factValue = object.value(forKey: "fact") as! Bool
                 let urlString = object.value(forKey: "urlString") as! String
-                let tempStory = Story(title: title, url: urlString, fact: factValue)
-                storyRepo.arrayOfStories.append(tempStory)
+                let tempCategory = Category(title: title, url: urlString)
+                categoryRepo.arrayOfCategories.append(tempCategory)
             }
+            completion()
         }
-        print("*** Number of stories currently in memory \(storyRepo.arrayOfStories.count) ***")
-    }
-    
-    private func timeElapsedInSecondsWhenRunningCode(operation:()->()) -> Double {
-        let startTime = CFAbsoluteTimeGetCurrent()
-        operation()
-        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-        return Double(timeElapsed)
     }
 }

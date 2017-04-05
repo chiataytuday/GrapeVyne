@@ -10,20 +10,6 @@ import Foundation
 import Alamofire
 import Kanna
 
-class MockedJSON {
-   static public func getData() -> Data {
-    var data = Data()
-        if let path = Bundle.main.path(forResource: "articles", ofType: "json") {
-            do {
-                data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }
-    return data
-    }
-}
-
 private let baseURL = "http://www.snopes.com/category/facts/"
 
 class Network {
