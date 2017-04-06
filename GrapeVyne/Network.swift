@@ -15,7 +15,7 @@ private let baseURL = "http://www.snopes.com/category/facts/"
 class Network {
     public func getCategories(completion: @escaping (_ array: [Category]) -> Void) {
         var array = [Category]()
-        Alamofire.request(baseURL).responseString(completionHandler: { response in
+        Alamofire.request(baseURL).responseString(queue: DispatchQueue.main, encoding: String.Encoding.utf8, completionHandler: {response in
             if let html = response.result.value {
                 array = self.scrapeCategories(html: html)
             }
