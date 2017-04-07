@@ -28,7 +28,7 @@ class Network {
         Alamofire.request(category.url).responseString(completionHandler: {response in
             if let html = response.result.value {
                 let stories = self.scrapeStories(html: html)
-                if stories.count != 0 {
+                if stories.count > 0 {
                     isValid = true
                 }
             }
