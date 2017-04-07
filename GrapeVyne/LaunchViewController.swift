@@ -19,24 +19,14 @@ class LaunchViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        var counter = 0
         super.viewDidAppear(animated)
         loadCategories(completion: { categoryArray in
-            var array = [Category]()
-            for category in categoryArray {
-                self.checkValidityFor(category: category, completion: { flag in
-                    counter += 1
-                    if flag {
-                        array.append(category)
-                    }
-                    if counter == categoryArray.count {
-                        categoryRepo.arrayOfCategories = array.sorted(by: {$0.title < $1.title})
-                        categoryRepo.writeCategoryToCD(array: categoryRepo.arrayOfCategories)
-                        let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
-                        self.present(landingVC, animated: true, completion: nil)
-                    }
-                })
-            }
+            self.loadValidCategories(array: categoryArray, completion: { validCategories in
+                categoryRepo.arrayOfCategories = validCategories.sorted(by: {$0.title < $1.title})
+                categoryRepo.writeCategoryToCD(array: categoryRepo.arrayOfCategories)
+                let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+                self.present(landingVC, animated: true, completion: nil)
+            })
         })
     }
     
@@ -68,16 +58,19 @@ class LaunchViewController: UIViewController {
         })
     }
     
-//    private func loadValidCategories(array: [Category], completion: @escaping (_ array: [Category]) -> Void) {
-//        for category in array {
-//            network.getStoriesFor(category: , completion: )
-//            network.isValidCategory(category: category, completion: {bool in
-//                if bool {
-//                    categoryRepo.arrayOfCategories.append(category)
-//                }
-//            })
-//        }
-//        categoryRepo.writeCategoryToCD(array: categoryRepo.arrayOfCategories)
-//        completion()
-//    }
+    private func loadValidCategories(array: [Category], completion: @escaping (_ array: [Category]) -> Void) {
+        var counterToComplete = 0
+        var completeArray = [Category]()
+        for category in array {
+            network.isValidCategory(category: category, completion: {bool in
+                counterToComplete += 1
+                if bool {
+                    completeArray.append(category)
+                }
+                if counterToComplete == array.count {
+                    completion(completeArray)
+                }
+            })
+        }
+    }
 }
