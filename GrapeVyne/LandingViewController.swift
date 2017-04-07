@@ -9,6 +9,7 @@
 import UIKit
 
 class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    var selectedRow: Int!
     @IBOutlet weak var picker: UIPickerView!
     
     override func viewDidLoad() {
@@ -42,6 +43,12 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         present(optionMenu, animated: true, completion: nil)
     }
     
+    @IBAction func playButton(_ sender: UIButton) {
+        network.getStoriesFor(category: categoryRepo.arrayOfCategories[selectedRow], completion: {array in
+            storyRepo.arrayOfStories = array
+            self.performSegue(withIdentifier: "playButton", sender: self)
+        })
+    }
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -62,5 +69,18 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         pickerLabel?.attributedText = attTitle
         pickerLabel?.textAlignment = .center
         return pickerLabel!
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedRow = row
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "playButton" {
+            network.getStoriesFor(category: categoryRepo.arrayOfCategories[selectedRow], completion: {array in
+                storyRepo.arrayOfStories = array
+                self.performSegue(withIdentifier: segue.identifier!, sender: self)
+            })
+        }
     }
 }

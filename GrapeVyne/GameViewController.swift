@@ -48,14 +48,16 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = viewBackgroundColor
-
+        modalTransitionStyle = appModalTransitionStyle
+        
         dataSource = getDataSource()
         kolodaView.dataSource = self
         kolodaView.delegate = self
-        modalTransitionStyle = appModalTransitionStyle
+        
         configureViewUI()
         instructionView.frame = view.bounds
         view.insertSubview(instructionView, belowSubview: countDownLabel)
+        //dataSource = configureCardUI(arrayOfStories: )
         //game starts with this completion handler
         countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
     }
@@ -93,6 +95,18 @@ class GameViewController: UIViewController {
         kolodaView.addSubview(blurEffectView)
     }
     
+    private func configureCardUI(arrayOfStories: [Story]) -> [CardView] {
+        var tempArray = arrayOfStories
+        var arrayOfCardViews : [CardView] = []
+        while tempArray.count > 0 {
+            let randomIndex = Int(arc4random_uniform(UInt32(tempArray.count)))
+            let cardView = configureCardUI(title: tempArray[randomIndex].title, arrayCount: tempArray.count)
+            arrayOfCardViews.append(cardView)
+            tempArray.remove(at: randomIndex)
+        }
+        return arrayOfCardViews
+    }
+    
     private func getDataSource() -> [CardView] {
         var tempArray = storyRepo.arrayOfStories
         var arrayOfCardViews : [CardView] = []
@@ -105,6 +119,13 @@ class GameViewController: UIViewController {
         }
         return arrayOfCardViews
     }
+    
+//    func getDataSourceFor(category: Category, completion: @escaping (_ array: [Story]) -> Void) {
+//        var array = [Story]()
+//        print(category)
+//        
+//        completion(array)
+//    }
     
     private func configureCardUI(title: String, arrayCount: Int) -> CardView {
         let cardView = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView

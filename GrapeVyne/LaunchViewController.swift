@@ -8,11 +8,11 @@
 
 import UIKit
 
+let network = Network()
 var storyRepo = StoryRepo()
 var categoryRepo = CategoryRepo()
 
 class LaunchViewController: UIViewController {
-    let network = Network()
     override func viewDidLoad() {
         super.viewDidLoad()
         modalTransitionStyle = appModalTransitionStyle
@@ -20,21 +20,21 @@ class LaunchViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadCategories(completion: { categoryArray in
-            self.loadValidCategories(array: categoryArray, completion: { validCategories in
-                categoryRepo.arrayOfCategories = validCategories.sorted(by: {$0.title < $1.title})
-                categoryRepo.writeCategoryToCD(array: categoryRepo.arrayOfCategories)
-                let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
-                self.present(landingVC, animated: true, completion: nil)
-            })
+        loadCategories(completion: {
+            let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+            self.present(landingVC, animated: true, completion: nil)
         })
     }
     
-    private func loadCategories(completion: @escaping (_ array: [Category]) -> Void) {
+    private func loadCategories(completion: @escaping () -> Void) {
         let managedObject = CoreDataManager.fetchModel(entity: "CDCategory")
         if managedObject.isEmpty { //Nothing in Core Data
             network.getCategories(completion: { array in
-                completion(array)
+                self.loadValidCategories(array: array, completion: { validCategories in
+                    categoryRepo.arrayOfCategories = validCategories.sorted(by: {$0.title < $1.title})
+                    categoryRepo.writeCategoryToCD(array: categoryRepo.arrayOfCategories)
+                    completion()
+                })
             })
         } else { //Something in Core Data
             var tempArray = [Category]()
@@ -44,18 +44,9 @@ class LaunchViewController: UIViewController {
                 let tempCategory = Category(title: title, url: urlString)
                 tempArray.append(tempCategory)
             }
-            completion(tempArray)
+            categoryRepo.arrayOfCategories = tempArray
+            completion()
         }
-    }
-    
-    private func checkValidityFor(category: Category, completion: @escaping (_ flag: Bool) -> Void) {
-        network.getStoriesFor(category: category, completion: { array in
-            if array.count > 0 {
-                completion(true)
-            } else {
-                completion(false)
-            }
-        })
     }
     
     private func loadValidCategories(array: [Category], completion: @escaping (_ array: [Category]) -> Void) {
