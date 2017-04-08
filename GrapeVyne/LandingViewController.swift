@@ -11,6 +11,7 @@ import UIKit
 class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     var selectedRow = 0
     @IBOutlet weak var picker: UIPickerView!
+    let activityIndicator = ActivityIndicatorView(text: "Loading")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,41 +45,13 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     @IBAction func playButton(_ sender: UIButton) {
-        activityIndicator("Loading")
+        self.view.addSubview(activityIndicator)
+        activityIndicator.show()
         network.getStoriesFor(category: categoryRepo.arrayOfCategories[selectedRow], completion: {array in
             storyRepo.arrayOfStories = array
             self.performSegue(withIdentifier: "playButton", sender: self)
+            self.activityIndicator.hide()
         })
-    }
-    
-    let messageFrame = UIView()
-    var activityIndicator = UIActivityIndicatorView()
-    var strLabel = UILabel()
-    
-    let effectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.light))
-    
-    func activityIndicator(_ title: String) {
-        
-        strLabel.removeFromSuperview()
-        activityIndicator.removeFromSuperview()
-        effectView.removeFromSuperview()
-        
-        strLabel = UILabel(frame: CGRect(x: 50, y: 0, width: 160, height: 46))
-        strLabel.text = title.uppercased()
-        strLabel.font = UIFont(name: "Gotham-Bold", size: 18.0)!
-        strLabel.textColor = UIColor.white
-        
-        effectView.frame = CGRect(x: view.frame.midX - strLabel.frame.width/2, y: view.frame.midY - strLabel.frame.height/2 , width: 160, height: 46)
-        effectView.layer.cornerRadius = 15
-        effectView.layer.masksToBounds = true
-        
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
-        activityIndicator.frame = CGRect(x: 0, y: 0, width: 46, height: 46)
-        activityIndicator.startAnimating()
-        
-        effectView.addSubview(activityIndicator)
-        effectView.addSubview(strLabel)
-        view.addSubview(effectView)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
