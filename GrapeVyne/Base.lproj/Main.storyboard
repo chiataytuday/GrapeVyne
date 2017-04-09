@@ -115,7 +115,7 @@
                     </view>
                     <connections>
                         <outlet property="picker" destination="j2y-Ts-rF1" id="cQW-no-Mtc"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="playButton" id="isP-h8-4Cz"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="playButton" id="AQI-uK-RBG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f70-S2-oyq" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -49,7 +49,7 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         activityIndicator.show()
         network.getStoriesFor(category: categoryRepo.arrayOfCategories[selectedRow], completion: {array in
             storyRepo.arrayOfStories = array
-            self.performSegue(withIdentifier: "playButton", sender: self)
+            self.performSegue(withIdentifier: "playButton", sender: sender)
             self.activityIndicator.hide()
         })
     }
@@ -79,5 +79,4 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRow = row
     }
-    
 }

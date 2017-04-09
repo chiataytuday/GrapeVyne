@@ -42,7 +42,17 @@ class Network {
             if let html = response.result.value {
                 array = self.scrapeStories(html: html)
             }
-            completion(array)
+            var count = 0
+            var parsedArray = [Story]()
+            for story in array {
+                self.getFactValueFor(story: story, completion: { story in
+                    count += 1
+                    parsedArray.append(story)
+                    if count == array.count {
+                        completion(parsedArray)
+                    }
+                })
+            }
         })
     }
     
