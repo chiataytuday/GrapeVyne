@@ -108,8 +108,15 @@ class GameViewController: UIViewController {
     }
     
     private func getDataSource() -> [CardView] {
+        let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
         var tempArray = storyRepo.arrayOfStories
         var arrayOfCardViews : [CardView] = []
+        
+        if managedObject.isEmpty { //Nothing in Core Data
+            for story in tempArray {
+                CoreDataManager.writeStoryToModel(entity: "CDStory", title: story.title, fact: story.fact, urlStr: story.url)
+            }
+        }
         
         while tempArray.count > 0 {
             let randomIndex = Int(arc4random_uniform(UInt32(tempArray.count)))
@@ -119,13 +126,6 @@ class GameViewController: UIViewController {
         }
         return arrayOfCardViews
     }
-    
-//    func getDataSourceFor(category: Category, completion: @escaping (_ array: [Story]) -> Void) {
-//        var array = [Story]()
-//        print(category)
-//        
-//        completion(array)
-//    }
     
     private func configureCardUI(title: String, arrayCount: Int) -> CardView {
         let cardView = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
