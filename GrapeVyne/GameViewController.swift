@@ -108,15 +108,8 @@ class GameViewController: UIViewController {
     }
     
     private func getDataSource() -> [CardView] {
-        let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
         var tempArray = storyRepo.arrayOfStories
         var arrayOfCardViews : [CardView] = []
-        
-        if managedObject.isEmpty { //Nothing in Core Data
-            for story in tempArray {
-                CoreDataManager.writeStoryToModel(entity: "CDStory", title: story.title, fact: story.fact, urlStr: story.url)
-            }
-        }
         
         while tempArray.count > 0 {
             let randomIndex = Int(arc4random_uniform(UInt32(tempArray.count)))
@@ -241,12 +234,10 @@ extension GameViewController: KolodaViewDelegate {
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
         //Use the card display title to store the story title
         let storyTitle = (dataSource?[index].titleLabel.text!)!
-        //Get the story object by searching on the story title
-        let storyObject = CoreDataManager.fetchObject(entity: "CDStory", title: storyTitle)
         
-        //Get the story's other properties
-        let storyFactValue = storyObject.value(forKey: "fact") as! Bool
-        let storyURLString = storyObject.value(forKey: "urlString") as! String
+        let indexOfStory = storyRepo.arrayOfStories.index(where: {$0.title == storyTitle})
+        let storyFactValue = storyRepo.arrayOfStories[indexOfStory!].fact
+        let storyURLString = storyRepo.arrayOfStories[indexOfStory!].url
         
         //Create a temporary story property
         let tempStory = Story(title: storyTitle, url: storyURLString, fact: storyFactValue)
