@@ -14,11 +14,11 @@ import SafariServices
 private let trueImage = #imageLiteral(resourceName: "result_true")
 private let falseImage = #imageLiteral(resourceName: "result_false")
 // Color config
-private let viewBackgroundColor = CustomColor.customPurple
-private let tableViewBackgroundColor = CustomColor.customPurple
+private let viewBackgroundColor = UIColor.black
+private let tableViewBackgroundColor = UIColor.clear
 private let correctCounterLabelTextColor = CustomColor.customGreen
 private let incorrectCounterLabelTextColor = CustomColor.customDarkRed
-private let cellBackgroundColor = UIColor.white.withAlphaComponent(0.3)
+private let cellBackgroundColor = CustomColor.customPurple
 private let storyLabelTextColor = UIColor.white
 private let resultTextColor = UIColor.white.withAlphaComponent(0.7)
 
@@ -68,6 +68,9 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         myMutableString.addAttribute(NSForegroundColorAttributeName, value: correctCounterLabelTextColor, range: correctRange)
         myMutableString.addAttribute(NSForegroundColorAttributeName, value: incorrectCounterLabelTextColor, range: incorrectRange)
         resultCounterLabel.attributedText = myMutableString
+        resultCounterLabel.backgroundColor = CustomColor.customPurple
+        resultCounterLabel.layer.cornerRadius = cardCornerRadius
+        resultCounterLabel.layer.masksToBounds = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -84,7 +84,7 @@
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j2y-Ts-rF1">
-                                <rect key="frame" x="0.0" y="390" width="375" height="138"/>
+                                <rect key="frame" x="48" y="390" width="279" height="138"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="138" id="889-sh-iOR"/>
@@ -109,8 +109,8 @@
                             <constraint firstItem="Xye-cU-OLH" firstAttribute="leading" secondItem="4oX-nx-ZDJ" secondAttribute="leading" id="LrQ-l5-GQK"/>
                             <constraint firstAttribute="trailing" secondItem="Xye-cU-OLH" secondAttribute="trailing" id="Ola-fg-Sl5"/>
                             <constraint firstItem="6SY-Xr-fKc" firstAttribute="top" secondItem="j2y-Ts-rF1" secondAttribute="bottom" constant="139" id="glu-jp-PTZ"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="leading" secondItem="j2y-Ts-rF1" secondAttribute="leading" id="mir-V6-MQW"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="trailing" secondItem="j2y-Ts-rF1" secondAttribute="trailing" id="ywp-1J-o12"/>
+                            <constraint firstItem="Xye-cU-OLH" firstAttribute="leading" secondItem="j2y-Ts-rF1" secondAttribute="leading" constant="-48" id="mir-V6-MQW"/>
+                            <constraint firstItem="Xye-cU-OLH" firstAttribute="trailing" secondItem="j2y-Ts-rF1" secondAttribute="trailing" constant="48" id="ywp-1J-o12"/>
                         </constraints>
                     </view>
                     <connections>

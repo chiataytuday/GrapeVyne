@@ -73,6 +73,10 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             NSForegroundColorAttributeName: UIColor.white])
         pickerLabel?.attributedText = attTitle
         pickerLabel?.textAlignment = .center
+        pickerLabel?.backgroundColor = CustomColor.customPurple
+        pickerLabel?.layer.cornerRadius = 8.0
+        pickerLabel?.layer.masksToBounds = true
+        pickerLabel?.adjustsFontSizeToFitWidth = true
         return pickerLabel!
     }
     
