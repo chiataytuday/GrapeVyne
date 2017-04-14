@@ -115,7 +115,7 @@ class Network {
         var _arrayOfCategories = [Category]()
         if let doc = Kanna.HTML(html: html, encoding: .utf8) {
             for category in doc.xpath("//*[@id='menu-archives-subnavigation']/li/a") {
-                var parsedCategory = Category(title: "", url: "")
+                var parsedCategory = Category(title: "", url: "", stories: nil)
                 if let url = category["href"] {
                     parsedCategory.url = url
                 }

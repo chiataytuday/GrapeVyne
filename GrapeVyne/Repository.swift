@@ -20,9 +20,9 @@ class StoryRepo {
         arrayOfIncorrectStories = []
     }
     
-    func writeStoryToCD(array: [Story]) {
+    func writeStoriesToCD(array: [Story]) {
         for story in array {
-            CoreDataManager.writeStoryToModel(entity: "CDStory", title: story.title, fact: story.fact, urlStr: story.url)
+            CoreDataManager.writeStoryToModel(entity: "CDStory", story: story)
         }
     }
 }
@@ -33,9 +33,9 @@ class CategoryRepo {
         arrayOfCategories = []
     }
     
-    func writeCategoryToCD(array: [Category]) {
+    func writeCategoriesToCD(array: [Category]) {
         for category in array {
-            CoreDataManager.writeCategoryToModel(entity: "CDCategory", title: category.title, urlStr: category.url)
+            CoreDataManager.writeCategoryToModel(entity: "CDCategory", category: category)
         }
     }
 }
@@ -43,6 +43,7 @@ class CategoryRepo {
 struct Category {
     var title: String
     var url: String
+    var stories: [Story]?
 }
 struct Story {
     var title: String

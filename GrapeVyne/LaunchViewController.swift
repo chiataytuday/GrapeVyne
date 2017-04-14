@@ -20,19 +20,19 @@ class LaunchViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadCategories(completion: {
+        getCategories(completion: {
             let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
             self.present(landingVC, animated: true, completion: nil)
         })
     }
     
-    private func loadCategories(completion: @escaping () -> Void) {
+    private func getCategories(completion: @escaping () -> Void) {
         let managedObject = CoreDataManager.fetchModel(entity: "CDCategory")
         if managedObject.isEmpty { //Nothing in Core Data
             network.getCategories(completion: { array in
                 self.loadValidCategories(array: array, completion: { validCategories in
                     categoryRepo.arrayOfCategories = validCategories.sorted(by: {$0.title < $1.title})
-                    categoryRepo.writeCategoryToCD(array: categoryRepo.arrayOfCategories)
+                    categoryRepo.writeCategoriesToCD(array: categoryRepo.arrayOfCategories)
                     completion()
                 })
             })
@@ -41,7 +41,8 @@ class LaunchViewController: UIViewController {
             for object in managedObject {
                 let title = object.value(forKey: "title") as! String
                 let urlString = object.value(forKey: "urlString") as! String
-                let tempCategory = Category(title: title, url: urlString)
+                let stories = object.mutableSetValue(forKey: "stories") as? [Story]
+                let tempCategory = Category(title: title, url: urlString, stories: stories)
                 tempArray.append(tempCategory)
             }
             categoryRepo.arrayOfCategories = tempArray

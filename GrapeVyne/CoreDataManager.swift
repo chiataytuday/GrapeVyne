@@ -12,14 +12,14 @@ import CoreData
 
 class CoreDataManager {
     
-    static func writeStoryToModel(entity: String, title: String, fact: Bool, urlStr: String) {
+    static func writeStoryToModel(entity: String, story: Story) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: entity, in: context)
-        let story = NSManagedObject(entity: entity!, insertInto: context)
-        story.setValue(title, forKey: "title")
-        story.setValue(fact, forKey: "fact")
-        story.setValue(urlStr, forKey: "urlString")
+        let storyObject = NSManagedObject(entity: entity!, insertInto: context)
+        storyObject.setValue(story.title, forKey: "title")
+        storyObject.setValue(story.fact, forKey: "fact")
+        storyObject.setValue(story.url, forKey: "urlString")
         do {
             try context.save()
         } catch let error as NSError  {
@@ -27,13 +27,17 @@ class CoreDataManager {
         }
     }
     
-    static func writeCategoryToModel(entity: String, title: String, urlStr: String) {
+    static func foo(category: String, story: Story) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: entity, in: context)
-        let category = NSManagedObject(entity: entity!, insertInto: context)
-        category.setValue(title, forKey: "title")
-        category.setValue(urlStr, forKey: "urlString")
+        let storyEntity = NSEntityDescription.entity(forEntityName: "CDStory", in: context)
+        let storyObject = NSManagedObject(entity: storyEntity!, insertInto: context)
+        storyObject.setValue(story.title, forKey: "title")
+        storyObject.setValue(story.fact, forKey: "fact")
+        storyObject.setValue(story.url, forKey: "urlString")
+        // Get Category
+        let categoryObject = self.fetchObject(entity: "CDCategory", title: category)
+        storyObject.setValue(categoryObject, forKey: "category")
         do {
             try context.save()
         } catch let error as NSError  {
@@ -41,6 +45,19 @@ class CoreDataManager {
         }
     }
     
+    static func writeCategoryToModel(entity: String, category: Category) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: entity, in: context)
+        let categoryObject = NSManagedObject(entity: entity!, insertInto: context)
+        categoryObject.setValue(category.title, forKey: "title")
+        categoryObject.setValue(category.url, forKey: "urlString")
+        do {
+            try context.save()
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+    }
     
     static func writeMetricToModel(entity: String, value: Bool) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -70,8 +87,8 @@ class CoreDataManager {
         return managedObject
     }
     
-    static func fetchObject(entity: String, title: String) -> NSManagedObject {
-        var managedObject : NSManagedObject?
+    static func fetchObject(entity: String, title: String) -> NSManagedObject? {
+        var managedObject: NSManagedObject?
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
@@ -87,7 +104,7 @@ class CoreDataManager {
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         }
-        return managedObject!
+        return managedObject
     }
     
     static func deleteObject(entity: String, title: String) {

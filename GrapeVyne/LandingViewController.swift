@@ -45,10 +45,21 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     @IBAction func playButton(_ sender: UIButton) {
+        storyRepo.arrayOfStories = [Story]()
         self.view.addSubview(activityIndicator)
         activityIndicator.show()
-        network.getStoriesFor(category: categoryRepo.arrayOfCategories[selectedRow], completion: {array in
-            storyRepo.arrayOfStories = array
+        let chosenCategory = categoryRepo.arrayOfCategories[selectedRow]
+        network.getStoriesFor(category: chosenCategory, completion: { array in
+            let managedObject = CoreDataManager.fetchObject(entity: "CDCategory", title: chosenCategory.title)!
+            let arrayOfStories = managedObject.mutableSetValue(forKey: "stories") as? [Story]
+            if arrayOfStories == nil { // Nothing in core data
+                storyRepo.arrayOfStories = array
+                for story in array {
+                    CoreDataManager.foo(category: chosenCategory.title, story: story)
+                }
+            } else { // Something in core data
+                storyRepo.arrayOfStories = arrayOfStories!
+            }
             self.performSegue(withIdentifier: "playButton", sender: sender)
             self.activityIndicator.hide()
         })
