@@ -49,20 +49,21 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         self.view.addSubview(activityIndicator)
         activityIndicator.show()
         let chosenCategory = categoryRepo.arrayOfCategories[selectedRow]
-        network.getStoriesFor(category: chosenCategory, completion: { array in
-            let managedObject = CoreDataManager.fetchObject(entity: "CDCategory", title: chosenCategory.title)!
-            let arrayOfStories = managedObject.mutableSetValue(forKey: "stories") as? [Story]
-            if arrayOfStories == nil { // Nothing in core data
-                storyRepo.arrayOfStories = array
-                for story in array {
-                    CoreDataManager.foo(category: chosenCategory.title, story: story)
-                }
-            } else { // Something in core data
-                storyRepo.arrayOfStories = arrayOfStories!
-            }
+        if let arrayOfStories = chosenCategory.stories { // Stories in memory
+            storyRepo.arrayOfStories = arrayOfStories
             self.performSegue(withIdentifier: "playButton", sender: sender)
             self.activityIndicator.hide()
-        })
+        } else { // No stories in memory
+            network.getStoriesFor(category: chosenCategory, completion: { array in
+                categoryRepo.arrayOfCategories[self.selectedRow].stories = array
+                storyRepo.arrayOfStories = array
+                for story in array {
+                    CoreDataManager.addStoryToCategory(category: chosenCategory, story: story)
+                }
+                self.performSegue(withIdentifier: "playButton", sender: sender)
+                self.activityIndicator.hide()
+            })
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

@@ -249,7 +249,10 @@ extension GameViewController: KolodaViewDelegate {
         storyRepo.arrayOfSwipedStories.append(tempStory)
         updateResultArrayFor(userAns: userAnswer, story: tempStory)
         
-        //Finally, delete the story from memory
+        //First, delete story from category persistent memory
+        CoreDataManager.removeStoryFromCategory(tempStory)
+        
+        //Finally, delete the story from persistent memory
         CoreDataManager.deleteObject(entity: "CDStory", title: storyTitle)
     }
     

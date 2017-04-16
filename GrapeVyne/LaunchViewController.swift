@@ -9,10 +9,11 @@
 import UIKit
 
 let network = Network()
-var storyRepo = StoryRepo()
-var categoryRepo = CategoryRepo()
+let categoryRepo = CategoryRepo()
+let storyRepo = StoryRepo()
 
 class LaunchViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         modalTransitionStyle = appModalTransitionStyle
@@ -27,8 +28,8 @@ class LaunchViewController: UIViewController {
     }
     
     private func getCategories(completion: @escaping () -> Void) {
-        let managedObject = CoreDataManager.fetchModel(entity: "CDCategory")
-        if managedObject.isEmpty { //Nothing in Core Data
+        let arrayOfCDCategories = CoreDataManager.fetchModel(entity: "CDCategory") as! [CDCategory]
+        if arrayOfCDCategories.isEmpty { // No Categories in Core Data
             network.getCategories(completion: { array in
                 self.loadValidCategories(array: array, completion: { validCategories in
                     categoryRepo.arrayOfCategories = validCategories.sorted(by: {$0.title < $1.title})
@@ -36,16 +37,21 @@ class LaunchViewController: UIViewController {
                     completion()
                 })
             })
-        } else { //Something in Core Data
-            var tempArray = [Category]()
-            for object in managedObject {
-                let title = object.value(forKey: "title") as! String
-                let urlString = object.value(forKey: "urlString") as! String
-                let stories = object.mutableSetValue(forKey: "stories") as? [Story]
-                let tempCategory = Category(title: title, url: urlString, stories: stories)
-                tempArray.append(tempCategory)
+        } else { // Found categories in Core Data
+            for category in arrayOfCDCategories {
+                var arrayOfCategoryStories = [Story]()
+                if let arrayOfCDStories = category.stories?.allObjects as? [CDStory] {
+                    for _CDStory in arrayOfCDStories {
+                        let title = _CDStory.title!
+                        let url = _CDStory.urlString!
+                        let fact = _CDStory.fact
+                        let story = Story(title: title, url: url, fact: fact)
+                        arrayOfCategoryStories.append(story)
+                    }
+                }
+                let tempCategory = Category(title: category.title!, url: category.urlString!, stories: arrayOfCategoryStories)
+                categoryRepo.arrayOfCategories.append(tempCategory)
             }
-            categoryRepo.arrayOfCategories = tempArray
             completion()
         }
     }

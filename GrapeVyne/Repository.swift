@@ -22,7 +22,7 @@ class StoryRepo {
     
     func writeStoriesToCD(array: [Story]) {
         for story in array {
-            CoreDataManager.writeStoryToModel(entity: "CDStory", story: story)
+            CoreDataManager.writeToModel(story)
         }
     }
 }
@@ -35,7 +35,7 @@ class CategoryRepo {
     
     func writeCategoriesToCD(array: [Category]) {
         for category in array {
-            CoreDataManager.writeCategoryToModel(entity: "CDCategory", category: category)
+            CoreDataManager.writeToModel(category)
         }
     }
 }
