@@ -8,7 +8,8 @@
 
 import UIKit
 
-let network = SnopesScrapeNetwork()
+let snopesScrapeNetwork = SnopesScrapeNetwork()
+let openTriviaDBNetwork = OpenTriviaDBNetwork()
 let categoryRepo = CategoryRepo()
 let storyRepo = StoryRepo()
 
@@ -21,16 +22,22 @@ class LaunchViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        getCategories(completion: {
+        openTriviaDBNetwork.getCategories(completion: {categories in
+            categoryRepo.arrayOfCategories = categories.sorted(by: {$0.title < $1.title})
             let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
             self.present(landingVC, animated: true, completion: nil)
         })
+//        
+//        getCategories(completion: {
+//            let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+//            self.present(landingVC, animated: true, completion: nil)
+//        })
     }
     
     private func getCategories(completion: @escaping () -> Void) {
         let arrayOfCDCategories = CoreDataManager.fetchModel(entity: "CDCategory") as! [CDCategory]
         if arrayOfCDCategories.isEmpty { // No Categories in Core Data
-            network.getCategories(completion: { array in
+            snopesScrapeNetwork.getCategories(completion: { array in
                 self.loadValidCategories(array: array, completion: { validCategories in
                     categoryRepo.arrayOfCategories = validCategories.sorted(by: {$0.title < $1.title})
                     categoryRepo.writeCategoriesToCD(array: categoryRepo.arrayOfCategories)
@@ -60,7 +67,7 @@ class LaunchViewController: UIViewController {
         var counterToComplete = 0
         var completeArray = [Category]()
         for category in array {
-            network.isValidCategory(category: category, completion: {bool in
+            snopesScrapeNetwork.isValidCategory(category: category, completion: {bool in
                 counterToComplete += 1
                 if bool {
                     completeArray.append(category)
