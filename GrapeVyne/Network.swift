@@ -9,10 +9,57 @@
 import Foundation
 import Alamofire
 import Kanna
+import SwiftyJSON
 
-private let baseURL = "http://www.snopes.com/category/facts/"
+var OTCategories = [OTCategory]()
+var OTStories = [Story]()
+
+class OpenTriviaNetworkDB {
+    private let baseURL = "https://opentdb.com/"
+    
+    public func getCategories() {
+        Alamofire.request("\(baseURL)api_category.php").responseJSON(completionHandler: {response in
+            if let data = response.data {
+                let json = JSON(data: data)
+                let a = json["trivia_categories"]
+                for (_, subJson) in a {
+                    let catTitle = String(describing: subJson["name"])
+                    let catIdString = String(describing: subJson["id"])
+                    let catIdInt = Int(catIdString)!
+                    OTCategories.append(OTCategory(title: catTitle, id: catIdInt))
+                }
+            }
+        })
+    }
+    
+    public func getStories(amount: Int, categoryId: Int?) {
+        var categoryIdString = ""
+        if let categoryIdInt = categoryId {
+            categoryIdString = String(categoryIdInt)
+        }
+        let parameters: Parameters = [
+            "amount" : String(amount),
+            "category" : categoryIdString,
+            "type" : "boolean"
+        ]
+        Alamofire.request("\(baseURL)/api.php", method: .get, parameters: parameters).responseJSON(completionHandler: {response in
+            if let data = response.data {
+                let json = JSON(data: data)
+                for (_, subJson) in json["results"] {
+                    let storyTitle = String(describing: subJson["question"])
+                    let storyFactString = String(describing: subJson["correct_answer"])
+                    let storyFactBool = determineStoryReliable(factString: storyFactString)!
+                    OTStories.append(Story(title: storyTitle, url: "", fact: storyFactBool))
+                }
+            }
+        })
+    }
+}
+
 
 class Network {
+    private let baseURL = "http://www.snopes.com/category/facts/"
+    
     public func getCategories(completion: @escaping (_ array: [Category]) -> Void) {
         var array = [Category]()
         Alamofire.request(baseURL).responseString(queue: DispatchQueue.main, encoding: String.Encoding.utf8, completionHandler: {response in
@@ -61,7 +108,7 @@ class Network {
         Alamofire.request(story.url).responseString(completionHandler: { response in
             if let html = response.result.value {
                 if let factStringValue = self.scrapeFactValue(html: html) {
-                    if let fact = self.determineStoryReliable(factString: factStringValue) {
+                    if let fact = determineStoryReliable(factString: factStringValue) {
                         parsedStory.fact = fact
                     }
                 }
@@ -127,16 +174,16 @@ class Network {
         }
         return _arrayOfCategories
     }
-    
-    private func determineStoryReliable(factString: String) -> Bool? {
-        switch factString {
-        case "True", "true", "mtrue":
-            return true
-        case "False", "false", "mfalse":
-            return false
-        default:
-            return nil
-        }
+}
+
+fileprivate func determineStoryReliable(factString: String) -> Bool? {
+    switch factString {
+    case "True", "true", "mtrue":
+        return true
+    case "False", "false", "mfalse":
+        return false
+    default:
+        return nil
     }
 }
 

@@ -45,6 +45,12 @@ struct Category {
     var url: String
     var stories: [Story]?
 }
+
+struct OTCategory {
+    var title: String
+    var id: Int
+}
+
 struct Story {
     var title: String
     var url: String
