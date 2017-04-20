@@ -11,14 +11,14 @@ import Alamofire
 import Kanna
 import SwiftyJSON
 
-var OTCategories = [OTCategory]()
 var OTStories = [Story]()
 
-class OpenTriviaNetworkDB {
+class OpenTriviaDBNetwork {
     private let baseURL = "https://opentdb.com/"
     
-    public func getCategories() {
+    public func getCategories(completion: @escaping (_ array: [Category]) -> Void) {
         Alamofire.request("\(baseURL)api_category.php").responseJSON(completionHandler: {response in
+            var array = [Category]()
             if let data = response.data {
                 let json = JSON(data: data)
                 let a = json["trivia_categories"]
@@ -26,13 +26,14 @@ class OpenTriviaNetworkDB {
                     let catTitle = String(describing: subJson["name"])
                     let catIdString = String(describing: subJson["id"])
                     let catIdInt = Int(catIdString)!
-                    OTCategories.append(OTCategory(title: catTitle, id: catIdInt))
+                    array.append(Category(title: catTitle, id: catIdInt, url: nil, stories: nil))
                 }
             }
+            completion(array)
         })
     }
     
-    public func getStories(amount: Int, categoryId: Int?) {
+    public func getStoriesFor(categoryId: Int?, amount: Int, completion:  @escaping (_ array: [Story]) -> Void) {
         var categoryIdString = ""
         if let categoryIdInt = categoryId {
             categoryIdString = String(categoryIdInt)
@@ -43,26 +44,28 @@ class OpenTriviaNetworkDB {
             "type" : "boolean"
         ]
         Alamofire.request("\(baseURL)/api.php", method: .get, parameters: parameters).responseJSON(completionHandler: {response in
+            var array = [Story]()
             if let data = response.data {
                 let json = JSON(data: data)
                 for (_, subJson) in json["results"] {
                     let storyTitle = String(describing: subJson["question"])
                     let storyFactString = String(describing: subJson["correct_answer"])
                     let storyFactBool = determineStoryReliable(factString: storyFactString)!
-                    OTStories.append(Story(title: storyTitle, url: "", fact: storyFactBool))
+                    array.append(Story(title: storyTitle, url: "", fact: storyFactBool))
                 }
             }
+            completion(array)
         })
     }
 }
 
 
-class Network {
+class SnopesScrapeNetwork {
     private let baseURL = "http://www.snopes.com/category/facts/"
     
     public func getCategories(completion: @escaping (_ array: [Category]) -> Void) {
-        var array = [Category]()
         Alamofire.request(baseURL).responseString(queue: DispatchQueue.main, encoding: String.Encoding.utf8, completionHandler: {response in
+            var array = [Category]()
             if let html = response.result.value {
                 array = self.scrapeCategories(html: html)
             }
@@ -72,7 +75,7 @@ class Network {
     
     public func isValidCategory(category: Category, completion: @escaping (_ flag: Bool) -> Void) {
         var isValid = false
-        Alamofire.request(category.url).responseString(completionHandler: {response in
+        Alamofire.request(category.url!).responseString(completionHandler: {response in
             if let html = response.result.value {
                 let stories = self.scrapeStories(html: html)
                 if stories.count > 0 {
@@ -84,8 +87,8 @@ class Network {
     }
     
     public func getStoriesFor(category: Category, completion:  @escaping (_ array: [Story]) -> Void) {
-        var array = [Story]()
-        Alamofire.request(category.url).responseString(completionHandler: { response in
+        Alamofire.request(category.url!).responseString(completionHandler: { response in
+            var array = [Story]()
             if let html = response.result.value {
                 array = self.scrapeStories(html: html)
             }
@@ -105,7 +108,7 @@ class Network {
     
     public func getFactValueFor(story: Story, completion: @escaping (_ story: Story) -> Void) {
         var parsedStory = story
-        Alamofire.request(story.url).responseString(completionHandler: { response in
+        Alamofire.request(story.url!).responseString(completionHandler: { response in
             if let html = response.result.value {
                 if let factStringValue = self.scrapeFactValue(html: html) {
                     if let fact = determineStoryReliable(factString: factStringValue) {
@@ -162,7 +165,7 @@ class Network {
         var _arrayOfCategories = [Category]()
         if let doc = Kanna.HTML(html: html, encoding: .utf8) {
             for category in doc.xpath("//*[@id='menu-archives-subnavigation']/li/a") {
-                var parsedCategory = Category(title: "", url: "", stories: nil)
+                var parsedCategory = Category(title: "", id: nil, url: "", stories: nil)
                 if let url = category["href"] {
                     parsedCategory.url = url
                 }

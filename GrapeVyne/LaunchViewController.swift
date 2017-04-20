@@ -8,7 +8,7 @@
 
 import UIKit
 
-let network = Network()
+let network = SnopesScrapeNetwork()
 let categoryRepo = CategoryRepo()
 let storyRepo = StoryRepo()
 
@@ -49,7 +49,7 @@ class LaunchViewController: UIViewController {
                         arrayOfCategoryStories.append(story)
                     }
                 }
-                let tempCategory = Category(title: category.title!, url: category.urlString!, stories: arrayOfCategoryStories)
+                let tempCategory = Category(title: category.title!, id: nil, url: category.urlString!, stories: arrayOfCategoryStories)
                 categoryRepo.arrayOfCategories.append(tempCategory)
             }
             completion()

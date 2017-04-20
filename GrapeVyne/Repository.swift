@@ -42,17 +42,13 @@ class CategoryRepo {
 
 struct Category {
     var title: String
-    var url: String
+    var id: Int?
+    var url: String?
     var stories: [Story]?
-}
-
-struct OTCategory {
-    var title: String
-    var id: Int
 }
 
 struct Story {
     var title: String
-    var url: String
+    var url: String?
     var fact: Bool
 }
