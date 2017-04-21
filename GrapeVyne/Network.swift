@@ -11,22 +11,26 @@ import Alamofire
 import Kanna
 import SwiftyJSON
 
-var OTStories = [Story]()
-
 class OpenTriviaDBNetwork {
     private let baseURL = "https://opentdb.com/"
+    private var sessionToken = ""
+    
+    init() {
+        getSessionToken(completion: {token in
+            self.sessionToken = token
+        })
+    }
     
     public func getCategories(completion: @escaping (_ array: [Category]) -> Void) {
         Alamofire.request("\(baseURL)api_category.php").responseJSON(completionHandler: {response in
             var array = [Category]()
             if let data = response.data {
                 let json = JSON(data: data)
-                let a = json["trivia_categories"]
-                for (_, subJson) in a {
-                    let catTitle = String(describing: subJson["name"])
-                    let catIdString = String(describing: subJson["id"])
-                    let catIdInt = Int(catIdString)!
-                    array.append(Category(title: catTitle, id: catIdInt, url: nil, stories: nil))
+                let jsonArray = json["trivia_categories"]
+                for (_, subJson) in jsonArray {
+                    if let catTitle = subJson["name"].string, let catIdInt = subJson["id"].int {
+                        array.append(Category(title: catTitle, id: catIdInt, url: nil, stories: nil))
+                    }
                 }
             }
             completion(array)
@@ -41,24 +45,88 @@ class OpenTriviaDBNetwork {
         let parameters: Parameters = [
             "amount" : String(amount),
             "category" : categoryIdString,
-            "type" : "boolean"
+            "type" : "boolean",
+            "token" : sessionToken
         ]
-        Alamofire.request("\(baseURL)/api.php", method: .get, parameters: parameters).responseJSON(completionHandler: {response in
+        
+        self.makeRequestForStories(parameters, completion: {json in
             var array = [Story]()
-            if let data = response.data {
-                let json = JSON(data: data)
-                for (_, subJson) in json["results"] {
-                    let storyTitle = String(describing: subJson["question"])
-                    let storyFactString = String(describing: subJson["correct_answer"])
-                    let storyFactBool = determineStoryReliable(factString: storyFactString)!
+            for (_, subJson) in json["results"] {
+                if let storyTitle = subJson["question"].string?.html2String,
+                    let storyFactString = subJson["correct_answer"].string,
+                    let storyFactBool = determineStoryReliable(factString: storyFactString) {
                     array.append(Story(title: storyTitle, url: "", fact: storyFactBool))
                 }
             }
             completion(array)
         })
     }
+    
+    private func makeRequestForStories(_ params: Parameters, completion: @escaping (_ json: JSON) -> Void) {
+        Alamofire.request("\(self.baseURL)/api.php", method: .get, parameters: params).responseJSON(completionHandler: {response in
+            if let data = response.data {
+                let json = JSON(data: data)
+                if let responseCode = json["response_code"].int {
+                    switch (responseCode) {
+                    case 0:
+                        // We guc, return the JSON
+                        completion(json)
+                    case 1: break
+                    // No Results: Could not return results. The API doesn't have enough questions for your query. (Ex. Asking for 50 Questions in a Category that only has 20.)
+                    case 2: break
+                    // Code 2: Invalid Parameter Contains an invalid parameter. Arguements passed in aren't valid. (Ex. Amount = Five)
+                    case 3: // Token Not Found: Session Token does not exist.
+                        self.getSessionToken(completion: {token in
+                            self.sessionToken = token
+                            self.makeRequestForStories(params, completion: {json in
+                                completion(json)
+                            })
+                        })
+                    case 4: // Token Empty: Session Token has returned all possible questions for the specified query. Resetting the Token is necessary.
+                        self.resetSessionToken(token: self.sessionToken, completion: {token in
+                            self.sessionToken = token
+                            self.makeRequestForStories(params, completion: {json in
+                                completion(json)
+                            })
+                        })
+                    default:
+                        return
+                    }
+                }
+            }
+        })
+    }
+    
+    private func getSessionToken(completion:  @escaping (_ token: String) -> Void) {
+        Alamofire.request("\(baseURL)api_token.php?command=request").responseJSON(completionHandler: {response in
+            var sessionToken = ""
+            if let data = response.data {
+                let json = JSON(data: data)
+                if let responseCode = json["response_code"].int {
+                    if responseCode == 0 {
+                        if let token = json["token"].string {
+                            sessionToken = token
+                        }
+                    }
+                }
+            }
+            completion(sessionToken)
+        })
+    }
+    
+    private func resetSessionToken(token : String, completion:  @escaping (_ newToken: String) -> Void) {
+        Alamofire.request("\(baseURL)api_token.php?command=reset&token=\(token)").responseJSON(completionHandler: {response in
+            if let data = response.data {
+                let json = JSON(data: data)
+                if let responseCode = json["response_code"].int {
+                    if responseCode == 3 {
+                        //
+                    }
+                }
+            }
+        })
+    }
 }
-
 
 class SnopesScrapeNetwork {
     private let baseURL = "http://www.snopes.com/category/facts/"
@@ -210,5 +278,27 @@ extension URLSession {
         _ = semaphore.wait(timeout: .distantFuture)
         
         return (data, response, error)
+    }
+}
+
+extension String {
+    var html2AttributedString: NSAttributedString? {
+        do {
+            return try NSAttributedString(data: Data(utf8), options: [
+                NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                NSCharacterEncodingDocumentAttribute: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    var html2String: String {
+        //return html2AttributedString?.string ?? ""
+        return html2AttributedString?.string.replacingOccurrences(of: "\\", with: "") ?? ""
+    }
+}
+extension String {
+    func decodeUrl() -> String {
+        return self.removingPercentEncoding!
     }
 }
