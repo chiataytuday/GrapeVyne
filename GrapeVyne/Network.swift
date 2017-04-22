@@ -16,7 +16,6 @@ private let sessionTokenUserDefaultsKey = "SessionToken"
 class OpenTriviaDBNetwork {
     private let userDefaults = UserDefaults.standard
     private let baseURL = "https://opentdb.com/"
-    private var sessionToken = ""
     
     public func getCategories(completion: @escaping (_ array: [Category]) -> Void) {
         Alamofire.request("\(baseURL)api_category.php").responseJSON(completionHandler: {response in
@@ -43,40 +42,27 @@ class OpenTriviaDBNetwork {
             "amount" : String(amount),
             "category" : categoryIdString,
             "type" : "boolean",
-            "token" : sessionToken
+            "token" : ""
         ]
         
-//        if let token = userDefaults.string(forKey: sessionTokenUserDefaultsKey) {
-//            
-//        }
-//        guard let token = userDefaults.string(forKey: sessionTokenUserDefaultsKey) else {
-//            
-//        }
-        
-        let token = userDefaults.string(forKey: sessionTokenUserDefaultsKey)
-        if token != nil { // Token exists in memory
-            if let t = token {
-                sessionToken = t
-                parameters["token"] = t
-                print(parameters["token"] as! String)
-                self.makeRequestForStories(parameters, completion: {json in
-                    var array = [Story]()
-                    for (_, subJson) in json["results"] {
-                        if let storyTitle = subJson["question"].string?.html2String,
-                            let storyFactString = subJson["correct_answer"].string,
-                            let storyFactBool = determineStoryReliable(factString: storyFactString) {
-                            array.append(Story(title: storyTitle, url: "", fact: storyFactBool))
-                        }
+        if let token = userDefaults.string(forKey: sessionTokenUserDefaultsKey) { // Token not nil, saved in memory
+            parameters["token"] = token
+            self.makeRequestForStories(parameters, completion: {json in
+                var array = [Story]()
+                for (_, subJson) in json["results"] {
+                    if let storyTitle = subJson["question"].string?.html2String,
+                        let storyFactString = subJson["correct_answer"].string,
+                        let storyFactBool = determineStoryReliable(factString: storyFactString) {
+                        array.append(Story(title: storyTitle, url: "", fact: storyFactBool))
                     }
-                    completion(array)
-                })
-            }
-        } else { // Token does not exist in memory
+                }
+                completion(array)
+            })
+        }
+        guard userDefaults.string(forKey: sessionTokenUserDefaultsKey) != nil else { // Token is nil, not saved in memory
             getSessionToken(completion: {token in
-                self.sessionToken = token
                 parameters["token"] = token
                 self.userDefaults.set(token, forKey: sessionTokenUserDefaultsKey)
-                print(parameters["token"] as! String)
                 self.makeRequestForStories(parameters, completion: {json in
                     var array = [Story]()
                     for (_, subJson) in json["results"] {
@@ -89,6 +75,7 @@ class OpenTriviaDBNetwork {
                     completion(array)
                 })
             })
+            return
         }
     }
     
@@ -107,15 +94,18 @@ class OpenTriviaDBNetwork {
                     // Code 2: Invalid Parameter Contains an invalid parameter. Arguements passed in aren't valid. (Ex. Amount = Five)
                     case 3: // Token Not Found: Session Token does not exist.
                         self.getSessionToken(completion: {token in
-                            self.sessionToken = token
-                            self.makeRequestForStories(params, completion: {json in
+                            var copyParams = params
+                            copyParams["token"] = token
+                            self.makeRequestForStories(copyParams, completion: {json in
                                 completion(json)
                             })
                         })
                     case 4: // Token Empty: Session Token has returned all possible questions for the specified query. Resetting the Token is necessary.
-                        self.resetSessionToken(token: self.sessionToken, completion: {token in
-                            self.sessionToken = token
-                            self.makeRequestForStories(params, completion: {json in
+                        let oldToken = params["token"] as! String
+                        self.resetSessionToken(token: oldToken, completion: {newToken in
+                            var copyParams = params
+                            copyParams["token"] = newToken
+                            self.makeRequestForStories(copyParams, completion: {json in
                                 completion(json)
                             })
                         })
@@ -125,11 +115,6 @@ class OpenTriviaDBNetwork {
                 }
             }
         })
-    }
-    
-    private func setTokenLocal(tok: String) {
-        sessionToken = tok
-        
     }
     
     private func getSessionToken(completion:  @escaping (_ token: String) -> Void) {
