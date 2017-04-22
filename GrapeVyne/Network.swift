@@ -136,14 +136,18 @@ class OpenTriviaDBNetwork {
     
     private func resetSessionToken(token : String, completion:  @escaping (_ newToken: String) -> Void) {
         Alamofire.request("\(baseURL)api_token.php?command=reset&token=\(token)").responseJSON(completionHandler: {response in
+            var sessionToken = ""
             if let data = response.data {
                 let json = JSON(data: data)
                 if let responseCode = json["response_code"].int {
-                    if responseCode == 3 {
-                        //
+                    if responseCode == 0 {
+                        if let token = json["token"].string {
+                            sessionToken = token
+                        }
                     }
                 }
             }
+            completion(sessionToken)
         })
     }
 }
