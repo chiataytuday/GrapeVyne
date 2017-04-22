@@ -248,12 +248,6 @@ extension GameViewController: KolodaViewDelegate {
         performSwipeResultAnimationFor(userAns: userAnswer)
         storyRepo.arrayOfSwipedStories.append(tempStory)
         updateResultArrayFor(userAns: userAnswer, story: tempStory)
-        
-        //First, delete story from category persistent memory
-        CoreDataManager.removeStoryFromCategory(tempStory)
-        
-        //Finally, delete the story from persistent memory
-        CoreDataManager.deleteObject(entity: "CDStory", title: storyTitle)
     }
     
     func kolodaShouldTransparentizeNextCard(_ koloda: KolodaView) -> Bool {

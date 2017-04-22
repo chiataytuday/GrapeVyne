@@ -54,12 +54,9 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             self.performSegue(withIdentifier: "playButton", sender: sender)
             self.activityIndicator.hide()
         } else { // No stories in memory
-            snopesScrapeNetwork.getStoriesFor(category: chosenCategory, completion: { array in
-                categoryRepo.arrayOfCategories[self.selectedRow].stories = array
-                storyRepo.arrayOfStories = array
-                for story in array {
-                    CoreDataManager.addStoryToCategory(category: chosenCategory, story: story)
-                }
+            snopesScrapeNetwork.getStoriesFor(category: chosenCategory, completion: { arrayOfStories in
+                categoryRepo.arrayOfCategories[self.selectedRow].stories = arrayOfStories
+                storyRepo.arrayOfStories = arrayOfStories
                 self.performSegue(withIdentifier: "playButton", sender: sender)
                 self.activityIndicator.hide()
             })
