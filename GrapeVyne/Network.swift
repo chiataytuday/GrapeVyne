@@ -321,8 +321,3 @@ extension String {
         return html2AttributedString?.string.replacingOccurrences(of: "\\", with: "") ?? ""
     }
 }
-extension String {
-    func decodeUrl() -> String {
-        return self.removingPercentEncoding!
-    }
-}

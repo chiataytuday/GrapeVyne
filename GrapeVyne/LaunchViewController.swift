@@ -22,19 +22,10 @@ class LaunchViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        openTriviaDBNetwork.getStoriesFor(categoryId: 10, amount: 2, completion: {stories in
-            print(stories[0].title)
-        })
-        openTriviaDBNetwork.getCategories(completion: {categories in
-            categoryRepo.arrayOfCategories = categories.sorted(by: {$0.title < $1.title})
+        getCategories(completion: {
             let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
             self.present(landingVC, animated: true, completion: nil)
         })
-//        
-//        getCategories(completion: {
-//            let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
-//            self.present(landingVC, animated: true, completion: nil)
-//        })
     }
     
     private func getCategories(completion: @escaping () -> Void) {
