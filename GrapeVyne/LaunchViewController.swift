@@ -8,7 +8,8 @@
 
 import UIKit
 
-let network = Network()
+let snopesScrapeNetwork = SnopesScrapeNetwork()
+let openTriviaDBNetwork = OpenTriviaDBNetwork()
 let categoryRepo = CategoryRepo()
 let storyRepo = StoryRepo()
 
@@ -30,7 +31,7 @@ class LaunchViewController: UIViewController {
     private func getCategories(completion: @escaping () -> Void) {
         let arrayOfCDCategories = CoreDataManager.fetchModel(entity: "CDCategory") as! [CDCategory]
         if arrayOfCDCategories.isEmpty { // No Categories in Core Data
-            network.getCategories(completion: { array in
+            snopesScrapeNetwork.getCategories(completion: { array in
                 self.loadValidCategories(array: array, completion: { validCategories in
                     categoryRepo.arrayOfCategories = validCategories.sorted(by: {$0.title < $1.title})
                     categoryRepo.writeCategoriesToCD(array: categoryRepo.arrayOfCategories)
@@ -49,7 +50,7 @@ class LaunchViewController: UIViewController {
                         arrayOfCategoryStories.append(story)
                     }
                 }
-                let tempCategory = Category(title: category.title!, url: category.urlString!, stories: arrayOfCategoryStories)
+                let tempCategory = Category(title: category.title!, id: nil, url: category.urlString!, stories: arrayOfCategoryStories)
                 categoryRepo.arrayOfCategories.append(tempCategory)
             }
             completion()
@@ -60,7 +61,7 @@ class LaunchViewController: UIViewController {
         var counterToComplete = 0
         var completeArray = [Category]()
         for category in array {
-            network.isValidCategory(category: category, completion: {bool in
+            snopesScrapeNetwork.isValidCategory(category: category, completion: {bool in
                 counterToComplete += 1
                 if bool {
                     completeArray.append(category)

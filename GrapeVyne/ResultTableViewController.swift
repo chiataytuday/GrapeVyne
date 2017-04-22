@@ -120,7 +120,7 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
 
         let story = storyRepo.arrayOfSwipedStories[indexPath.section]
         cell.storyLabel.text = story.title
-        cell.storyURLasString = story.url
+        cell.storyURLasString = story.url!
         if storyRepo.arrayOfCorrectStories.contains(where: {$0.title == story.title}) {
             //user was correct, now just match result images
             if story.fact {
