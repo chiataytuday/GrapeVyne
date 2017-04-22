@@ -11,15 +11,12 @@ import Alamofire
 import Kanna
 import SwiftyJSON
 
+private let sessionTokenUserDefaultsKey = "SessionToken"
+
 class OpenTriviaDBNetwork {
+    private let userDefaults = UserDefaults.standard
     private let baseURL = "https://opentdb.com/"
     private var sessionToken = ""
-    
-    init() {
-        getSessionToken(completion: {token in
-            self.sessionToken = token
-        })
-    }
     
     public func getCategories(completion: @escaping (_ array: [Category]) -> Void) {
         Alamofire.request("\(baseURL)api_category.php").responseJSON(completionHandler: {response in
@@ -42,24 +39,57 @@ class OpenTriviaDBNetwork {
         if let categoryIdInt = categoryId {
             categoryIdString = String(categoryIdInt)
         }
-        let parameters: Parameters = [
+        var parameters: Parameters = [
             "amount" : String(amount),
             "category" : categoryIdString,
             "type" : "boolean",
             "token" : sessionToken
         ]
         
-        self.makeRequestForStories(parameters, completion: {json in
-            var array = [Story]()
-            for (_, subJson) in json["results"] {
-                if let storyTitle = subJson["question"].string?.html2String,
-                    let storyFactString = subJson["correct_answer"].string,
-                    let storyFactBool = determineStoryReliable(factString: storyFactString) {
-                    array.append(Story(title: storyTitle, url: "", fact: storyFactBool))
-                }
+//        if let token = userDefaults.string(forKey: sessionTokenUserDefaultsKey) {
+//            
+//        }
+//        guard let token = userDefaults.string(forKey: sessionTokenUserDefaultsKey) else {
+//            
+//        }
+        
+        let token = userDefaults.string(forKey: sessionTokenUserDefaultsKey)
+        if token != nil { // Token exists in memory
+            if let t = token {
+                sessionToken = t
+                parameters["token"] = t
+                print(parameters["token"] as! String)
+                self.makeRequestForStories(parameters, completion: {json in
+                    var array = [Story]()
+                    for (_, subJson) in json["results"] {
+                        if let storyTitle = subJson["question"].string?.html2String,
+                            let storyFactString = subJson["correct_answer"].string,
+                            let storyFactBool = determineStoryReliable(factString: storyFactString) {
+                            array.append(Story(title: storyTitle, url: "", fact: storyFactBool))
+                        }
+                    }
+                    completion(array)
+                })
             }
-            completion(array)
-        })
+        } else { // Token does not exist in memory
+            getSessionToken(completion: {token in
+                self.sessionToken = token
+                parameters["token"] = token
+                self.userDefaults.set(token, forKey: sessionTokenUserDefaultsKey)
+                print(parameters["token"] as! String)
+                self.makeRequestForStories(parameters, completion: {json in
+                    var array = [Story]()
+                    for (_, subJson) in json["results"] {
+                        if let storyTitle = subJson["question"].string?.html2String,
+                            let storyFactString = subJson["correct_answer"].string,
+                            let storyFactBool = determineStoryReliable(factString: storyFactString) {
+                            array.append(Story(title: storyTitle, url: "", fact: storyFactBool))
+                        }
+                    }
+                    completion(array)
+                })
+            })
+        }
     }
     
     private func makeRequestForStories(_ params: Parameters, completion: @escaping (_ json: JSON) -> Void) {
@@ -95,6 +125,11 @@ class OpenTriviaDBNetwork {
                 }
             }
         })
+    }
+    
+    private func setTokenLocal(tok: String) {
+        sessionToken = tok
+        
     }
     
     private func getSessionToken(completion:  @escaping (_ token: String) -> Void) {
