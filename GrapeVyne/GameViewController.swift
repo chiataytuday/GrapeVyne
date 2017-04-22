@@ -331,7 +331,7 @@ extension GameViewController: KolodaViewDelegate {
 extension GameViewController: KolodaViewDataSource {
     
     func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed {
-        return .slow
+        return .default
     }
     
     func kolodaNumberOfCards(_ koloda:KolodaView) -> Int {
