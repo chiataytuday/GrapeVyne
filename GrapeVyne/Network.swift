@@ -11,9 +11,8 @@ import Alamofire
 import Kanna
 import SwiftyJSON
 
-private let sessionTokenUserDefaultsKey = "SessionToken"
-
 class OpenTriviaDBNetwork {
+    private let sessionTokenUserDefaultsKey = "SessionToken"
     private let userDefaults = UserDefaults.standard
     private let baseURL = "https://opentdb.com/"
     
@@ -62,7 +61,7 @@ class OpenTriviaDBNetwork {
         guard userDefaults.string(forKey: sessionTokenUserDefaultsKey) != nil else { // Token is nil, not saved in memory
             getSessionToken(completion: {token in
                 parameters["token"] = token
-                self.userDefaults.set(token, forKey: sessionTokenUserDefaultsKey)
+                self.userDefaults.set(token, forKey: self.sessionTokenUserDefaultsKey)
                 self.makeRequestForStories(parameters, completion: {json in
                     var array = [Story]()
                     for (_, subJson) in json["results"] {
@@ -179,21 +178,39 @@ class SnopesScrapeNetwork {
     }
     
     public func getStoriesFor(category: Category, completion:  @escaping (_ array: [Story]) -> Void) {
-        Alamofire.request(category.url!).responseString(completionHandler: { response in
+        var pageNum = 1
+        Alamofire.request("\(category.url!)/page/\(pageNum)").responseString(completionHandler: { response in
+            if let code = response.response?.statusCode {
+                if code > 400 {
+                    // no more stories
+                } else {
+                    // we can get more stories
+                    pageNum += 1
+                    self.getStoriesFor(category: category, completion: { _ in
+                        
+                    })
+                    
+                }
+            }
             var array = [Story]()
             if let html = response.result.value {
                 array = self.scrapeStories(html: html)
             }
             var count = 0
             var parsedArray = [Story]()
-            for story in array {
-                self.getFactValueFor(story: story, completion: { story in
-                    count += 1
-                    parsedArray.append(story)
-                    if count == array.count {
-                        completion(parsedArray)
-                    }
-                })
+            
+            if !array.isEmpty {
+                for story in array {
+                    self.getFactValueFor(story: story, completion: { story in
+                        count += 1
+                        parsedArray.append(story)
+                        if count == array.count {
+                            completion(parsedArray)
+                        }
+                    })
+                }
+            } else {
+                completion(parsedArray)
             }
         })
     }
