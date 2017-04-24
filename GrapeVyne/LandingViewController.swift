@@ -62,22 +62,42 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     
     @IBAction func playButton(_ sender: UIButton) {
-//        storyRepo.arrayOfStories = [Story]()
-//        self.view.addSubview(activityIndicator)
-//        activityIndicator.show()
-//        let chosenCategory = categoryRepo.arrayOfSnopesCategories[selectedRow]
-//        if let arrayOfStories = chosenCategory.stories { // Stories in memory
-//            storyRepo.arrayOfStories = arrayOfStories
-//            self.performSegue(withIdentifier: "playButton", sender: sender)
-//            self.activityIndicator.hide()
-//        } else { // No stories in memory
-//            snopesScrapeNetwork.getStoriesFor(category: chosenCategory, completion: { arrayOfStories in
-//                categoryRepo.arrayOfCategories[self.selectedRow].stories = arrayOfStories
-//                storyRepo.arrayOfStories = arrayOfStories
-//                self.performSegue(withIdentifier: "playButton", sender: sender)
-//                self.activityIndicator.hide()
-//            })
-//        }
+        storyRepo.arrayOfStories = [Story]()
+        self.view.addSubview(activityIndicator)
+        activityIndicator.show()
+        
+        var chosenCategory: Category
+        switch segmentControl.selectedSegmentIndex {
+        case 0: // Open trivia
+            chosenCategory = categoryRepo.arrayOfOpenTriviaDBCategories[selectedRow]
+            if let arrayOfStories = chosenCategory.stories { // Stories in memory
+                storyRepo.arrayOfStories = arrayOfStories
+                self.performSegue(withIdentifier: "playButton", sender: sender)
+                self.activityIndicator.hide()
+            } else { // No stories in memory
+                openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: 10, completion: {arrayOfStories in
+                    categoryRepo.arrayOfOpenTriviaDBCategories[self.selectedRow].stories = arrayOfStories
+                    storyRepo.arrayOfStories = arrayOfStories
+                    self.performSegue(withIdentifier: "playButton", sender: sender)
+                    self.activityIndicator.hide()
+                })
+            }
+        case 1: // Snopes
+            chosenCategory = categoryRepo.arrayOfSnopesCategories[selectedRow]
+            if let arrayOfStories = chosenCategory.stories { // Stories in memory
+                storyRepo.arrayOfStories = arrayOfStories
+                self.performSegue(withIdentifier: "playButton", sender: sender)
+                self.activityIndicator.hide()
+            } else { // No stories in memory
+                snopesScrapeNetwork.getStoriesFor(category: chosenCategory, completion: { arrayOfStories in
+                    categoryRepo.arrayOfSnopesCategories[self.selectedRow].stories = arrayOfStories
+                    storyRepo.arrayOfStories = arrayOfStories
+                    self.performSegue(withIdentifier: "playButton", sender: sender)
+                    self.activityIndicator.hide()
+                })
+            }
+        default: break
+        }
     }
     
     func setupSegmentControl() {
