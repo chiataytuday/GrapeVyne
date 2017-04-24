@@ -13,12 +13,25 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var picker: UIPickerView!
     let activityIndicator = ActivityIndicatorView(text: "Loading")
     
+    @IBOutlet weak var segmentControl: SMSegmentView!
     override func viewDidLoad() {
         super.viewDidLoad()
         picker.dataSource = self
         picker.delegate = self
         modalTransitionStyle = appModalTransitionStyle
         picker.backgroundColor = UIColor.clear
+        let app = SMSegmentAppearance()
+        app.titleOnSelectionColour = UIColor.white
+        app.titleOffSelectionColour = CustomColor.customLightGray
+        app.segmentOnSelectionColour = CustomColor.customPurple
+        app.segmentOffSelectionColour = UIColor.darkGray
+        segmentControl.segmentAppearance = app
+        segmentControl.backgroundColor = UIColor.clear
+        segmentControl.layer.cornerRadius = 8.0
+        segmentControl.layer.masksToBounds = true
+        segmentControl.addSegmentWithTitle("test", onSelectionImage: nil, offSelectionImage: nil)
+        let attTitle = NSMutableAttributedString(string: "SNOPES", attributes: [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 22.0)!])
+        segmentControl.addSegmentWithAttributedTitle(attTitle, onSelectionImage: #imageLiteral(resourceName: "correct"), offSelectionImage: #imageLiteral(resourceName: "incorrect"))
     }
     
     @IBAction func questionButton(_ sender: UIButton) {
