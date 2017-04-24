@@ -28,6 +28,7 @@ class ResultTableViewCell: UITableViewCell {
     @IBOutlet weak var storyLabel: UILabel!
     @IBOutlet weak var correctAnsLabel: UILabel!
     @IBOutlet weak var userAnsLabel: UILabel!
+    @IBOutlet weak var linkButton: UIButton!
     
     @IBAction func linkButton(_ sender: UIButton) {
         let svc = SFSafariViewController(url: URL(string: storyURLasString)!)
@@ -120,7 +121,13 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
 
         let story = storyRepo.arrayOfSwipedStories[indexPath.section]
         cell.storyLabel.text = story.title
-        cell.storyURLasString = story.url!
+        
+        if story.url == nil {
+            cell.linkButton.isHidden = true
+        } else {
+            cell.storyURLasString = story.url!
+        }
+        
         if storyRepo.arrayOfCorrectStories.contains(where: {$0.title == story.title}) {
             //user was correct, now just match result images
             if story.fact {

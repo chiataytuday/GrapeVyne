@@ -35,7 +35,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOADING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlZ-Kh-wUO">
-                                <rect key="frame" x="133.5" y="423" width="108.5" height="22"/>
+                                <rect key="frame" x="134" y="423" width="108.5" height="22"/>
                                 <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="22"/>
                                 <color key="textColor" red="0.75294117650000003" green="0.75686274509999996" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -154,7 +154,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOW TO PLAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wW-MV-I3G">
-                                <rect key="frame" x="75" y="41" width="225.5" height="30"/>
+                                <rect key="frame" x="75.5" y="41" width="225.5" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Q90-l8-qK4"/>
                                 </constraints>
@@ -370,6 +370,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="correctAnsLabel" destination="ygn-bp-fvM" id="tdW-YM-NCF"/>
+                                            <outlet property="linkButton" destination="PLh-qL-ZBe" id="eqy-6S-gGn"/>
                                             <outlet property="storyLabel" destination="k1e-Pl-ece" id="zrU-mE-9Qf"/>
                                             <outlet property="userAnsLabel" destination="DiD-l2-sJw" id="wyp-2z-Qqq"/>
                                         </connections>

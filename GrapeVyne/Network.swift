@@ -52,7 +52,7 @@ class OpenTriviaDBNetwork {
                     if let storyTitle = subJson["question"].string?.html2String,
                         let storyFactString = subJson["correct_answer"].string,
                         let storyFactBool = determineStoryReliable(factString: storyFactString) {
-                        array.append(Story(title: storyTitle, url: "", fact: storyFactBool))
+                        array.append(Story(title: storyTitle, url: nil, fact: storyFactBool))
                     }
                 }
                 completion(array)
@@ -68,7 +68,7 @@ class OpenTriviaDBNetwork {
                         if let storyTitle = subJson["question"].string?.html2String,
                             let storyFactString = subJson["correct_answer"].string,
                             let storyFactBool = determineStoryReliable(factString: storyFactString) {
-                            array.append(Story(title: storyTitle, url: "", fact: storyFactBool))
+                            array.append(Story(title: storyTitle, url: nil, fact: storyFactBool))
                         }
                     }
                     completion(array)
