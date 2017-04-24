@@ -22,17 +22,19 @@ class LaunchViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        getCategories(completion: {
-            let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
-            self.present(landingVC, animated: true, completion: nil)
+        openTriviaDBNetwork.getCategories(completion: {arrayOfCategories in
+            categoryRepo.arrayOfOpenTriviaDBCategories = arrayOfCategories.sorted(by: {$0.title < $1.title})
+            self.getCategories(completion: {
+                let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+                self.present(landingVC, animated: true, completion: nil)
+            })
         })
     }
     
     private func getCategories(completion: @escaping () -> Void) {
-        snopesScrapeNetwork.getCategories(completion: { array in
-            self.loadValidCategories(array: array, completion: { validCategories in
-                categoryRepo.arrayOfCategories = validCategories.sorted(by: {$0.title < $1.title})
-                categoryRepo.writeCategoriesToCD(array: categoryRepo.arrayOfCategories)
+        snopesScrapeNetwork.getCategories(completion: { arrayOfCategories in
+            self.loadValidCategories(array: arrayOfCategories, completion: { arrayOfValidCategories in
+                categoryRepo.arrayOfSnopesCategories = arrayOfValidCategories.sorted(by: {$0.title < $1.title})
                 completion()
             })
         })

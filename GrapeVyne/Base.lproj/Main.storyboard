@@ -101,6 +101,9 @@
                                 <rect key="frame" x="48" y="349" width="279" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="segmentControl:" destination="Nvd-zZ-N6L" eventType="valueChanged" id="gGE-eM-AKk"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

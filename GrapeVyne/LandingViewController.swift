@@ -10,28 +10,20 @@ import UIKit
 
 class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     var selectedRow = 0
-    @IBOutlet weak var picker: UIPickerView!
     let activityIndicator = ActivityIndicatorView(text: "Loading")
-    
+    var pickerCategories = [Category]()
+    let landingCornerRadius: CGFloat = 8.0
+    let segmentedControlLabelAttrbiutesDict = [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 14.0)!]
+    @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var segmentControl: SMSegmentView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         picker.dataSource = self
         picker.delegate = self
         modalTransitionStyle = appModalTransitionStyle
         picker.backgroundColor = UIColor.clear
-        let app = SMSegmentAppearance()
-        app.titleOnSelectionColour = UIColor.white
-        app.titleOffSelectionColour = CustomColor.customLightGray
-        app.segmentOnSelectionColour = CustomColor.customPurple
-        app.segmentOffSelectionColour = UIColor.darkGray
-        segmentControl.segmentAppearance = app
-        segmentControl.backgroundColor = UIColor.clear
-        segmentControl.layer.cornerRadius = 8.0
-        segmentControl.layer.masksToBounds = true
-        segmentControl.addSegmentWithTitle("test", onSelectionImage: nil, offSelectionImage: nil)
-        let attTitle = NSMutableAttributedString(string: "SNOPES", attributes: [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 22.0)!])
-        segmentControl.addSegmentWithAttributedTitle(attTitle, onSelectionImage: #imageLiteral(resourceName: "correct"), offSelectionImage: #imageLiteral(resourceName: "incorrect"))
+        setupSegmentControl()
     }
     
     @IBAction func questionButton(_ sender: UIButton) {
@@ -57,23 +49,55 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         present(optionMenu, animated: true, completion: nil)
     }
     
-    @IBAction func playButton(_ sender: UIButton) {
-        storyRepo.arrayOfStories = [Story]()
-        self.view.addSubview(activityIndicator)
-        activityIndicator.show()
-        let chosenCategory = categoryRepo.arrayOfCategories[selectedRow]
-        if let arrayOfStories = chosenCategory.stories { // Stories in memory
-            storyRepo.arrayOfStories = arrayOfStories
-            self.performSegue(withIdentifier: "playButton", sender: sender)
-            self.activityIndicator.hide()
-        } else { // No stories in memory
-            snopesScrapeNetwork.getStoriesFor(category: chosenCategory, completion: { arrayOfStories in
-                categoryRepo.arrayOfCategories[self.selectedRow].stories = arrayOfStories
-                storyRepo.arrayOfStories = arrayOfStories
-                self.performSegue(withIdentifier: "playButton", sender: sender)
-                self.activityIndicator.hide()
-            })
+    @IBAction func segmentControl(_ sender: SMSegmentView) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            pickerCategories = categoryRepo.arrayOfOpenTriviaDBCategories
+        case 1:
+            pickerCategories = categoryRepo.arrayOfSnopesCategories
+        default: break
         }
+        picker.reloadAllComponents()
+    }
+    
+    
+    @IBAction func playButton(_ sender: UIButton) {
+//        storyRepo.arrayOfStories = [Story]()
+//        self.view.addSubview(activityIndicator)
+//        activityIndicator.show()
+//        let chosenCategory = categoryRepo.arrayOfSnopesCategories[selectedRow]
+//        if let arrayOfStories = chosenCategory.stories { // Stories in memory
+//            storyRepo.arrayOfStories = arrayOfStories
+//            self.performSegue(withIdentifier: "playButton", sender: sender)
+//            self.activityIndicator.hide()
+//        } else { // No stories in memory
+//            snopesScrapeNetwork.getStoriesFor(category: chosenCategory, completion: { arrayOfStories in
+//                categoryRepo.arrayOfCategories[self.selectedRow].stories = arrayOfStories
+//                storyRepo.arrayOfStories = arrayOfStories
+//                self.performSegue(withIdentifier: "playButton", sender: sender)
+//                self.activityIndicator.hide()
+//            })
+//        }
+    }
+    
+    func setupSegmentControl() {
+        let appearence = SMSegmentAppearance()
+        appearence.titleOnSelectionColour = UIColor.white
+        appearence.titleOffSelectionColour = CustomColor.customLightGray
+        appearence.segmentOnSelectionColour = CustomColor.customPurple
+        appearence.segmentOffSelectionColour = UIColor.darkGray
+        segmentControl.segmentAppearance = appearence
+        segmentControl.backgroundColor = UIColor.clear
+        segmentControl.layer.cornerRadius = landingCornerRadius
+        segmentControl.layer.masksToBounds = true
+        
+        segmentControl.addSegmentWithAttributedTitle(NSMutableAttributedString(string: "OPEN TRIVIA DB", attributes: segmentedControlLabelAttrbiutesDict),
+                                                     onSelectionImage: nil,
+                                                     offSelectionImage: nil)
+        segmentControl.addSegmentWithAttributedTitle(NSMutableAttributedString(string: "SNOPES", attributes: segmentedControlLabelAttrbiutesDict),
+                                                     onSelectionImage: nil,
+                                                     offSelectionImage: nil)
+        segmentControl.selectedSegmentIndex = 0
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -81,7 +105,7 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return categoryRepo.arrayOfCategories.count
+        return pickerCategories.count
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -89,14 +113,14 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         if view == nil {  // if no label there yet
             pickerLabel = UILabel()
         }
-        let title = categoryRepo.arrayOfCategories[row].title.uppercased()
+        let title = pickerCategories[row].title.uppercased()
         let attTitle = NSAttributedString(string: title, attributes: [
             NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 22.0)!,
             NSForegroundColorAttributeName: UIColor.white])
         pickerLabel?.attributedText = attTitle
         pickerLabel?.textAlignment = .center
         pickerLabel?.backgroundColor = CustomColor.customPurple
-        pickerLabel?.layer.cornerRadius = 8.0
+        pickerLabel?.layer.cornerRadius = landingCornerRadius
         pickerLabel?.layer.masksToBounds = true
         pickerLabel?.adjustsFontSizeToFitWidth = true
         return pickerLabel!
