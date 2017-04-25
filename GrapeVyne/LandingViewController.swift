@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JSSAlertView
 
 class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     var selectedRow = 0
@@ -76,19 +77,27 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     self.performSegue(withIdentifier: "playButton", sender: sender)
                     self.activityIndicator.hide()
                 } else {
-                    let alert = UIAlertController(title: "Hol' up", message: "No more new stories. Would you like play the same ones again?", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Sure!", style: .default, handler: {_ in
+                    
+                    let alertview = JSSAlertView().show(self,
+                                                        title: "Hol' up".uppercased(),
+                                                        text: "We can't find any new trivia. Would you like to play the same ones again?".uppercased(),
+                                                        buttonText: "Sure!".uppercased(),
+                                                        cancelButtonText: "Nah".uppercased(),
+                                                        color: CustomColor.customPurple)
+                    alertview.addAction({_ in
                         openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: 15, returnExhausted: true, completion: {arrayOfStories in
                             storyRepo.arrayOfStories = arrayOfStories!
                             self.performSegue(withIdentifier: "playButton", sender: sender)
                             self.activityIndicator.hide()
                         })
-                    }))
-                    alert.addAction(UIAlertAction(title: "Nah", style: .cancel, handler: {_ in
-                        alert.dismiss(animated: true, completion: nil)
+                    })
+                    alertview.addCancelAction({_ in
                         self.activityIndicator.hide()
-                    }))
-                    self.present(alert, animated: true, completion: nil)
+                    })
+                    alertview.setTitleFont("Gotham-Bold")
+                    alertview.setTextFont("Gotham-Bold")
+                    alertview.setButtonFont("Gotham-Bold")
+                    alertview.setTextTheme(.light)
                 }
             })
         case 1: // Snopes
