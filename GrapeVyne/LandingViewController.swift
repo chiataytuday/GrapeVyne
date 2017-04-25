@@ -70,11 +70,26 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         switch segmentControl.selectedSegmentIndex {
         case 0: // Open trivia
             chosenCategory = categoryRepo.arrayOfOpenTriviaDBCategories[selectedRow]
-            openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: 15, completion: {arrayOfStories in
-                categoryRepo.arrayOfOpenTriviaDBCategories[self.selectedRow].stories = arrayOfStories
-                storyRepo.arrayOfStories = arrayOfStories
-                self.performSegue(withIdentifier: "playButton", sender: sender)
-                self.activityIndicator.hide()
+            openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: 15, returnExhausted: false, completion: {arrayOfStories in
+                if arrayOfStories != nil {
+                    storyRepo.arrayOfStories = arrayOfStories!
+                    self.performSegue(withIdentifier: "playButton", sender: sender)
+                    self.activityIndicator.hide()
+                } else {
+                    let alert = UIAlertController(title: "Hol' up", message: "No more new stories. Would you like play the same ones again?", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Sure!", style: .default, handler: {_ in
+                        openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: 15, returnExhausted: true, completion: {arrayOfStories in
+                            storyRepo.arrayOfStories = arrayOfStories!
+                            self.performSegue(withIdentifier: "playButton", sender: sender)
+                            self.activityIndicator.hide()
+                        })
+                    }))
+                    alert.addAction(UIAlertAction(title: "Nah", style: .cancel, handler: {_ in
+                        alert.dismiss(animated: true, completion: nil)
+                        self.activityIndicator.hide()
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }
             })
         case 1: // Snopes
             chosenCategory = categoryRepo.arrayOfSnopesCategories[selectedRow]

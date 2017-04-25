@@ -32,7 +32,7 @@ class OpenTriviaDBNetwork {
         })
     }
     
-    public func getStoriesFor(categoryId: Int?, amount: Int, completion:  @escaping (_ array: [Story]) -> Void) {
+    public func getStoriesFor(categoryId: Int?, amount: Int, returnExhausted: Bool, completion:  @escaping (_ array: [Story]?) -> Void) {
         var categoryIdString = ""
         if let categoryIdInt = categoryId {
             categoryIdString = String(categoryIdInt)
@@ -46,25 +46,10 @@ class OpenTriviaDBNetwork {
         
         if let token = userDefaults.string(forKey: sessionTokenUserDefaultsKey) { // Token not nil, saved in memory
             parameters["token"] = token
-            self.makeRequestForStories(parameters, completion: {json in
+            self.makeRequestForStories(parameters, returnExhausted: returnExhausted, completion: {json in
                 var array = [Story]()
-                for (_, subJson) in json["results"] {
-                    if let storyTitle = subJson["question"].string?.html2String,
-                        let storyFactString = subJson["correct_answer"].string,
-                        let storyFactBool = determineStoryReliable(factString: storyFactString) {
-                        array.append(Story(title: storyTitle, url: nil, fact: storyFactBool))
-                    }
-                }
-                completion(array)
-            })
-        }
-        guard userDefaults.string(forKey: sessionTokenUserDefaultsKey) != nil else { // Token is nil, not saved in memory
-            getSessionToken(completion: {token in
-                parameters["token"] = token
-                self.userDefaults.set(token, forKey: self.sessionTokenUserDefaultsKey)
-                self.makeRequestForStories(parameters, completion: {json in
-                    var array = [Story]()
-                    for (_, subJson) in json["results"] {
+                if json != nil {
+                    for (_, subJson) in json!["results"] {
                         if let storyTitle = subJson["question"].string?.html2String,
                             let storyFactString = subJson["correct_answer"].string,
                             let storyFactBool = determineStoryReliable(factString: storyFactString) {
@@ -72,13 +57,37 @@ class OpenTriviaDBNetwork {
                         }
                     }
                     completion(array)
+                } else {
+                   completion(nil)
+                }
+                
+            })
+        }
+        guard userDefaults.string(forKey: sessionTokenUserDefaultsKey) != nil else { // Token is nil, not saved in memory
+            getSessionToken(completion: {token in
+                parameters["token"] = token
+                self.userDefaults.set(token, forKey: self.sessionTokenUserDefaultsKey)
+                self.makeRequestForStories(parameters, returnExhausted: returnExhausted, completion: {json in
+                    var array = [Story]()
+                    if json != nil {
+                        for (_, subJson) in json!["results"] {
+                            if let storyTitle = subJson["question"].string?.html2String,
+                                let storyFactString = subJson["correct_answer"].string,
+                                let storyFactBool = determineStoryReliable(factString: storyFactString) {
+                                array.append(Story(title: storyTitle, url: nil, fact: storyFactBool))
+                            }
+                        }
+                        completion(array)
+                    } else {
+                        completion(nil)
+                    }
                 })
             })
             return
         }
     }
     
-    private func makeRequestForStories(_ params: Parameters, completion: @escaping (_ json: JSON) -> Void) {
+    private func makeRequestForStories(_ params: Parameters, returnExhausted: Bool, completion: @escaping (_ json: JSON?) -> Void) {
         let sesh = URLSession(configuration: .default)
         
         var responseCode = 0
@@ -94,7 +103,7 @@ class OpenTriviaDBNetwork {
             }
             if let amountNum = Int(amountString) {
                 let newAmountNum = amountNum - 1
-                if newAmountNum <= 0 {
+                if newAmountNum <= 0 { // Assuming the API would not have a category with at least one question
                     //completion(nil)
                 }
                 amountString = String(newAmountNum)
@@ -120,19 +129,24 @@ class OpenTriviaDBNetwork {
                             var copyParams = params
                             copyParams["token"] = token
                             self.userDefaults.set(token, forKey: self.sessionTokenUserDefaultsKey)
-                            self.makeRequestForStories(copyParams, completion: {json in
+                            self.makeRequestForStories(copyParams, returnExhausted: returnExhausted, completion: {json in
                                 completion(json)
                             })
                         })
                     case 4: // Token Empty: Session Token has returned all possible questions for the specified query. Resetting the Token is necessary.
-                        let oldToken = params["token"] as! String
-                        self.resetSessionToken(token: oldToken, completion: {newToken in
-                            var copyParams = params
-                            copyParams["token"] = newToken
-                            self.makeRequestForStories(copyParams, completion: {json in
-                                completion(json)
+                        if returnExhausted {
+                            let oldToken = params["token"] as! String
+                            self.resetSessionToken(token: oldToken, completion: {newToken in
+                                var copyParams = params
+                                copyParams["token"] = newToken
+                                self.makeRequestForStories(copyParams, returnExhausted: returnExhausted, completion: {json in
+                                    completion(json)
+                                })
                             })
-                        })
+                        } else {
+                            completion(nil)
+                        }
+                        
                     default:
                         return
                     }
