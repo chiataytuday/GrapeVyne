@@ -79,7 +79,31 @@ class OpenTriviaDBNetwork {
     }
     
     private func makeRequestForStories(_ params: Parameters, completion: @escaping (_ json: JSON) -> Void) {
-        Alamofire.request("\(self.baseURL)/api.php", method: .get, parameters: params).responseJSON(completionHandler: {response in
+        let sesh = URLSession(configuration: .default)
+        
+        var responseCode = 0
+        let category = params["category"] as! String
+        var amountString = params["amount"] as! String
+        repeat {
+            let url = URL(string: "https://opentdb.com/api.php?amount=\(amountString)&category=\(category)&type=boolean")!
+            if let data = sesh.synchronousDataTask(with: url).0 {
+                let json = JSON(data: data)
+                if let rCode = json["response_code"].int {
+                    responseCode = rCode
+                }
+            }
+            if let amountNum = Int(amountString) {
+                let newAmountNum = amountNum - 1
+                if newAmountNum <= 0 {
+                    //completion(nil)
+                }
+                amountString = String(newAmountNum)
+            }
+        } while responseCode != 0
+        var copyParams = params
+        copyParams["amount"] = amountString
+        
+        Alamofire.request("\(self.baseURL)/api.php", method: .get, parameters: copyParams).responseJSON(completionHandler: {response in
             if let data = response.data {
                 let json = JSON(data: data)
                 if let responseCode = json["response_code"].int {
@@ -101,51 +125,13 @@ class OpenTriviaDBNetwork {
                             })
                         })
                     case 4: // Token Empty: Session Token has returned all possible questions for the specified query. Resetting the Token is necessary.
-                        var copyParams = params
-                        copyParams["token"] = ""
-                        Alamofire.request("\(self.baseURL)/api.php", method: .get, parameters: copyParams).responseJSON(completionHandler: {response in
-                            if let data = response.data {
-                                let json = JSON(data: data)
-                                if let responseCode = json["response_code"].int {
-                                    switch(responseCode) {
-                                    case 0:
-                                        completion(json)
-                                    case 1:
-                                        if let amountString = params["amount"] as? String, let amountNum = Int(amountString) {
-                                            let newAmountNum = amountNum - 1
-                                            if newAmountNum <= 0 {
-                                                //completion(nil)
-                                            }
-                                            let newAmountString = String(newAmountNum)
-                                            var newParams = params
-                                            newParams["amount"] = newAmountString
-                                            self.makeRequestForStories(newParams, completion: {json in
-                                                completion(json)
-                                            })
-                                        }
-                                    case 2: break
-                                    case 3:
-                                        self.getSessionToken(completion: {token in
-                                            var copyParams = params
-                                            copyParams["token"] = token
-                                            self.userDefaults.set(token, forKey: self.sessionTokenUserDefaultsKey)
-                                            self.makeRequestForStories(copyParams, completion: {json in
-                                                completion(json)
-                                            })
-                                        })
-                                    case 4:
-                                        let oldToken = params["token"] as! String
-                                        self.resetSessionToken(token: oldToken, completion: {newToken in
-                                            var copyParams = params
-                                            copyParams["token"] = newToken
-                                            self.makeRequestForStories(copyParams, completion: {json in
-                                                completion(json)
-                                            })
-                                        })
-                                    default: break
-                                    }
-                                }
-                            }
+                        let oldToken = params["token"] as! String
+                        self.resetSessionToken(token: oldToken, completion: {newToken in
+                            var copyParams = params
+                            copyParams["token"] = newToken
+                            self.makeRequestForStories(copyParams, completion: {json in
+                                completion(json)
+                            })
                         })
                     default:
                         return

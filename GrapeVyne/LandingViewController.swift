@@ -73,7 +73,6 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: 15, completion: {arrayOfStories in
                 categoryRepo.arrayOfOpenTriviaDBCategories[self.selectedRow].stories = arrayOfStories
                 storyRepo.arrayOfStories = arrayOfStories
-                storyRepo.arrayOfStories.shuffle()
                 self.performSegue(withIdentifier: "playButton", sender: sender)
                 self.activityIndicator.hide()
             })
@@ -81,14 +80,12 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             chosenCategory = categoryRepo.arrayOfSnopesCategories[selectedRow]
             if let arrayOfStories = chosenCategory.stories { // Stories in memory
                 storyRepo.arrayOfStories = arrayOfStories
-                storyRepo.arrayOfStories.shuffle()
                 self.performSegue(withIdentifier: "playButton", sender: sender)
                 self.activityIndicator.hide()
             } else { // No stories in memory
                 snopesScrapeNetwork.getStoriesFor(category: chosenCategory, completion: { arrayOfStories in
                     categoryRepo.arrayOfSnopesCategories[self.selectedRow].stories = arrayOfStories
                     storyRepo.arrayOfStories = arrayOfStories
-                    storyRepo.arrayOfStories.shuffle()
                     self.performSegue(withIdentifier: "playButton", sender: sender)
                     self.activityIndicator.hide()
                 })
@@ -145,19 +142,5 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRow = row
-    }
-}
-extension MutableCollection where Indices.Iterator.Element == Index {
-    /// Shuffles the contents of this collection.
-    mutating func shuffle() {
-        let c = count
-        guard c > 1 else { return }
-        
-        for (firstUnshuffled , unshuffledCount) in zip(indices, stride(from: c, to: 1, by: -1)) {
-            let d: IndexDistance = numericCast(arc4random_uniform(numericCast(unshuffledCount)))
-            guard d != 0 else { continue }
-            let i = index(firstUnshuffled, offsetBy: d)
-            swap(&self[firstUnshuffled], &self[i])
-        }
     }
 }
