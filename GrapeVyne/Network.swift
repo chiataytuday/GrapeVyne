@@ -95,18 +95,57 @@ class OpenTriviaDBNetwork {
                         self.getSessionToken(completion: {token in
                             var copyParams = params
                             copyParams["token"] = token
+                            self.userDefaults.set(token, forKey: self.sessionTokenUserDefaultsKey)
                             self.makeRequestForStories(copyParams, completion: {json in
                                 completion(json)
                             })
                         })
                     case 4: // Token Empty: Session Token has returned all possible questions for the specified query. Resetting the Token is necessary.
-                        let oldToken = params["token"] as! String
-                        self.resetSessionToken(token: oldToken, completion: {newToken in
-                            var copyParams = params
-                            copyParams["token"] = newToken
-                            self.makeRequestForStories(copyParams, completion: {json in
-                                completion(json)
-                            })
+                        var copyParams = params
+                        copyParams["token"] = ""
+                        Alamofire.request("\(self.baseURL)/api.php", method: .get, parameters: copyParams).responseJSON(completionHandler: {response in
+                            if let data = response.data {
+                                let json = JSON(data: data)
+                                if let responseCode = json["response_code"].int {
+                                    switch(responseCode) {
+                                    case 0:
+                                        completion(json)
+                                    case 1:
+                                        if let amountString = params["amount"] as? String, let amountNum = Int(amountString) {
+                                            let newAmountNum = amountNum - 1
+                                            if newAmountNum <= 0 {
+                                                //completion(nil)
+                                            }
+                                            let newAmountString = String(newAmountNum)
+                                            var newParams = params
+                                            newParams["amount"] = newAmountString
+                                            self.makeRequestForStories(newParams, completion: {json in
+                                                completion(json)
+                                            })
+                                        }
+                                    case 2: break
+                                    case 3:
+                                        self.getSessionToken(completion: {token in
+                                            var copyParams = params
+                                            copyParams["token"] = token
+                                            self.userDefaults.set(token, forKey: self.sessionTokenUserDefaultsKey)
+                                            self.makeRequestForStories(copyParams, completion: {json in
+                                                completion(json)
+                                            })
+                                        })
+                                    case 4:
+                                        let oldToken = params["token"] as! String
+                                        self.resetSessionToken(token: oldToken, completion: {newToken in
+                                            var copyParams = params
+                                            copyParams["token"] = newToken
+                                            self.makeRequestForStories(copyParams, completion: {json in
+                                                completion(json)
+                                            })
+                                        })
+                                    default: break
+                                    }
+                                }
+                            }
                         })
                     default:
                         return
