@@ -75,7 +75,7 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         switch segmentControl.selectedSegmentIndex {
         case 0: // Open trivia
             chosenCategory = categoryRepo.arrayOfOpenTriviaDBCategories[selectedRow]
-            openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: 15, returnExhausted: false, completion: {arrayOfStories in
+            openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: 20, returnExhausted: false, completion: {arrayOfStories in
                 if arrayOfStories != nil {
                     storyRepo.arrayOfStories = arrayOfStories!
                     self.performSegue(withIdentifier: "playButton", sender: sender)

@@ -218,19 +218,36 @@ class SnopesScrapeNetwork {
     
     public func getStoriesFor(category: Category, completion:  @escaping (_ array: [Story]) -> Void) {
         var pageNum = 1
-        Alamofire.request("\(category.url!)/page/\(pageNum)").responseString(completionHandler: { response in
-            if let code = response.response?.statusCode {
-                if code > 400 {
-                    // no more stories
-                } else {
-                    // we can get more stories
+        let sesh = URLSession(configuration: .default)
+        var hasFailed = false
+        repeat {
+            let response = sesh.synchronousDataTask(with: URL(string: "\(category.url!)/page/\(pageNum)")!).1
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
                     pageNum += 1
-                    self.getStoriesFor(category: category, completion: { _ in
-                        
-                    })
-                    
+                } else if httpResponse.statusCode >= 400 {
+                    hasFailed = true
                 }
             }
+        } while !hasFailed
+        
+        var arrayOfStories = [Story]()
+        var count = 0
+        for i in 0...pageNum {
+            self.makeRequestFor(category: category, pageNum: i, completion: {array in
+                count += 1
+                for story in array {
+                    arrayOfStories.append(story)
+                }
+                if count == pageNum {
+                    completion(arrayOfStories)
+                }
+            })
+        }
+    }
+    
+    private func makeRequestFor(category: Category, pageNum: Int, completion:  @escaping (_ array: [Story]) -> Void) {
+        Alamofire.request("\(category.url!)/page/\(pageNum)").responseString(completionHandler: { response in
             var array = [Story]()
             if let html = response.result.value {
                 array = self.scrapeStories(html: html)
