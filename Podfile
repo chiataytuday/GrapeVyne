@@ -8,6 +8,6 @@ target ‘GrapeVyne’ do
   pod 'SwiftyJSON'
   pod 'Kanna', '~> 2.1.0'
   pod 'Alamofire', '~> 4.4.0'
-pod 'JSSAlertView'
-
+  pod 'JSSAlertView'
+  pod 'BubbleTransition'
 end
