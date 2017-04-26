@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (4.4.0)
+  - BubbleTransition (2.0.1)
+  - JSSAlertView (3.0.4)
   - Kanna (2.1.1)
   - Koloda (4.1):
     - pop (~> 1.0)
@@ -8,17 +10,21 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.4.0)
+  - BubbleTransition
+  - JSSAlertView
   - Kanna (~> 2.1.0)
   - Koloda (~> 4.1)
   - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  BubbleTransition: bb24ed389ab672eecf3c87170d0a73f959a8e696
+  JSSAlertView: 7d8345c88e6fd8b515bc49f0fc8d8c69f6776b9c
   Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   Koloda: 6c4fa3ce9a68776a8ef973311e53fdda432799a8
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: f8b1865b0de74eda61611c38ff25d226510b0fca
+PODFILE CHECKSUM: 099756de8dae832e4e578269fd33ffb35f2cd1bc
 
-COCOAPODS: 1.2.0.beta.3
+COCOAPODS: 1.2.1

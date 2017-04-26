@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>BubbleTransition.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JSSAlertView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Kanna.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,12 +47,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>14CF8FF5FFE5DC3A37C5D3E4FA63691B</key>
+		<key>0711DEA1099CA0B48B657BB0903E1ED2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>20151774CE2F5FA6B8126D4F5ED1C5FE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>38830187D9E171E7B43047ED06A08ADC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,7 +77,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E649E2358D9DC19657BCBC0E71F7D62A</key>
+		<key>D368184BEED712B6A15E4767FE420BE5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EF86103BB5E785CDDDC2E65CC3AD508F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
