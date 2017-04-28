@@ -8,13 +8,11 @@
 
 import UIKit
 import JSSAlertView
-import BubbleTransition
 
 class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIViewControllerTransitioningDelegate {
     var activityIndicator: ActivityIndicatorView!
     let landingCornerRadius: CGFloat = 8.0
     let segmentedControlLabelAttrbiutesDict = [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 14.0)!]
-    let bubbleTransition = BubbleTransition()
     let numberOfStoriesOpenTrivia = 20
     var selectedRow = 0
     var pickerCategories = [Category]()
@@ -196,26 +194,6 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRow = row
-    }
-    
-    public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let controller = segue.destination
-        controller.transitioningDelegate = self
-        controller.modalPresentationStyle = .custom
-    }
-    
-    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        bubbleTransition.transitionMode = .present
-        bubbleTransition.startingPoint = playButton.center
-        bubbleTransition.bubbleColor = playButton.backgroundColor!
-        return bubbleTransition
-    }
-    
-    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        bubbleTransition.transitionMode = .dismiss
-        bubbleTransition.startingPoint = playButton.center
-        bubbleTransition.bubbleColor = playButton.backgroundColor!
-        return bubbleTransition
     }
 
 }
