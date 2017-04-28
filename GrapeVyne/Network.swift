@@ -32,6 +32,12 @@ class OpenTriviaDBNetwork {
         })
     }
     
+    public func getRandomStories(amount: Int, returnExhausted: Bool, completion: @escaping (_ array: [Story]?) -> Void) {
+        getStoriesFor(categoryId: nil, amount: amount, returnExhausted: returnExhausted, completion: {array in
+            completion(array)
+        })
+    }
+    
     public func getStoriesFor(categoryId: Int?, amount: Int, returnExhausted: Bool, completion:  @escaping (_ array: [Story]?) -> Void) {
         var categoryIdString = ""
         if let categoryIdInt = categoryId {

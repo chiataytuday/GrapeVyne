@@ -11,12 +11,13 @@ import JSSAlertView
 import BubbleTransition
 
 class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIViewControllerTransitioningDelegate {
-    var selectedRow = 0
-    let activityIndicator = ActivityIndicatorView(text: "Loading")
-    var pickerCategories = [Category]()
+    var activityIndicator: ActivityIndicatorView!
     let landingCornerRadius: CGFloat = 8.0
     let segmentedControlLabelAttrbiutesDict = [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 14.0)!]
     let bubbleTransition = BubbleTransition()
+    let numberOfStoriesOpenTrivia = 20
+    var selectedRow = 0
+    var pickerCategories = [Category]()
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var segmentControl: SMSegmentView!
     @IBOutlet weak var playButton: UIButton!
@@ -29,6 +30,7 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         picker.backgroundColor = UIColor.clear
         setupSegmentControl()
         playButton.backgroundColor = UIColor.black
+        activityIndicator = ActivityIndicatorView(text: "Loading")
     }
     
     @IBAction func questionButton(_ sender: UIButton) {
@@ -67,59 +69,83 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     
     @IBAction func playButton(_ sender: UIButton) {
-        storyRepo.arrayOfStories = [Story]()
         self.view.addSubview(activityIndicator)
         activityIndicator.show()
+        self.view.isUserInteractionEnabled = false
+        storyRepo.arrayOfStories = [Story]()
         
-        var chosenCategory: Category
-        switch segmentControl.selectedSegmentIndex {
-        case 0: // Open trivia
-            chosenCategory = categoryRepo.arrayOfOpenTriviaDBCategories[selectedRow]
-            openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: 20, returnExhausted: false, completion: {arrayOfStories in
-                if arrayOfStories != nil {
-                    storyRepo.arrayOfStories = arrayOfStories!
-                    self.performSegue(withIdentifier: "playButton", sender: sender)
-                    self.activityIndicator.hide()
-                } else {
-                    
-                    let alertview = JSSAlertView().show(self,
-                                                        title: "Hol' up".uppercased(),
-                                                        text: "We can't find any new trivia. Would you like to play the same ones again?".uppercased(),
-                                                        buttonText: "Sure!".uppercased(),
-                                                        cancelButtonText: "Nah".uppercased(),
-                                                        color: CustomColor.customPurple)
-                    alertview.addAction({_ in
-                        openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: 15, returnExhausted: true, completion: {arrayOfStories in
+        DispatchQueue.global(qos: .userInitiated).async {
+            var chosenCategory: Category
+            switch self.segmentControl.selectedSegmentIndex {
+            case 0: // Open trivia
+                chosenCategory = categoryRepo.arrayOfOpenTriviaDBCategories[self.selectedRow]
+                if chosenCategory.title == "Random" {
+                    openTriviaDBNetwork.getRandomStories(amount: self.numberOfStoriesOpenTrivia, returnExhausted: false, completion: { arrayOfStories in
+                        if arrayOfStories != nil {
                             storyRepo.arrayOfStories = arrayOfStories!
-                            self.performSegue(withIdentifier: "playButton", sender: sender)
-                            self.activityIndicator.hide()
-                        })
+                            self.leaveViewController(sender: sender)
+                        } else {
+                            self.presentCustomAlertViewController(category: chosenCategory, sender: sender)
+                        }
                     })
-                    alertview.addCancelAction({_ in
-                        self.activityIndicator.hide()
+                } else {
+                    openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: self.numberOfStoriesOpenTrivia, returnExhausted: false, completion: {arrayOfStories in
+                        if arrayOfStories != nil {
+                            storyRepo.arrayOfStories = arrayOfStories!
+                            self.leaveViewController(sender: sender)
+                        } else {
+                            self.presentCustomAlertViewController(category: chosenCategory, sender: sender)
+                        }
                     })
-                    alertview.setTitleFont("Gotham-Bold")
-                    alertview.setTextFont("Gotham-Bold")
-                    alertview.setButtonFont("Gotham-Bold")
-                    alertview.setTextTheme(.light)
                 }
-            })
-        case 1: // Snopes
-            chosenCategory = categoryRepo.arrayOfSnopesCategories[selectedRow]
-            if let arrayOfStories = chosenCategory.stories { // Stories in memory
-                storyRepo.arrayOfStories = arrayOfStories
-                self.performSegue(withIdentifier: "playButton", sender: sender)
-                self.activityIndicator.hide()
-            } else { // No stories in memory
-                snopesScrapeNetwork.getStoriesFor(category: chosenCategory, completion: { arrayOfStories in
-                    categoryRepo.arrayOfSnopesCategories[self.selectedRow].stories = arrayOfStories
+                
+            case 1: // Snopes
+                chosenCategory = categoryRepo.arrayOfSnopesCategories[self.selectedRow]
+                if let arrayOfStories = chosenCategory.stories { // Stories in memory
                     storyRepo.arrayOfStories = arrayOfStories
-                    self.performSegue(withIdentifier: "playButton", sender: sender)
-                    self.activityIndicator.hide()
-                })
+                    self.leaveViewController(sender: sender)
+                } else { // No stories in memory
+                    snopesScrapeNetwork.getStoriesFor(category: chosenCategory, completion: { arrayOfStories in
+                        categoryRepo.arrayOfSnopesCategories[self.selectedRow].stories = arrayOfStories
+                        storyRepo.arrayOfStories = arrayOfStories
+                        self.leaveViewController(sender: sender)
+                    })
+                }
+            default: break
             }
-        default: break
+            DispatchQueue.main.async {
+                self.activityIndicator.hide()
+            }
         }
+    }
+    
+    private func presentCustomAlertViewController(category: Category, sender: UIButton) {
+        let alertview = JSSAlertView().show(self,
+                                            title: "Hol' up".uppercased(),
+                                            text: "We can't find any new trivia. Would you like to play the same ones again?".uppercased(),
+                                            buttonText: "Sure!".uppercased(),
+                                            cancelButtonText: "Nah".uppercased(),
+                                            color: CustomColor.customPurple)
+        alertview.addAction({_ in
+            openTriviaDBNetwork.getStoriesFor(categoryId: category.id, amount: self.numberOfStoriesOpenTrivia, returnExhausted: true, completion: {arrayOfStories in
+                storyRepo.arrayOfStories = arrayOfStories!
+                self.leaveViewController(sender: sender)
+            })
+        })
+        alertview.addCancelAction({_ in
+            self.activityIndicator.hide()
+            self.view.isUserInteractionEnabled = true
+        })
+        alertview.setTitleFont("Gotham-Bold")
+        alertview.setTextFont("Gotham-Bold")
+        alertview.setButtonFont("Gotham-Bold")
+        alertview.setTextTheme(.light)
+    }
+    
+    private func leaveViewController(sender: UIButton) {
+        self.performSegue(withIdentifier: "playButton", sender: sender)
+        self.view.isUserInteractionEnabled = true
+        self.activityIndicator.hide()
     }
     
     func setupSegmentControl() {

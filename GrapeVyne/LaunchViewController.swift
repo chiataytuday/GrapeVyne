@@ -24,6 +24,7 @@ class LaunchViewController: UIViewController {
         super.viewDidAppear(animated)
         openTriviaDBNetwork.getCategories(completion: {arrayOfCategories in
             categoryRepo.arrayOfOpenTriviaDBCategories = arrayOfCategories.sorted(by: {$0.title < $1.title})
+            categoryRepo.arrayOfOpenTriviaDBCategories.insert(Category(title: "Random", id: nil, url: nil, stories: nil), at: 0)
             self.getCategories(completion: {
                 let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
                 self.present(landingVC, animated: true, completion: nil)
