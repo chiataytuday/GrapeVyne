@@ -8,8 +8,9 @@
 
 import UIKit
 import JSSAlertView
+import TKSubmitTransitionSwift3
 
-class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIViewControllerTransitioningDelegate {
+class LandingViewController: UIViewController {
     var activityIndicator: ActivityIndicatorView!
     let landingCornerRadius: CGFloat = 8.0
     let segmentedControlLabelAttrbiutesDict = [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 14.0)!]
@@ -18,7 +19,7 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     var pickerCategories = [Category]()
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var segmentControl: SMSegmentView!
-    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var playButton: TKTransitionSubmitButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,8 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         setupSegmentControl()
         playButton.backgroundColor = UIColor.black
         activityIndicator = ActivityIndicatorView(text: "Loading")
+        playButton.backgroundColor = CustomColor.customPurple
+        playButton.normalCornerRadius = 25
     }
     
     @IBAction func questionButton(_ sender: UIButton) {
@@ -65,10 +68,8 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         picker.reloadAllComponents()
     }
     
-    
     @IBAction func playButton(_ sender: UIButton) {
-        self.view.addSubview(activityIndicator)
-        activityIndicator.show()
+        didStartLoading()
         self.view.isUserInteractionEnabled = false
         storyRepo.arrayOfStories = [Story]()
         
@@ -118,6 +119,7 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     private func presentCustomAlertViewController(category: Category, sender: UIButton) {
+        didCancelLoading()
         let alertview = JSSAlertView().show(self,
                                             title: "Hol' up".uppercased(),
                                             text: "We can't find any new trivia. Would you like to play the same ones again?".uppercased(),
@@ -125,13 +127,14 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                                             cancelButtonText: "Nah".uppercased(),
                                             color: CustomColor.customPurple)
         alertview.addAction({_ in
+            self.didStartLoading()
             openTriviaDBNetwork.getStoriesFor(categoryId: category.id, amount: self.numberOfStoriesOpenTrivia, returnExhausted: true, completion: {arrayOfStories in
                 storyRepo.arrayOfStories = arrayOfStories!
                 self.leaveViewController(sender: sender)
             })
         })
         alertview.addCancelAction({_ in
-            self.activityIndicator.hide()
+            self.didCancelLoading()
             self.view.isUserInteractionEnabled = true
         })
         alertview.setTitleFont("Gotham-Bold")
@@ -141,9 +144,24 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     private func leaveViewController(sender: UIButton) {
-        self.performSegue(withIdentifier: "playButton", sender: sender)
+        didFinishLoading()
+    }
+    
+    func didStartLoading() {
+        playButton.startLoadingAnimation()
+    }
+    
+    func didFinishLoading() {
         self.view.isUserInteractionEnabled = true
-        self.activityIndicator.hide()
+        playButton.startFinishAnimation(0 , completion: {
+            let gameVC = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
+            gameVC.transitioningDelegate = self
+            self.present(gameVC, animated: true, completion: nil)
+        })
+    }
+    
+    func didCancelLoading() {
+        playButton.returnToOriginalState()
     }
     
     func setupSegmentControl() {
@@ -165,6 +183,11 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                                                      offSelectionImage: nil)
         segmentControl.selectedSegmentIndex = 0
     }
+}
+
+// MARK: UIPickerViewDataSource
+
+extension LandingViewController: UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -191,9 +214,28 @@ class LandingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         pickerLabel?.adjustsFontSizeToFitWidth = true
         return pickerLabel!
     }
+}
+
+// MARK: UIPickerViewDelegate
+
+extension LandingViewController: UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRow = row
+    }
+}
+
+// MARK: UIViewControllerTransitioningDelegate
+
+extension LandingViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let fadeInAnimator = TKFadeInAnimator()
+        return fadeInAnimator
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
     }
 
 }
