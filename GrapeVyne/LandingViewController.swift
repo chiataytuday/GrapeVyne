@@ -27,8 +27,8 @@ class LandingViewController: UIViewController {
         modalTransitionStyle = appModalTransitionStyle
         picker.backgroundColor = UIColor.clear
         setupSegmentControl()
-        playButton.backgroundColor = UIColor.black
         playButton.backgroundColor = CustomColor.customPurple
+        playButton.spinnerColor = CustomColor.customGreen
         playButton.normalCornerRadius = 25
     }
     
