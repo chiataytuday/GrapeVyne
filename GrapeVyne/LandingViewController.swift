@@ -11,7 +11,6 @@ import JSSAlertView
 import TKSubmitTransitionSwift3
 
 class LandingViewController: UIViewController {
-    var activityIndicator: ActivityIndicatorView!
     let landingCornerRadius: CGFloat = 8.0
     let segmentedControlLabelAttrbiutesDict = [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 14.0)!]
     let numberOfStoriesOpenTrivia = 20
@@ -29,7 +28,6 @@ class LandingViewController: UIViewController {
         picker.backgroundColor = UIColor.clear
         setupSegmentControl()
         playButton.backgroundColor = UIColor.black
-        activityIndicator = ActivityIndicatorView(text: "Loading")
         playButton.backgroundColor = CustomColor.customPurple
         playButton.normalCornerRadius = 25
     }
@@ -70,7 +68,6 @@ class LandingViewController: UIViewController {
     
     @IBAction func playButton(_ sender: UIButton) {
         didStartLoading()
-        self.view.isUserInteractionEnabled = false
         storyRepo.arrayOfStories = [Story]()
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -82,7 +79,7 @@ class LandingViewController: UIViewController {
                     openTriviaDBNetwork.getRandomStories(amount: self.numberOfStoriesOpenTrivia, returnExhausted: false, completion: { arrayOfStories in
                         if arrayOfStories != nil {
                             storyRepo.arrayOfStories = arrayOfStories!
-                            self.leaveViewController(sender: sender)
+                            self.leaveViewController()
                         } else {
                             self.presentCustomAlertViewController(category: chosenCategory, sender: sender)
                         }
@@ -91,7 +88,7 @@ class LandingViewController: UIViewController {
                     openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: self.numberOfStoriesOpenTrivia, returnExhausted: false, completion: {arrayOfStories in
                         if arrayOfStories != nil {
                             storyRepo.arrayOfStories = arrayOfStories!
-                            self.leaveViewController(sender: sender)
+                            self.leaveViewController()
                         } else {
                             self.presentCustomAlertViewController(category: chosenCategory, sender: sender)
                         }
@@ -102,18 +99,15 @@ class LandingViewController: UIViewController {
                 chosenCategory = categoryRepo.arrayOfSnopesCategories[self.selectedRow]
                 if let arrayOfStories = chosenCategory.stories { // Stories in memory
                     storyRepo.arrayOfStories = arrayOfStories
-                    self.leaveViewController(sender: sender)
+                    self.leaveViewController()
                 } else { // No stories in memory
                     snopesScrapeNetwork.getStoriesFor(category: chosenCategory, completion: { arrayOfStories in
                         categoryRepo.arrayOfSnopesCategories[self.selectedRow].stories = arrayOfStories
                         storyRepo.arrayOfStories = arrayOfStories
-                        self.leaveViewController(sender: sender)
+                        self.leaveViewController()
                     })
                 }
             default: break
-            }
-            DispatchQueue.main.async {
-                self.activityIndicator.hide()
             }
         }
     }
@@ -130,12 +124,11 @@ class LandingViewController: UIViewController {
             self.didStartLoading()
             openTriviaDBNetwork.getStoriesFor(categoryId: category.id, amount: self.numberOfStoriesOpenTrivia, returnExhausted: true, completion: {arrayOfStories in
                 storyRepo.arrayOfStories = arrayOfStories!
-                self.leaveViewController(sender: sender)
+                self.leaveViewController()
             })
         })
         alertview.addCancelAction({_ in
             self.didCancelLoading()
-            self.view.isUserInteractionEnabled = true
         })
         alertview.setTitleFont("Gotham-Bold")
         alertview.setTextFont("Gotham-Bold")
@@ -143,15 +136,7 @@ class LandingViewController: UIViewController {
         alertview.setTextTheme(.light)
     }
     
-    private func leaveViewController(sender: UIButton) {
-        didFinishLoading()
-    }
-    
-    func didStartLoading() {
-        playButton.startLoadingAnimation()
-    }
-    
-    func didFinishLoading() {
+    private func leaveViewController() {
         self.view.isUserInteractionEnabled = true
         playButton.startFinishAnimation(0 , completion: {
             let gameVC = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
@@ -160,7 +145,13 @@ class LandingViewController: UIViewController {
         })
     }
     
-    func didCancelLoading() {
+    private func didStartLoading() {
+        self.view.isUserInteractionEnabled = false
+        playButton.startLoadingAnimation()
+    }
+    
+    private func didCancelLoading() {
+        self.view.isUserInteractionEnabled = true
         playButton.returnToOriginalState()
     }
     
