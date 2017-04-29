@@ -122,10 +122,12 @@ class LandingViewController: UIViewController {
                                             color: CustomColor.customPurple)
         alertview.addAction({_ in
             self.didStartLoading()
-            openTriviaDBNetwork.getStoriesFor(categoryId: category.id, amount: self.numberOfStoriesOpenTrivia, returnExhausted: true, completion: {arrayOfStories in
-                storyRepo.arrayOfStories = arrayOfStories!
-                self.leaveViewController()
-            })
+            DispatchQueue.global(qos: .userInitiated).async {
+                openTriviaDBNetwork.getStoriesFor(categoryId: category.id, amount: self.numberOfStoriesOpenTrivia, returnExhausted: true, completion: {arrayOfStories in
+                    storyRepo.arrayOfStories = arrayOfStories!
+                    self.leaveViewController()
+                })
+            }
         })
         alertview.addCancelAction({_ in
             self.didCancelLoading()
