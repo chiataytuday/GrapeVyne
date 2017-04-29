@@ -8,6 +8,7 @@
 
 import UIKit
 import Koloda
+import TKSubmitTransitionSwift3
 
 // MARK: Global properties
 // Color Config
@@ -322,4 +323,20 @@ extension GameViewController: KolodaViewDataSource {
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         return dataSource![index]
     }
+}
+
+// MARK: UIViewControllerTransitioningDelegate
+
+extension GameViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let fadeInAnimator = TKFadeInAnimator()
+        return fadeInAnimator
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let fadeInAnimator = TKFadeInAnimator()
+        return fadeInAnimator
+    }
+    
 }
