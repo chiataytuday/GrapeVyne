@@ -9,15 +9,7 @@
 import Foundation
 import UIKit
 
-@objc public protocol SwiftPromptsProtocol {
-    @objc optional func clickedOnTheMainButton()
-    @objc optional func clickedOnTheSecondButton()
-    @objc optional func promptWasDismissed()
-}
-
 public class SwiftPromptsView: UIView {
-    //Delegate var
-    public var delegate : SwiftPromptsProtocol?
     
     //Variables for the background view
     private var blurringLevel : CGFloat = 5.0
@@ -43,9 +35,9 @@ public class SwiftPromptsView: UIView {
     //Colors of the items within the prompt
     private var promptBackgroundColor : UIColor = UIColor.white
     private var promptHeaderBarColor : UIColor = UIColor.clear
-    private var promptBottomBarColor : UIColor = UIColor(red: 34.0/255.0, green: 192.0/255.0, blue: 100.0/255.0, alpha: 1.0)
-    private var promptHeaderTxtColor : UIColor = UIColor(red: 155.0/255.0, green: 155.0/255.0, blue: 155.0/255.0, alpha: 1.0)
-    private var promptContentTxtColor : UIColor = UIColor(red: 155.0/255.0, green: 155.0/255.0, blue: 155.0/255.0, alpha: 1.0)
+    private var promptBottomBarColor : UIColor = UIColor.clear
+    private var promptHeaderTxtColor : UIColor = UIColor.white
+    private var promptContentTxtColor : UIColor = UIColor.white
     private var promptOutlineColor : UIColor = UIColor.clear
     private var promptTopLineColor : UIColor = UIColor(red: 155.0/255.0, green: 155.0/255.0, blue: 155.0/255.0, alpha: 1.0)
     private var promptBottomLineColor : UIColor = UIColor.clear
@@ -57,10 +49,26 @@ public class SwiftPromptsView: UIView {
     private var mainButtonText : String = "Post"
     private var secondButtonText : String = "Cancel"
     private var mainButtonColor : UIColor = UIColor(red: 155.0/255.0, green: 155.0/255.0, blue: 155.0/255.0, alpha: 1.0)
+    private var mainButtonBackgroundColor : UIColor = .clear
     private var secondButtonColor : UIColor = UIColor(red: 155.0/255.0, green: 155.0/255.0, blue: 155.0/255.0, alpha: 1.0)
     
     //Gesture enabling
     private var enablePromptGestures : Bool = true
+    
+    // Button actions
+    private var mainButtonAction: (() -> Void)?
+    func mainButtonTapped () {
+        if let action = mainButtonAction {
+            action()
+        }
+    }
+    
+    private var secondButtonAction: (() -> Void)?
+    func secondButtonTapped() {
+        if let action = secondButtonAction {
+            action()
+        }
+    }
     
     //Declare the enum for use in the construction of the background switch
     enum TypeOfBackground {
@@ -115,13 +123,15 @@ public class SwiftPromptsView: UIView {
         //Add the button(s) on the bottom of the prompt
         if (enableDoubleButtons == false) {
             let button   = UIButton(type: UIButtonType.system)
-            button.frame = CGRect(x: 0, y: promptHeight-52, width: promptWidth, height: 41)
+            button.frame = CGRect(x: promptWidth/2, y: promptHeight-52, width: promptWidth/2 - 10, height: 41 - 6)
             button.setTitleColor(mainButtonColor, for: .normal)
-            button.titleLabel!.font = UIFont(name: "HelveticaNeue-Light", size: 20)
+            button.backgroundColor = mainButtonBackgroundColor
+            button.layer.cornerRadius = 16
+            button.layer.masksToBounds = true
+            button.titleLabel!.font = UIFont(name: "Gotham-Bold", size: 20)
             button.setTitle(mainButtonText, for: .normal)
+            button.addTarget(self, action: #selector(mainButtonTapped), for: .touchUpInside)
             button.tag = 1
-            button.addTarget(self, action: #selector(panelButtonAction(sender:)), for: .touchUpInside)
-    
             swiftPrompt.addSubview(button)
         } else {
             if (promptButtonDividerVisibility) {
@@ -132,22 +142,25 @@ public class SwiftPromptsView: UIView {
             }
             
             let button   = UIButton(type: UIButtonType.system)
-            button.frame = CGRect(x: promptWidth/2, y: promptHeight-52, width: promptWidth/2, height: 41)
+            button.frame = CGRect(x: promptWidth/2, y: promptHeight-52, width: promptWidth/2 - 10, height: 41 - 6)
             button.setTitleColor(mainButtonColor, for: .normal)
-            button.titleLabel!.font = UIFont(name: "HelveticaNeue-Light", size: 20)
+            button.backgroundColor = mainButtonBackgroundColor
+            button.layer.cornerRadius = 16
+            button.layer.masksToBounds = true
+            button.titleLabel!.font = UIFont(name: "Gotham-Bold", size: 20)
             button.setTitle(mainButtonText, for: .normal)
+            button.addTarget(self, action: #selector(mainButtonTapped), for: .touchUpInside)
             button.tag = 1
-            button.addTarget(self, action: #selector(panelButtonAction(sender:)), for: .touchUpInside)
             
             swiftPrompt.addSubview(button)
             
             let secondButton   = UIButton(type: UIButtonType.system)
-            secondButton.frame = CGRect(x: 0, y: promptHeight-52, width: promptWidth/2, height: 41)
+            secondButton.frame = CGRect(x: 0, y: promptHeight-52, width: promptWidth/2 - 10, height: 41 - 6)
             secondButton.setTitleColor(secondButtonColor, for: .normal)
-            secondButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Light", size: 20)
+            secondButton.titleLabel!.font = UIFont(name: "Gotham-Bold", size: 20)
             secondButton.setTitle(secondButtonText, for: .normal)
+            secondButton.addTarget(self, action: #selector(secondButtonTapped), for: .touchUpInside)
             secondButton.tag = 2
-            secondButton.addTarget(self, action: #selector(panelButtonAction(sender:)), for: .touchUpInside)
             
             swiftPrompt.addSubview(secondButton)
         }
@@ -169,17 +182,6 @@ public class SwiftPromptsView: UIView {
         self.layer.add(applicationLoadViewIn, forKey: kCATransitionReveal)
     }
     
-    func panelButtonAction(sender:UIButton?) {
-        switch (sender!.tag) {
-        case 1:
-            delegate?.clickedOnTheMainButton?()
-        case 2:
-            delegate?.clickedOnTheSecondButton?()
-        default:
-            delegate?.promptWasDismissed?()
-        }
-    }
-    
     // MARK: - Helper Functions
     func snapshot(view: UIView!) -> UIImage! {
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, true, 0)
@@ -191,11 +193,10 @@ public class SwiftPromptsView: UIView {
     }
     
     public func dismissPrompt() {
-        UIView.animate(withDuration: 0.6, animations: {
+        UIView.animate(withDuration: 0.4, animations: {
             self.layer.opacity = 0.0
             }, completion: {
                 (value: Bool) in
-                self.delegate?.promptWasDismissed?()
                 self.removeFromSuperview()
         })
     }
@@ -233,12 +234,15 @@ public class SwiftPromptsView: UIView {
     public func setMainButtonText (buttonTitle : String) { mainButtonText = buttonTitle }
     public func setSecondButtonText (secondButtonTitle : String) { secondButtonText = secondButtonTitle }
     public func setMainButtonColor (colorForButton : UIColor) { mainButtonColor = colorForButton }
+    public func setMainButtonBackgroundColor (colorForBackground: UIColor) {mainButtonBackgroundColor = colorForBackground }
     public func setSecondButtonColor (colorForSecondButton : UIColor) { secondButtonColor = colorForSecondButton }
     public func setPromptButtonDividerColor (dividerColor : UIColor) { promptButtonDividerColor = dividerColor }
     public func setPromptButtonDividerVisibility (dividerVisibility : Bool) { promptButtonDividerVisibility = dividerVisibility }
     public func setPromptDismissIconColor (dismissIconColor : UIColor) { promptDismissIconColor = dismissIconColor }
     public func setPromptDismissIconVisibility (dismissIconVisibility : Bool) { promptDismissIconVisibility = dismissIconVisibility }
-    func enableGesturesOnPrompt (gestureEnabler : Bool) { enablePromptGestures = gestureEnabler }
+    public func enableGesturesOnPrompt (gestureEnabler : Bool) { enablePromptGestures = gestureEnabler }
+    public func setMainButtonAction(_ action: @escaping () -> Void) {self.mainButtonAction = action}
+    public func setSecondButtonAction(_ action: @escaping () -> Void) {self.secondButtonAction = action}
     
     // MARK: - Create The Prompt With A UIView Sublass
     class PromptBoxView: UIView
@@ -306,7 +310,6 @@ public class SwiftPromptsView: UIView {
                         self.masterClass.layer.opacity = 0.0
                         }, completion: {
                             (value: Bool) in
-                            self.masterClass.delegate?.promptWasDismissed?()
                             self.removeFromSuperview()
                             self.masterClass.removeFromSuperview()
                     })

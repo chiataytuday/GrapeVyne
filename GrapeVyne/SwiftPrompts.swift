@@ -21,14 +21,14 @@ public class SwiftPrompts : NSObject {
         let context = UIGraphicsGetCurrentContext()
 
         //// Rectangle Drawing
-        let rectanglePath = UIBezierPath(roundedRect: CGRect(x: frame.minX + floor(frame.width * 0.01778 + 0.5), y: frame.minY + 9, width: floor(frame.width * 0.98667 + 0.5) - floor(frame.width * 0.01778 + 0.5), height: frame.height - 19), cornerRadius: 12)
+        let rectanglePath = UIBezierPath(roundedRect: CGRect(x: frame.minX + floor(frame.width * 0.01778 + 0.5), y: frame.minY + 9, width: floor(frame.width * 0.98667 + 0.5) - floor(frame.width * 0.01778 + 0.5), height: frame.height - 19), cornerRadius: 22)
         backgroundColor.setFill()
         rectanglePath.fill()
 
 
         if (outlineVisibility) {
             //// Rectangle 6 Drawing
-            let rectangle6Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + floor(frame.width * 0.01778 + 0.5), y: frame.minY + 9, width: floor(frame.width * 0.98667 + 0.5) - floor(frame.width * 0.01778 + 0.5), height: frame.height - 19), cornerRadius: 12)
+            let rectangle6Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + floor(frame.width * 0.01778 + 0.5), y: frame.minY + 9, width: floor(frame.width * 0.98667 + 0.5) - floor(frame.width * 0.01778 + 0.5), height: frame.height - 19), cornerRadius: 22)
             outlineColor.setStroke()
             rectangle6Path.lineWidth = 3.5
             rectangle6Path.stroke()
@@ -49,7 +49,7 @@ public class SwiftPrompts : NSObject {
         let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.center
 
-        let textFontAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: textSize)!, NSForegroundColorAttributeName: contentTxtColor, NSParagraphStyleAttributeName: textStyle]
+        let textFontAttributes = [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: textSize)!, NSForegroundColorAttributeName: contentTxtColor, NSParagraphStyleAttributeName: textStyle]
 
         let textTextHeight: CGFloat = NSString(string: promptText).boundingRect(with: CGSize(width: textRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: textFontAttributes, context: nil).size.height
         context!.saveGState()
@@ -72,7 +72,7 @@ public class SwiftPrompts : NSObject {
         let text2Style = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         text2Style.alignment = NSTextAlignment.center
 
-        let text2FontAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: headerSize)!, NSForegroundColorAttributeName: headerTxtColor, NSParagraphStyleAttributeName: text2Style]
+        let text2FontAttributes = [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: headerSize)!, NSForegroundColorAttributeName: headerTxtColor, NSParagraphStyleAttributeName: text2Style]
 
         let text2TextHeight: CGFloat = NSString(string: headerText).boundingRect(with: CGSize(width: text2Rect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: text2FontAttributes, context: nil).size.height
         context!.saveGState()

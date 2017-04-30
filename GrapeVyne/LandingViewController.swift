@@ -16,6 +16,7 @@ class LandingViewController: UIViewController {
     let numberOfStoriesOpenTrivia = 20
     var selectedRow = 0
     var pickerCategories = [Category]()
+    var prompt = SwiftPromptsView()
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var segmentControl: SMSegmentView!
     @IBOutlet weak var playButton: TKTransitionSubmitButton!
@@ -81,7 +82,7 @@ class LandingViewController: UIViewController {
                             storyRepo.arrayOfStories = arrayOfStories!
                             self.leaveViewController()
                         } else {
-                            self.presentCustomAlertViewController(category: chosenCategory, sender: sender)
+                            self.presentCustomAlertViewController(category: chosenCategory)
                         }
                     })
                 } else {
@@ -90,7 +91,7 @@ class LandingViewController: UIViewController {
                             storyRepo.arrayOfStories = arrayOfStories!
                             self.leaveViewController()
                         } else {
-                            self.presentCustomAlertViewController(category: chosenCategory, sender: sender)
+                            self.presentCustomAlertViewController(category: chosenCategory)
                         }
                     })
                 }
@@ -112,15 +113,32 @@ class LandingViewController: UIViewController {
         }
     }
     
-    private func presentCustomAlertViewController(category: Category, sender: UIButton) {
+    private func presentCustomAlertViewController(category: Category) {
         didCancelLoading()
-        let alertview = JSSAlertView().show(self,
-                                            title: "Hol' up".uppercased(),
-                                            text: "We can't find any new trivia. Would you like to play the same ones again?".uppercased(),
-                                            buttonText: "Sure!".uppercased(),
-                                            cancelButtonText: "Nah".uppercased(),
-                                            color: CustomColor.customPurple)
-        alertview.addAction({_ in
+        prompt = SwiftPromptsView(frame: self.view.bounds)
+        
+        prompt.setColorWithTransparency(color: .clear)
+        
+        prompt.setPromptHeight(height: 0.35 * (view.frame.height))
+        prompt.setPromptWidth(width: 0.75 * (view.frame.width))
+        
+        prompt.setPromptHeader(header: "Hol' up".uppercased())
+        prompt.setPromptHeaderTxtSize(headerTxtSize: 25)
+        
+        prompt.setPromptContentText(contentTxt: "We can't find any new trivia. Would you like to play the same ones again?".uppercased())
+        prompt.setPromptContentTxtSize(contentTxtSize: 18)
+        
+        prompt.setPromptButtonDividerVisibility(dividerVisibility: false)
+        prompt.setPromptTopLineVisibility(topLineVisibility: false)
+        prompt.setPromptBackgroundColor(backgroundColor: CustomColor.customPurple)
+        
+        prompt.enableDoubleButtonsOnPrompt()
+        
+        prompt.setMainButtonText(buttonTitle: "Sure!".uppercased())
+        prompt.setMainButtonColor(colorForButton: .white)
+        prompt.setMainButtonBackgroundColor(colorForBackground: CustomColor.customGreen)
+        prompt.setMainButtonAction {
+            self.prompt.dismissPrompt()
             self.didStartLoading()
             DispatchQueue.global(qos: .userInitiated).async {
                 openTriviaDBNetwork.getStoriesFor(categoryId: category.id, amount: self.numberOfStoriesOpenTrivia, returnExhausted: true, completion: {arrayOfStories in
@@ -128,14 +146,18 @@ class LandingViewController: UIViewController {
                     self.leaveViewController()
                 })
             }
-        })
-        alertview.addCancelAction({_ in
+        }
+        
+        prompt.setSecondButtonText(secondButtonTitle: "Nah".uppercased())
+        prompt.setSecondButtonColor(colorForSecondButton: UIColor.white)
+        prompt.setSecondButtonAction {
+            self.prompt.dismissPrompt()
             self.didCancelLoading()
-        })
-        alertview.setTitleFont("Gotham-Bold")
-        alertview.setTextFont("Gotham-Bold")
-        alertview.setButtonFont("Gotham-Bold")
-        alertview.setTextTheme(.light)
+        }
+        
+        prompt.enableGesturesOnPrompt(gestureEnabler: false)
+        
+        self.view.addSubview(prompt)
     }
     
     private func leaveViewController() {
@@ -147,12 +169,12 @@ class LandingViewController: UIViewController {
         })
     }
     
-    private func didStartLoading() {
+    func didStartLoading() {
         self.view.isUserInteractionEnabled = false
         playButton.startLoadingAnimation()
     }
     
-    private func didCancelLoading() {
+    func didCancelLoading() {
         self.view.isUserInteractionEnabled = true
         playButton.returnToOriginalState()
     }
@@ -231,5 +253,5 @@ extension LandingViewController: UIViewControllerTransitioningDelegate {
         let fadeInAnimator = TKFadeInAnimator()
         return fadeInAnimator
     }
-
 }
+
