@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.4.0)
+  - DGRunkeeperSwitch (1.1.4)
   - Kanna (2.1.1)
   - Koloda (4.1):
     - pop (~> 1.0)
@@ -9,6 +10,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.4.0)
+  - DGRunkeeperSwitch
   - Kanna (~> 2.1.0)
   - Koloda (~> 4.1)
   - SwiftyJSON
@@ -16,12 +18,13 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  DGRunkeeperSwitch: cc237936f42237307f5e212e18136a27bf907bf1
   Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   Koloda: 6c4fa3ce9a68776a8ef973311e53fdda432799a8
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TKSubmitTransitionSwift3: fadd76eefa015542d0fe6d85424a43dd6f3354d2
 
-PODFILE CHECKSUM: 3001fc9f5b941697a81dd74722326af178005f92
+PODFILE CHECKSUM: 676fdbe878a1be3b70513f7b3eca7f5211d6c5ae
 
 COCOAPODS: 1.2.1

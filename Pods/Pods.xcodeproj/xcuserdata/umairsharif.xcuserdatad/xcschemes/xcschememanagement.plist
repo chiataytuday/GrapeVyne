@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DGRunkeeperSwitch.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Kanna.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,22 +47,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0D26F537A9250361C69E3D0FB7D28CCC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>20151774CE2F5FA6B8126D4F5ED1C5FE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>22C0EAEB0A4B11BC663B3AADC973BF85</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3FF4D7F664EDF4DB62905F55151C4D58</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4D10E4FF5A483B852B47CCA0B994E340</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>512198E3406523734D4D7671F5C50534</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7BB3AD77B25B30768333A51DE48E69C9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,7 +82,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B95E4773FFFAA2D4A89C251A32F88056</key>
+		<key>E6201897E03F1CF81B18D371B6BEA2CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

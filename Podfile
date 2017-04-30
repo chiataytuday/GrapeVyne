@@ -9,4 +9,5 @@ target ‘GrapeVyne’ do
   pod 'Kanna', '~> 2.1.0'
   pod 'Alamofire', '~> 4.4.0'
   pod 'TKSubmitTransitionSwift3'
+  pod 'DGRunkeeperSwitch'
 end
