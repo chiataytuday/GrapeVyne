@@ -11,13 +11,11 @@ import TKSubmitTransitionSwift3
 
 class LandingViewController: UIViewController {
     let landingCornerRadius: CGFloat = 8.0
-    let segmentedControlLabelAttrbiutesDict = [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 14.0)!]
     let numberOfStoriesOpenTrivia = 20
     var selectedRow = 0
     var pickerCategories = [Category]()
     var prompt = SwiftPromptsView()
     @IBOutlet weak var picker: UIPickerView!
-    @IBOutlet weak var segmentControl: SMSegmentView!
     @IBOutlet weak var playButton: TKTransitionSubmitButton!
     
     override func viewDidLoad() {
@@ -26,7 +24,6 @@ class LandingViewController: UIViewController {
         picker.delegate = self
         modalTransitionStyle = appModalTransitionStyle
         picker.backgroundColor = UIColor.clear
-        setupSegmentControl()
         playButton.backgroundColor = CustomColor.customPurple
         playButton.spinnerColor = CustomColor.customGreen
         playButton.normalCornerRadius = 25
@@ -55,24 +52,13 @@ class LandingViewController: UIViewController {
         present(optionMenu, animated: true, completion: nil)
     }
     
-    @IBAction func segmentControl(_ sender: SMSegmentView) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            pickerCategories = categoryRepo.arrayOfOpenTriviaDBCategories
-        case 1:
-            pickerCategories = categoryRepo.arrayOfSnopesCategories
-        default: break
-        }
-        picker.reloadAllComponents()
-    }
-    
     @IBAction func playButton(_ sender: UIButton) {
         didStartLoading()
         storyRepo.arrayOfStories = [Story]()
         
         DispatchQueue.global(qos: .userInitiated).async {
             var chosenCategory: Category
-            switch self.segmentControl.selectedSegmentIndex {
+            switch index {
             case 0: // Open trivia
                 chosenCategory = categoryRepo.arrayOfOpenTriviaDBCategories[self.selectedRow]
                 if chosenCategory.title == "Random" {
@@ -176,26 +162,6 @@ class LandingViewController: UIViewController {
     func didCancelLoading() {
         self.view.isUserInteractionEnabled = true
         playButton.returnToOriginalState()
-    }
-    
-    func setupSegmentControl() {
-        let appearence = SMSegmentAppearance()
-        appearence.titleOnSelectionColour = UIColor.white
-        appearence.titleOffSelectionColour = CustomColor.customLightGray
-        appearence.segmentOnSelectionColour = CustomColor.customPurple
-        appearence.segmentOffSelectionColour = UIColor.darkGray
-        segmentControl.segmentAppearance = appearence
-        segmentControl.backgroundColor = UIColor.clear
-        segmentControl.layer.cornerRadius = landingCornerRadius
-        segmentControl.layer.masksToBounds = true
-        
-        segmentControl.addSegmentWithAttributedTitle(NSMutableAttributedString(string: "OPEN TRIVIA DB", attributes: segmentedControlLabelAttrbiutesDict),
-                                                     onSelectionImage: nil,
-                                                     offSelectionImage: nil)
-        segmentControl.addSegmentWithAttributedTitle(NSMutableAttributedString(string: "SNOPES", attributes: segmentedControlLabelAttrbiutesDict),
-                                                     onSelectionImage: nil,
-                                                     offSelectionImage: nil)
-        segmentControl.selectedSegmentIndex = 0
     }
 }
 

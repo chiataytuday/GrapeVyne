@@ -35,7 +35,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOADING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlZ-Kh-wUO">
-                                <rect key="frame" x="133.5" y="423" width="108.5" height="22"/>
+                                <rect key="frame" x="134" y="423" width="108.5" height="22"/>
                                 <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="22"/>
                                 <color key="textColor" red="0.75294117650000003" green="0.75686274509999996" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -98,14 +98,6 @@
                                     <action selector="playButton:" destination="Nvd-zZ-N6L" eventType="touchUpInside" id="rhf-3P-0jL"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3Y-iF-yIJ" customClass="SMSegmentView" customModule="GrapeVyne">
-                                <rect key="frame" x="48" y="349" width="279" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="segmentControl:" destination="Nvd-zZ-N6L" eventType="valueChanged" id="gGE-eM-AKk"/>
-                                </connections>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -125,7 +117,6 @@
                     <connections>
                         <outlet property="picker" destination="j2y-Ts-rF1" id="cQW-no-Mtc"/>
                         <outlet property="playButton" destination="Hj1-qY-KbL" id="EwG-kU-l8Y"/>
-                        <outlet property="segmentControl" destination="b3Y-iF-yIJ" id="bma-Yh-wMO"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="playButton" id="AQI-uK-RBG"/>
                     </connections>
                 </viewController>
@@ -156,7 +147,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOW TO PLAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wW-MV-I3G">
-                                <rect key="frame" x="75" y="41" width="225.5" height="30"/>
+                                <rect key="frame" x="75.5" y="41" width="225.5" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Q90-l8-qK4"/>
                                 </constraints>
