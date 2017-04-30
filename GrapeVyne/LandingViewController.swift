@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import JSSAlertView
 import TKSubmitTransitionSwift3
 
 class LandingViewController: UIViewController {
