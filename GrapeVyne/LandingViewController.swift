@@ -11,7 +11,7 @@ import TKSubmitTransitionSwift3
 import DGRunkeeperSwitch
 
 class LandingViewController: UIViewController {
-    let landingCornerRadius: CGFloat = 8.0
+    let landingCornerRadius: CGFloat = 12.5
     let numberOfStoriesOpenTrivia = 20
     var selectedRow = 0
     var pickerCategories = [Category]()
