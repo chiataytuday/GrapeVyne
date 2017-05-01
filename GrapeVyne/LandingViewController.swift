@@ -8,6 +8,7 @@
 
 import UIKit
 import TKSubmitTransitionSwift3
+import DGRunkeeperSwitch
 
 class LandingViewController: UIViewController {
     let landingCornerRadius: CGFloat = 8.0
@@ -15,6 +16,7 @@ class LandingViewController: UIViewController {
     var selectedRow = 0
     var pickerCategories = [Category]()
     var prompt = SwiftPromptsView()
+    @IBOutlet weak var segmentControl: DGRunkeeperSwitch!
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var playButton: TKTransitionSubmitButton!
     
@@ -27,6 +29,16 @@ class LandingViewController: UIViewController {
         playButton.backgroundColor = CustomColor.customPurple
         playButton.spinnerColor = CustomColor.customGreen
         playButton.normalCornerRadius = 25
+        
+        segmentControl.setSelectedIndex(0, animated: false)
+        pickerCategories = categoryRepo.arrayOfOpenTriviaDBCategories
+        segmentControl.titles = ["Open Trivia DB".uppercased(), "Snopes".uppercased()]
+        segmentControl.backgroundColor = .darkGray
+        segmentControl.selectedBackgroundColor = CustomColor.customPurple
+        segmentControl.titleColor = .lightGray
+        segmentControl.selectedTitleColor = .white
+        segmentControl.titleFont = UIFont(name: "Gotham-Bold", size: 10.0)
+
     }
     
     @IBAction func questionButton(_ sender: UIButton) {
@@ -51,6 +63,16 @@ class LandingViewController: UIViewController {
         optionMenu.view.tintColor = CustomColor.customPurple
         present(optionMenu, animated: true, completion: nil)
     }
+    @IBAction func segmentControl(_ sender: DGRunkeeperSwitch) {
+        switch sender.selectedIndex {
+        case 0:
+            pickerCategories = categoryRepo.arrayOfOpenTriviaDBCategories
+        case 1:
+            pickerCategories = categoryRepo.arrayOfSnopesCategories
+        default: break
+        }
+        picker.reloadAllComponents()
+    }
     
     @IBAction func playButton(_ sender: UIButton) {
         didStartLoading()
@@ -58,7 +80,7 @@ class LandingViewController: UIViewController {
         
         DispatchQueue.global(qos: .userInitiated).async {
             var chosenCategory: Category
-            switch index {
+            switch self.segmentControl.selectedIndex {
             case 0: // Open trivia
                 chosenCategory = categoryRepo.arrayOfOpenTriviaDBCategories[self.selectedRow]
                 if chosenCategory.title == "Random" {

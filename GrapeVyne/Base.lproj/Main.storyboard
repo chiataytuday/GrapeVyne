@@ -75,48 +75,45 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landing" translatesAutoresizingMaskIntoConstraints="NO" id="Xye-cU-OLH">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TNs-Oh-gFh">
                                 <rect key="frame" x="324" y="28" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="question_button"/>
                                 <connections>
                                     <action selector="questionButton:" destination="Nvd-zZ-N6L" eventType="touchUpInside" id="hvf-iE-9RC"/>
                                 </connections>
                             </button>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j2y-Ts-rF1">
-                                <rect key="frame" x="48" y="390" width="279" height="138"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="138" id="889-sh-iOR"/>
-                                </constraints>
-                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hj1-qY-KbL" customClass="TKTransitionSubmitButton" customModule="TKSubmitTransitionSwift3">
                                 <rect key="frame" x="47" y="577" width="281" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="play_button"/>
                                 <state key="highlighted" image="play_button_selected"/>
                                 <connections>
                                     <action selector="playButton:" destination="Nvd-zZ-N6L" eventType="touchUpInside" id="rhf-3P-0jL"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lNd-XO-Uam" customClass="DGRunkeeperSwitch" customModule="DGRunkeeperSwitch">
+                                <rect key="frame" x="99" y="409" width="176" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="segmentControl:" destination="Nvd-zZ-N6L" eventType="valueChanged" id="r3j-ti-oTm"/>
+                                </connections>
+                            </view>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j2y-Ts-rF1">
+                                <rect key="frame" x="76" y="456" width="222" height="113"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="top" secondItem="4oX-nx-ZDJ" secondAttribute="top" id="0cb-3Q-fbh"/>
-                            <constraint firstItem="j2y-Ts-rF1" firstAttribute="centerX" secondItem="Hj1-qY-KbL" secondAttribute="centerX" id="13w-Dh-ALX"/>
-                            <constraint firstItem="6SY-Xr-fKc" firstAttribute="top" secondItem="Hj1-qY-KbL" secondAttribute="bottom" constant="35" id="Evy-jW-GV5"/>
-                            <constraint firstItem="TNs-Oh-gFh" firstAttribute="trailing" secondItem="4oX-nx-ZDJ" secondAttribute="trailingMargin" id="Hwd-eZ-aqV"/>
-                            <constraint firstItem="TNs-Oh-gFh" firstAttribute="top" secondItem="o5h-uW-qQr" secondAttribute="bottom" constant="8" symbolic="YES" id="J1O-Dt-KVM"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="bottom" secondItem="6SY-Xr-fKc" secondAttribute="top" id="Jme-3l-Xxh"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="leading" secondItem="4oX-nx-ZDJ" secondAttribute="leading" id="LrQ-l5-GQK"/>
-                            <constraint firstAttribute="trailing" secondItem="Xye-cU-OLH" secondAttribute="trailing" id="Ola-fg-Sl5"/>
-                            <constraint firstItem="6SY-Xr-fKc" firstAttribute="top" secondItem="j2y-Ts-rF1" secondAttribute="bottom" constant="139" id="glu-jp-PTZ"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="leading" secondItem="j2y-Ts-rF1" secondAttribute="leading" constant="-48" id="mir-V6-MQW"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="trailing" secondItem="j2y-Ts-rF1" secondAttribute="trailing" constant="48" id="ywp-1J-o12"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="picker" destination="j2y-Ts-rF1" id="cQW-no-Mtc"/>
                         <outlet property="playButton" destination="Hj1-qY-KbL" id="EwG-kU-l8Y"/>
+                        <outlet property="segmentControl" destination="lNd-XO-Uam" id="ngW-Av-gnk"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="playButton" id="AQI-uK-RBG"/>
                     </connections>
                 </viewController>
