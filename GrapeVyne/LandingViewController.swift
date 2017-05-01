@@ -16,6 +16,7 @@ class LandingViewController: UIViewController {
     var selectedRow = 0
     var pickerCategories = [Category]()
     var prompt = SwiftPromptsView()
+    var playLabel: UILabel!
     @IBOutlet weak var segmentControl: DGRunkeeperSwitch!
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var playButton: TKTransitionSubmitButton!
@@ -29,6 +30,13 @@ class LandingViewController: UIViewController {
         playButton.backgroundColor = CustomColor.customPurple
         playButton.spinnerColor = CustomColor.customGreen
         playButton.normalCornerRadius = 25
+        
+        playLabel = UILabel(frame: CGRect(x: 0, y: 0, width: playButton.bounds.size.width, height: playButton.bounds.size.height))
+        playLabel.center = CGPoint(x: playButton.bounds.size.width / 2.0, y: playButton.bounds.size.height / 2.0)
+        playLabel.textAlignment = .center
+        playLabel.attributedText = NSAttributedString(string: "Play".uppercased(), attributes: [NSFontAttributeName : UIFont(name: "Gotham-Bold", size: 40.0)!])
+        playLabel.textColor = .white
+        playButton.addSubview(playLabel)
         
         segmentControl.setSelectedIndex(0, animated: false)
         pickerCategories = categoryRepo.arrayOfOpenTriviaDBCategories
@@ -121,7 +129,7 @@ class LandingViewController: UIViewController {
     }
     
     private func presentCustomAlertViewController(category: Category) {
-        didCancelLoading()
+        self.view.isUserInteractionEnabled = true
         prompt = SwiftPromptsView(frame: self.view.bounds)
         
         prompt.setColorWithTransparency(color: .clear)
@@ -169,6 +177,7 @@ class LandingViewController: UIViewController {
     
     private func leaveViewController() {
         self.view.isUserInteractionEnabled = true
+        playLabel.isHidden = false
         playButton.startFinishAnimation(0 , completion: {
             let gameVC = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
             gameVC.transitioningDelegate = self
@@ -178,11 +187,13 @@ class LandingViewController: UIViewController {
     
     func didStartLoading() {
         self.view.isUserInteractionEnabled = false
+        playLabel.isHidden = true
         playButton.startLoadingAnimation()
     }
     
     func didCancelLoading() {
         self.view.isUserInteractionEnabled = true
+        playLabel.isHidden = false
         playButton.returnToOriginalState()
     }
 }

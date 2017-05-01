@@ -101,8 +101,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hj1-qY-KbL" customClass="TKTransitionSubmitButton" customModule="TKSubmitTransitionSwift3">
                                 <rect key="frame" x="47" y="577" width="281" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="play_button"/>
-                                <state key="highlighted" image="play_button_selected"/>
                                 <connections>
                                     <action selector="playButton:" destination="Nvd-zZ-N6L" eventType="touchUpInside" id="rhf-3P-0jL"/>
                                 </connections>
@@ -405,8 +403,6 @@
         <image name="done_button" width="181" height="48"/>
         <image name="instruction" width="355" height="630"/>
         <image name="landing" width="355" height="630"/>
-        <image name="play_button" width="281" height="55"/>
-        <image name="play_button_selected" width="281" height="55"/>
         <image name="question_button" width="35" height="35"/>
         <image name="splash" width="355" height="630"/>
         <image name="storylink_button" width="107" height="27"/>

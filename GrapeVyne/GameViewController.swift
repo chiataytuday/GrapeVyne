@@ -15,7 +15,6 @@ import TKSubmitTransitionSwift3
 private let viewBackgroundColor = UIColor.black
 private let cardViewTextColor = UIColor.white
 private let timerLabelTextColor = UIColor.white
-private let noMoreCardsLabelTextColor = UIColor.white
 private let countDownLabelTextColor = UIColor.white
 private let timeEndingWarningColor = CustomColor.red
 // Card Config
@@ -42,7 +41,6 @@ class GameViewController: UIViewController {
     
     // MARK: IBOutlets
     @IBOutlet weak var kolodaView: KolodaView!
-    @IBOutlet weak var noMoreCardsLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var countDownLabel: UILabel!
     
@@ -69,17 +67,10 @@ class GameViewController: UIViewController {
     private func configureViewUI() {
         kolodaView.layer.cornerRadius = cardCornerRadius
         
-        if (dataSource?.isEmpty)! {
-            noMoreCardsLabel.isHidden = false
-        } else {
-            noMoreCardsLabel.isHidden = true
-        }
-        
         configureCardBlurEffectView()
         
         countDownLabel.textColor = countDownLabelTextColor
         countDownLabel.text = String(countDownTime)
-        noMoreCardsLabel.textColor = noMoreCardsLabelTextColor
         
         timerLabel.textColor = timerLabelTextColor
         updateTimerLabel()
@@ -208,7 +199,6 @@ extension GameViewController: KolodaViewDelegate {
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
         endGame()
-        noMoreCardsLabel.isHidden = false
     }
     
     func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
