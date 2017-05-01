@@ -252,7 +252,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="2" rowHeight="144" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kt0-5C-ONi">
-                                <rect key="frame" x="16" y="149" width="343" height="450"/>
+                                <rect key="frame" x="16" y="149" width="343" height="464"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -325,8 +325,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQx-dy-wgY">
-                                <rect key="frame" x="70" y="608" width="235" height="48"/>
-                                <state key="normal" image="done_button"/>
+                                <rect key="frame" x="70" y="622" width="235" height="34"/>
                                 <connections>
                                     <action selector="doneButton:" destination="bFM-08-jVv" eventType="touchUpInside" id="Qbb-ab-Cks"/>
                                 </connections>
@@ -356,6 +355,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="doneButton" destination="aQx-dy-wgY" id="MbT-9B-7uX"/>
                         <outlet property="resultCounterLabel" destination="X1k-2j-wkv" id="Hns-dy-z47"/>
                         <outlet property="tableView" destination="kt0-5C-ONi" id="Qvd-s3-cJo"/>
                     </connections>
