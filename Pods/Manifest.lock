@@ -5,6 +5,7 @@ PODS:
   - Koloda (4.1):
     - pop (~> 1.0)
   - pop (1.0.9)
+  - RevealingSplashView (0.2.0)
   - SwiftyJSON (3.1.4)
   - TKSubmitTransitionSwift3 (0.5)
 
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - DGRunkeeperSwitch
   - Kanna (~> 2.1.0)
   - Koloda (~> 4.1)
+  - RevealingSplashView
   - SwiftyJSON
   - TKSubmitTransitionSwift3
 
@@ -22,9 +24,10 @@ SPEC CHECKSUMS:
   Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   Koloda: 6c4fa3ce9a68776a8ef973311e53fdda432799a8
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  RevealingSplashView: a19962358db66188841c73afd51eb663a29f75cd
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TKSubmitTransitionSwift3: fadd76eefa015542d0fe6d85424a43dd6f3354d2
 
-PODFILE CHECKSUM: 676fdbe878a1be3b70513f7b3eca7f5211d6c5ae
+PODFILE CHECKSUM: 12ccc4a473015929210d10ddaa1e204baae08d5e
 
 COCOAPODS: 1.2.1

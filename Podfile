@@ -10,4 +10,5 @@ target ‘GrapeVyne’ do
   pod 'Alamofire', '~> 4.4.0'
   pod 'TKSubmitTransitionSwift3'
   pod 'DGRunkeeperSwitch'
+  pod 'RevealingSplashView'
 end

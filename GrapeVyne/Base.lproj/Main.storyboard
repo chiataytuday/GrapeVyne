@@ -22,41 +22,7 @@
         <!--Launch View Controller-->
         <scene sceneID="c6S-ur-KlV">
             <objects>
-                <viewController id="noh-DO-jeh" customClass="LaunchViewController" customModule="GrapeVyne" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="B2G-33-M8g"/>
-                        <viewControllerLayoutGuide type="bottom" id="EFs-Pf-XYW"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Fe0-bv-ZCq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="vUQ-ij-lmV">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOADING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlZ-Kh-wUO">
-                                <rect key="frame" x="133.5" y="423" width="108.5" height="22"/>
-                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="22"/>
-                                <color key="textColor" red="0.75294117650000003" green="0.75686274509999996" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="2H2-f2-9cz">
-                                <rect key="frame" x="169" y="453" width="37" height="37"/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="vUQ-ij-lmV" firstAttribute="centerX" secondItem="hlZ-Kh-wUO" secondAttribute="centerX" id="5e8-hw-Lgd"/>
-                            <constraint firstItem="hlZ-Kh-wUO" firstAttribute="centerX" secondItem="2H2-f2-9cz" secondAttribute="centerX" id="7xV-5u-1Q7"/>
-                            <constraint firstItem="2H2-f2-9cz" firstAttribute="top" secondItem="hlZ-Kh-wUO" secondAttribute="bottom" constant="8" symbolic="YES" id="95u-eN-Uxd"/>
-                            <constraint firstItem="vUQ-ij-lmV" firstAttribute="top" secondItem="Fe0-bv-ZCq" secondAttribute="top" id="CfN-Fx-yUn"/>
-                            <constraint firstItem="vUQ-ij-lmV" firstAttribute="leading" secondItem="Fe0-bv-ZCq" secondAttribute="leading" id="ChE-4z-c3p"/>
-                            <constraint firstItem="vUQ-ij-lmV" firstAttribute="bottom" secondItem="EFs-Pf-XYW" secondAttribute="top" id="Ks9-MG-i08"/>
-                            <constraint firstAttribute="trailing" secondItem="vUQ-ij-lmV" secondAttribute="trailing" id="QLx-eX-cUV"/>
-                            <constraint firstItem="EFs-Pf-XYW" firstAttribute="top" secondItem="2H2-f2-9cz" secondAttribute="bottom" constant="177" id="lqc-JG-omP"/>
-                        </constraints>
-                    </view>
-                </viewController>
+                <viewController id="noh-DO-jeh" customClass="LaunchViewController" customModule="GrapeVyne" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jnh-L5-cCg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1975" y="72"/>
@@ -404,7 +370,6 @@
         <image name="instruction" width="355" height="630"/>
         <image name="landing" width="355" height="630"/>
         <image name="question_button" width="35" height="35"/>
-        <image name="splash" width="355" height="630"/>
         <image name="storylink_button" width="107" height="27"/>
     </resources>
 </document>
