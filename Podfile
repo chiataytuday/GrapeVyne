@@ -11,4 +11,5 @@ target ‘GrapeVyne’ do
   pod 'TKSubmitTransitionSwift3'
   pod 'DGRunkeeperSwitch'
   pod 'RevealingSplashView'
+  pod 'AsyncSwift'
 end
