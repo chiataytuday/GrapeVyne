@@ -9,6 +9,7 @@
 import UIKit
 import TKSubmitTransitionSwift3
 import DGRunkeeperSwitch
+import Async
 
 class LandingViewController: UIViewController {
     let landingCornerRadius: CGFloat = 12.5
@@ -46,7 +47,7 @@ class LandingViewController: UIViewController {
         segmentControl.titleColor = .lightGray
         segmentControl.selectedTitleColor = .white
         segmentControl.titleFont = UIFont(name: "Gotham-Bold", size: 10.0)
-
+        
     }
     
     @IBAction func questionButton(_ sender: UIButton) {
@@ -83,48 +84,63 @@ class LandingViewController: UIViewController {
     }
     
     @IBAction func playButton(_ sender: UIButton) {
+        view.isUserInteractionEnabled = false
         didStartLoading()
         storyRepo.arrayOfStories = [Story]()
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            var chosenCategory: Category
-            switch self.segmentControl.selectedIndex {
-            case 0: // Open trivia
-                chosenCategory = categoryRepo.arrayOfOpenTriviaDBCategories[self.selectedRow]
-                if chosenCategory.title == "Random" {
-                    openTriviaDBNetwork.getRandomStories(amount: self.numberOfStoriesOpenTrivia, returnExhausted: false, completion: { arrayOfStories in
-                        if arrayOfStories != nil {
-                            storyRepo.arrayOfStories = arrayOfStories!
-                            self.leaveViewController()
-                        } else {
-                            self.presentCustomAlertViewController(category: chosenCategory)
-                        }
-                    })
-                } else {
-                    openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: self.numberOfStoriesOpenTrivia, returnExhausted: false, completion: {arrayOfStories in
-                        if arrayOfStories != nil {
-                            storyRepo.arrayOfStories = arrayOfStories!
-                            self.leaveViewController()
-                        } else {
-                            self.presentCustomAlertViewController(category: chosenCategory)
-                        }
-                    })
-                }
-                
-            case 1: // Snopes
-                chosenCategory = categoryRepo.arrayOfSnopesCategories[self.selectedRow]
-                if let arrayOfStories = chosenCategory.stories { // Stories in memory
-                    storyRepo.arrayOfStories = arrayOfStories
-                    self.leaveViewController()
-                } else { // No stories in memory
-                    snopesScrapeNetwork.getStoriesFor(category: chosenCategory, completion: { arrayOfStories in
-                        categoryRepo.arrayOfSnopesCategories[self.selectedRow].stories = arrayOfStories
-                        storyRepo.arrayOfStories = arrayOfStories
+  
+        Async.userInitiated({
+            self.prepare(completion: {(bool, cat) in
+                Async.main({
+                    if bool {
                         self.leaveViewController()
-                    })
-                }
-            default: break
+                    } else {
+                        if let c = cat {
+                           self.presentCustomAlertViewController(category: c)
+                        }
+                    }
+                })
+            })
+        })
+    }
+    
+    private func prepare(completion: @escaping (Bool, Category?)->Void) {
+        var chosenCategory: Category
+        switch self.segmentControl.selectedIndex {
+        case 0: // Open trivia
+            chosenCategory = categoryRepo.arrayOfOpenTriviaDBCategories[self.selectedRow]
+            if chosenCategory.title == "Random" {
+                openTriviaDBNetwork.getRandomStories(amount: self.numberOfStoriesOpenTrivia, returnExhausted: false, completion: { arrayOfStories in
+                    if arrayOfStories != nil {
+                        storyRepo.arrayOfStories = arrayOfStories!
+                        completion(true, nil)
+                    } else {
+                        completion(false, chosenCategory)
+                    }
+                })
+            } else {
+                openTriviaDBNetwork.getStoriesFor(categoryId: chosenCategory.id, amount: self.numberOfStoriesOpenTrivia, returnExhausted: false, completion: {arrayOfStories in
+                    if arrayOfStories != nil {
+                        storyRepo.arrayOfStories = arrayOfStories!
+                        completion(true, nil)
+                    } else {
+                        completion(false, chosenCategory)
+                    }
+                })
             }
+            
+        case 1: // Snopes
+            chosenCategory = categoryRepo.arrayOfSnopesCategories[self.selectedRow]
+            if let arrayOfStories = chosenCategory.stories { // Stories in memory
+                storyRepo.arrayOfStories = arrayOfStories
+                completion(true, nil)
+            } else { // No stories in memory
+                snopesScrapeNetwork.getStoriesFor(category: chosenCategory, completion: { arrayOfStories in
+                    categoryRepo.arrayOfSnopesCategories[self.selectedRow].stories = arrayOfStories
+                    storyRepo.arrayOfStories = arrayOfStories
+                    completion(true, nil)
+                })
+            }
+        default: break
         }
     }
     
@@ -155,12 +171,12 @@ class LandingViewController: UIViewController {
         prompt.setMainButtonAction {
             self.prompt.dismissPrompt()
             self.didStartLoading()
-            DispatchQueue.global(qos: .userInitiated).async {
+            Async.userInitiated({
                 openTriviaDBNetwork.getStoriesFor(categoryId: category.id, amount: self.numberOfStoriesOpenTrivia, returnExhausted: true, completion: {arrayOfStories in
                     storyRepo.arrayOfStories = arrayOfStories!
                     self.leaveViewController()
                 })
-            }
+            })
         }
         
         prompt.setSecondButtonText(secondButtonTitle: "Nah".uppercased())
@@ -176,12 +192,13 @@ class LandingViewController: UIViewController {
     }
     
     private func leaveViewController() {
-        self.view.isUserInteractionEnabled = true
         playLabel.isHidden = false
         playButton.startFinishAnimation(0 , completion: {
             let gameVC = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
             gameVC.transitioningDelegate = self
-            self.present(gameVC, animated: true, completion: nil)
+            self.present(gameVC, animated: true, completion: {
+                self.view.isUserInteractionEnabled = true
+            })
         })
     }
     
