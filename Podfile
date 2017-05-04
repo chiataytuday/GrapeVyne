@@ -12,4 +12,5 @@ target ‘GrapeVyne’ do
   pod 'DGRunkeeperSwitch'
   pod 'RevealingSplashView'
   pod 'AsyncSwift'
+  pod 'PickerView'
 end
