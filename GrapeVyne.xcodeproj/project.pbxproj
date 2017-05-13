@@ -26,6 +26,8 @@
 		61804C521E98706400CD3C6A /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61804C511E98706400CD3C6A /* ActivityIndicatorView.swift */; };
 		61817ED61E821AF1002519DD /* InstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61817ED51E821AF1002519DD /* InstructionViewController.swift */; };
 		61817ED81E821EC1002519DD /* CreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61817ED71E821EC1002519DD /* CreditsViewController.swift */; };
+		61898D5B1EC1637F005AABEC /* CategoryPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61898D5A1EC1637F005AABEC /* CategoryPickerView.xib */; };
+		61898D5D1EC16688005AABEC /* CategoryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61898D5C1EC16688005AABEC /* CategoryPickerView.swift */; };
 		619161C61E60343500CCE5E1 /* articles.json in Resources */ = {isa = PBXBuildFile; fileRef = 619161C51E60343500CCE5E1 /* articles.json */; };
 		619161CA1E60AD7300CCE5E1 /* ResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619161C91E60AD7300CCE5E1 /* ResultTableViewController.swift */; };
 		619505601E947E4700D18109 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6195055F1E947E4700D18109 /* Repository.swift */; };
@@ -57,6 +59,8 @@
 		61804C511E98706400CD3C6A /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		61817ED51E821AF1002519DD /* InstructionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionViewController.swift; sourceTree = "<group>"; };
 		61817ED71E821EC1002519DD /* CreditsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsViewController.swift; sourceTree = "<group>"; };
+		61898D5A1EC1637F005AABEC /* CategoryPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryPickerView.xib; sourceTree = "<group>"; };
+		61898D5C1EC16688005AABEC /* CategoryPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
 		619161C51E60343500CCE5E1 /* articles.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = articles.json; sourceTree = "<group>"; };
 		619161C91E60AD7300CCE5E1 /* ResultTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultTableViewController.swift; sourceTree = "<group>"; };
 		6195055F1E947E4700D18109 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
@@ -124,6 +128,25 @@
 			path = GrapeVyne;
 			sourceTree = "<group>";
 		};
+		61898D5F1EC16693005AABEC /* CategoryPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				61898D5A1EC1637F005AABEC /* CategoryPickerView.xib */,
+				61898D5C1EC16688005AABEC /* CategoryPickerView.swift */,
+			);
+			name = CategoryPickerView;
+			sourceTree = "<group>";
+		};
+		61898D601EC166A9005AABEC /* SwiftPrompts */ = {
+			isa = PBXGroup;
+			children = (
+				615E99661EB5034B00B7F956 /* SwiftPrompts.swift */,
+				615E99671EB5034B00B7F956 /* SwiftPromptsView.swift */,
+				615E99681EB5034B00B7F956 /* UIImageEffects.swift */,
+			);
+			name = SwiftPrompts;
+			sourceTree = "<group>";
+		};
 		619BE2C11E3D1B530085023B /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,12 +160,11 @@
 		619BE2C21E3D1B650085023B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				615E99661EB5034B00B7F956 /* SwiftPrompts.swift */,
-				615E99671EB5034B00B7F956 /* SwiftPromptsView.swift */,
-				615E99681EB5034B00B7F956 /* UIImageEffects.swift */,
 				6166C99E1E14CF8E00BF5A54 /* Main.storyboard */,
+				61898D601EC166A9005AABEC /* SwiftPrompts */,
 				61F971EE1E5D57BB0055DE4B /* Card */,
 				61F971EF1E5D57C10055DE4B /* SwipeOverlay */,
+				61898D5F1EC16693005AABEC /* CategoryPickerView */,
 				614D64301E6CE2C60051AB6D /* CustomColor.swift */,
 				61B75A2B1E7778F6008A14ED /* Instruction.xib */,
 				61804C511E98706400CD3C6A /* ActivityIndicatorView.swift */,
@@ -269,6 +291,7 @@
 				61B75A2C1E7778F6008A14ED /* Instruction.xib in Resources */,
 				6166C9A01E14CF8E00BF5A54 /* Main.storyboard in Resources */,
 				613CC4A01E776A4E00F85F3E /* Gotham-Bold.ttf in Resources */,
+				61898D5B1EC1637F005AABEC /* CategoryPickerView.xib in Resources */,
 				613CC4A21E776A7100F85F3E /* Quicksand-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,6 +368,7 @@
 				619161CA1E60AD7300CCE5E1 /* ResultTableViewController.swift in Sources */,
 				61CA8FF71E1DF097005B389D /* CardView.swift in Sources */,
 				61804C521E98706400CD3C6A /* ActivityIndicatorView.swift in Sources */,
+				61898D5D1EC16688005AABEC /* CategoryPickerView.swift in Sources */,
 				6156196C1E47AD9E007E5F27 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
