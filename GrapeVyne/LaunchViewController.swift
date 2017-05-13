@@ -7,50 +7,68 @@
 //
 
 import UIKit
+import RevealingSplashView
 
-var storyRepo = StoryRepo()
+let snopesScrapeNetwork = SnopesScrapeNetwork()
+let openTriviaDBNetwork = OpenTriviaDBNetwork()
+let categoryRepo = CategoryRepo()
+let storyRepo = StoryRepo()
 
 class LaunchViewController: UIViewController {
-    let jsonParser = JSONParser()
-
+    var revealingSplashView: RevealingSplashView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         modalTransitionStyle = appModalTransitionStyle
+        
+        //Initialize a revealing Splash with with the iconImage, the initial size and the background color
+        revealingSplashView = RevealingSplashView(iconImage: #imageLiteral(resourceName: "logo_icon"),
+                                                      iconInitialSize: CGSize(width: 100, height: 100),
+                                           backgroundColor: .black)
+        revealingSplashView.animationType = .heartBeat
+        
+        //Adds the revealing splash view as a sub view
+        self.view.addSubview(revealingSplashView)
+        
+        //Starts animation
+        revealingSplashView.startAnimation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadCards()
-        let landingVC = storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
-        present(landingVC, animated: true, completion: nil)
-    }
-    
-    private func loadCards() {
-        let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
-        if managedObject.isEmpty {
-            //Nothing in Core Data
-            print("Time taken to parse JSON: ",timeElapsedInSecondsWhenRunningCode {
-                let stories = jsonParser.parseStories(data: MockedJSON.getData())
-                storyRepo.arrayOfStories = stories
-                storyRepo.writeToCD(array: stories)
+        openTriviaDBNetwork.getCategories(completion: {arrayOfCategories in
+            categoryRepo.arrayOfOpenTriviaDBCategories = arrayOfCategories.sorted(by: {$0.title < $1.title})
+            categoryRepo.arrayOfOpenTriviaDBCategories.insert(Category(title: "Random", id: nil, url: nil, stories: nil), at: 0)
+            self.getCategories(completion: {
+                self.revealingSplashView.playZoomOutAnimation()
+                let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+                self.present(landingVC, animated: true, completion: nil)
             })
-        } else {
-            //Something in Core Data
-            for object in managedObject {
-                let title = object.value(forKey: "title") as! String
-                let factValue = object.value(forKey: "fact") as! Bool
-                let urlString = object.value(forKey: "urlString") as! String
-                let tempStory = Story(title: title, fact: factValue, urlStr: urlString)
-                storyRepo.arrayOfStories.append(tempStory)
-            }
-        }
-        print("*** Number of stories currently in memory \(storyRepo.arrayOfStories.count) ***")
+        })
     }
     
-    private func timeElapsedInSecondsWhenRunningCode(operation:()->()) -> Double {
-        let startTime = CFAbsoluteTimeGetCurrent()
-        operation()
-        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-        return Double(timeElapsed)
+    private func getCategories(completion: @escaping () -> Void) {
+        snopesScrapeNetwork.getCategories(completion: { arrayOfCategories in
+            self.loadValidCategories(array: arrayOfCategories, completion: { arrayOfValidCategories in
+                categoryRepo.arrayOfSnopesCategories = arrayOfValidCategories.sorted(by: {$0.title < $1.title})
+                completion()
+            })
+        })
+    }
+    
+    private func loadValidCategories(array: [Category], completion: @escaping (_ array: [Category]) -> Void) {
+        var counterToComplete = 0
+        var completeArray = [Category]()
+        for category in array {
+            snopesScrapeNetwork.isValidCategory(category: category, completion: {bool in
+                counterToComplete += 1
+                if bool {
+                    completeArray.append(category)
+                }
+                if counterToComplete == array.count {
+                    completion(completeArray)
+                }
+            })
+        }
     }
 }

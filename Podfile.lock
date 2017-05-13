@@ -1,28 +1,39 @@
 PODS:
-  - Koloda (4.0):
+  - Alamofire (4.4.0)
+  - AsyncSwift (2.0.1)
+  - DGRunkeeperSwitch (1.1.4)
+  - Kanna (2.1.1)
+  - Koloda (4.1):
     - pop (~> 1.0)
+  - PickerView (0.3.1)
   - pop (1.0.9)
+  - RevealingSplashView (0.2.0)
   - SwiftyJSON (3.1.4)
+  - TKSubmitTransitionSwift3 (0.5)
 
 DEPENDENCIES:
-  - Koloda (from `https://github.com/Yalantis/Koloda.git`, branch `swift-3`)
+  - Alamofire (~> 4.4.0)
+  - AsyncSwift
+  - DGRunkeeperSwitch
+  - Kanna (~> 2.1.0)
+  - Koloda (~> 4.1)
+  - PickerView
+  - RevealingSplashView
   - SwiftyJSON
-
-EXTERNAL SOURCES:
-  Koloda:
-    :branch: swift-3
-    :git: https://github.com/Yalantis/Koloda.git
-
-CHECKOUT OPTIONS:
-  Koloda:
-    :commit: 00fc63910eeb9208cef9bf5b72c7243a59511414
-    :git: https://github.com/Yalantis/Koloda.git
+  - TKSubmitTransitionSwift3
 
 SPEC CHECKSUMS:
-  Koloda: b133e13cee0444c545e788d87950131bfac47389
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  AsyncSwift: 632138e42ead868b53c745fcde9bf733ce1527ad
+  DGRunkeeperSwitch: cc237936f42237307f5e212e18136a27bf907bf1
+  Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
+  Koloda: 6c4fa3ce9a68776a8ef973311e53fdda432799a8
+  PickerView: 13713136c7db291e6ada509f0ba6de242ee0627d
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  RevealingSplashView: a19962358db66188841c73afd51eb663a29f75cd
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  TKSubmitTransitionSwift3: fadd76eefa015542d0fe6d85424a43dd6f3354d2
 
-PODFILE CHECKSUM: d5acaf893683c9bded5938f21d8a2da91a2e5e90
+PODFILE CHECKSUM: 5401d9205df48bfbad303c3cc71b4dd0d947bd88
 
-COCOAPODS: 1.2.0.beta.3
+COCOAPODS: 1.2.1

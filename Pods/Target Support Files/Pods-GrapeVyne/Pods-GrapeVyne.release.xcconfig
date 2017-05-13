@@ -1,10 +1,13 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Koloda" "$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON" "$PODS_CONFIGURATION_BUILD_DIR/pop"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Alamofire" "$PODS_CONFIGURATION_BUILD_DIR/AsyncSwift" "$PODS_CONFIGURATION_BUILD_DIR/DGRunkeeperSwitch" "$PODS_CONFIGURATION_BUILD_DIR/Kanna" "$PODS_CONFIGURATION_BUILD_DIR/Koloda" "$PODS_CONFIGURATION_BUILD_DIR/PickerView" "$PODS_CONFIGURATION_BUILD_DIR/RevealingSplashView" "$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON" "$PODS_CONFIGURATION_BUILD_DIR/TKSubmitTransitionSwift3" "$PODS_CONFIGURATION_BUILD_DIR/pop"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(SDKROOT)/usr/include/libxml2
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Koloda/Koloda.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON/SwiftyJSON.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/pop/pop.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "Koloda" -framework "SwiftyJSON" -framework "pop"
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Alamofire/Alamofire.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/AsyncSwift/Async.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/DGRunkeeperSwitch/DGRunkeeperSwitch.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Kanna/Kanna.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Koloda/Koloda.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/PickerView/PickerView.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/RevealingSplashView/RevealingSplashView.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON/SwiftyJSON.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/TKSubmitTransitionSwift3/TKSubmitTransitionSwift3.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/pop/pop.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "Async" -framework "DGRunkeeperSwitch" -framework "Kanna" -framework "Koloda" -framework "PickerView" -framework "RevealingSplashView" -framework "SwiftyJSON" -framework "TKSubmitTransitionSwift3" -framework "pop"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
+SWIFT_INCLUDE_PATHS = $(SRCROOT)/Kanna/Modules

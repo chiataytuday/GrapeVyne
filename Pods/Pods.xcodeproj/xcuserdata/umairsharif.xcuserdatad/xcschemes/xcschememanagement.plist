@@ -4,7 +4,32 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AsyncSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>DGRunkeeperSwitch.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Kanna.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Koloda.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PickerView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -14,7 +39,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>RevealingSplashView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftyJSON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>TKSubmitTransitionSwift3.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,7 +67,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7F0A30C56CC7BD7AD3AF0E3DCD0C5C64</key>
+		<key>269FE9C83B148C0D714F115DB2E7483A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>496F985CE0A0DF525DA96845156BC37C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4D10E4FF5A483B852B47CCA0B994E340</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7F45F2F21482C3777494ACE42307212D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>88800CB09FE53DF51416EF67A6ACC245</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,7 +102,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C5E96BAAB34DE5032EF4F0ADE63AE0EB</key>
+		<key>B3C802066974EEE6925E8DD0B2D046CB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CCD2C67F75856FDF0CE1CE899A941B5C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E6201897E03F1CF81B18D371B6BEA2CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

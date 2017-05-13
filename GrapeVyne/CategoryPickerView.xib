@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CategoryPickerView" customModule="GrapeVyne" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsN-VR-Y3H" customClass="PickerView" customModule="PickerView">
+                    <rect key="frame" x="16" y="444" width="343" height="203"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gT-yh-48A">
+                    <rect key="frame" x="262" y="397" width="97" height="39"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="97" id="Skz-km-AwE"/>
+                        <constraint firstAttribute="height" constant="39" id="et8-ZA-anU"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="doneButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="7EX-hV-PV7"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="fsN-VR-Y3H" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="444" id="B6Z-Ml-P7K"/>
+                <constraint firstAttribute="bottom" secondItem="fsN-VR-Y3H" secondAttribute="bottom" constant="20" id="EUa-Zq-TmS"/>
+                <constraint firstItem="4gT-yh-48A" firstAttribute="trailing" secondItem="fsN-VR-Y3H" secondAttribute="trailing" id="EW5-5n-Tv3"/>
+                <constraint firstItem="fsN-VR-Y3H" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="NM4-DZ-OkU"/>
+                <constraint firstItem="fsN-VR-Y3H" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="Odg-pJ-tzc"/>
+                <constraint firstItem="fsN-VR-Y3H" firstAttribute="top" secondItem="4gT-yh-48A" secondAttribute="bottom" constant="8" symbolic="YES" id="nyv-Tz-UlN"/>
+            </constraints>
+            <connections>
+                <outlet property="doneButton" destination="4gT-yh-48A" id="dy0-xA-nSv"/>
+                <outlet property="pickerView" destination="fsN-VR-Y3H" id="hJF-FB-8XP"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="54.5"/>
+        </view>
+    </objects>
+</document>

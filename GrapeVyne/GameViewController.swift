@@ -8,13 +8,13 @@
 
 import UIKit
 import Koloda
+import TKSubmitTransitionSwift3
 
 // MARK: Global properties
 // Color Config
 private let viewBackgroundColor = UIColor.black
 private let cardViewTextColor = UIColor.white
 private let timerLabelTextColor = UIColor.white
-private let noMoreCardsLabelTextColor = UIColor.white
 private let countDownLabelTextColor = UIColor.white
 private let timeEndingWarningColor = CustomColor.red
 // Card Config
@@ -41,18 +41,18 @@ class GameViewController: UIViewController {
     
     // MARK: IBOutlets
     @IBOutlet weak var kolodaView: KolodaView!
-    @IBOutlet weak var noMoreCardsLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var countDownLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = viewBackgroundColor
-
+        modalTransitionStyle = appModalTransitionStyle
+        
         dataSource = getDataSource()
         kolodaView.dataSource = self
         kolodaView.delegate = self
-        modalTransitionStyle = appModalTransitionStyle
+        
         configureViewUI()
         instructionView.frame = view.bounds
         view.insertSubview(instructionView, belowSubview: countDownLabel)
@@ -67,17 +67,10 @@ class GameViewController: UIViewController {
     private func configureViewUI() {
         kolodaView.layer.cornerRadius = cardCornerRadius
         
-        if (dataSource?.isEmpty)! {
-            noMoreCardsLabel.isHidden = false
-        } else {
-            noMoreCardsLabel.isHidden = true
-        }
-        
         configureCardBlurEffectView()
         
         countDownLabel.textColor = countDownLabelTextColor
         countDownLabel.text = String(countDownTime)
-        noMoreCardsLabel.textColor = noMoreCardsLabelTextColor
         
         timerLabel.textColor = timerLabelTextColor
         updateTimerLabel()
@@ -206,7 +199,6 @@ extension GameViewController: KolodaViewDelegate {
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
         endGame()
-        noMoreCardsLabel.isHidden = false
     }
     
     func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
@@ -220,15 +212,13 @@ extension GameViewController: KolodaViewDelegate {
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
         //Use the card display title to store the story title
         let storyTitle = (dataSource?[index].titleLabel.text!)!
-        //Get the story object by searching on the story title
-        let storyObject = CoreDataManager.fetchObject(entity: "CDStory", title: storyTitle)
         
-        //Get the story's other properties
-        let storyFactValue = storyObject.value(forKey: "fact") as! Bool
-        let storyURLString = storyObject.value(forKey: "urlString") as! String
+        let indexOfStory = storyRepo.arrayOfStories.index(where: {$0.title == storyTitle})
+        let storyFactValue = storyRepo.arrayOfStories[indexOfStory!].fact
+        let storyURLString = storyRepo.arrayOfStories[indexOfStory!].url
         
         //Create a temporary story property
-        let tempStory = Story(title: storyTitle, fact: storyFactValue, urlStr: storyURLString)
+        let tempStory = Story(title: storyTitle, url: storyURLString, fact: storyFactValue)
         
         //Determine result of user action
         let userAnswer = isUserCorrectFor(factValue: storyFactValue, swipeDirection: direction)
@@ -236,9 +226,6 @@ extension GameViewController: KolodaViewDelegate {
         performSwipeResultAnimationFor(userAns: userAnswer)
         storyRepo.arrayOfSwipedStories.append(tempStory)
         updateResultArrayFor(userAns: userAnswer, story: tempStory)
-        
-        //Finally, delete the story from memory
-        CoreDataManager.deleteObject(entity: "CDStory", title: storyTitle)
     }
     
     func kolodaShouldTransparentizeNextCard(_ koloda: KolodaView) -> Bool {
@@ -315,6 +302,10 @@ extension GameViewController: KolodaViewDelegate {
 
 extension GameViewController: KolodaViewDataSource {
     
+    func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed {
+        return .default
+    }
+    
     func kolodaNumberOfCards(_ koloda:KolodaView) -> Int {
         return dataSource!.count
     }
@@ -322,4 +313,20 @@ extension GameViewController: KolodaViewDataSource {
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         return dataSource![index]
     }
+}
+
+// MARK: UIViewControllerTransitioningDelegate
+
+extension GameViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let fadeInAnimator = TKFadeInAnimator()
+        return fadeInAnimator
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let fadeInAnimator = TKFadeInAnimator()
+        return fadeInAnimator
+    }
+    
 }
