@@ -9,12 +9,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>BubbleTransition.xcscheme</key>
+		<key>AsyncSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>JSSAlertView.xcscheme</key>
+		<key>DGRunkeeperSwitch.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -29,12 +29,27 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PickerView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-GrapeVyne.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>RevealingSplashView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftyJSON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>TKSubmitTransitionSwift3.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,22 +62,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0711DEA1099CA0B48B657BB0903E1ED2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>20151774CE2F5FA6B8126D4F5ED1C5FE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>38830187D9E171E7B43047ED06A08ADC</key>
+		<key>269FE9C83B148C0D714F115DB2E7483A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>496F985CE0A0DF525DA96845156BC37C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>4D10E4FF5A483B852B47CCA0B994E340</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7F45F2F21482C3777494ACE42307212D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>88800CB09FE53DF51416EF67A6ACC245</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,12 +102,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D368184BEED712B6A15E4767FE420BE5</key>
+		<key>B3C802066974EEE6925E8DD0B2D046CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EF86103BB5E785CDDDC2E65CC3AD508F</key>
+		<key>CCD2C67F75856FDF0CE1CE899A941B5C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E6201897E03F1CF81B18D371B6BEA2CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

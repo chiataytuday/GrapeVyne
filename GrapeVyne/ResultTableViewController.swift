@@ -41,6 +41,9 @@ class ResultTableViewCell: UITableViewCell {
 class ResultTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var resultCounterLabel: UILabel!
+    @IBOutlet weak var doneButton: UIButton!
+    var doneLabel: UILabel!
+    
     let cellSpacingHeight : CGFloat = 10
 
     override func viewDidLoad() {
@@ -72,6 +75,16 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         resultCounterLabel.backgroundColor = CustomColor.customPurple
         resultCounterLabel.layer.cornerRadius = cardCornerRadius
         resultCounterLabel.layer.masksToBounds = true
+        
+        
+        doneLabel = UILabel(frame: CGRect(x: 0, y: 0, width: doneButton.bounds.size.width, height: doneButton.bounds.size.height))
+        doneLabel.center = CGPoint(x: doneButton.bounds.size.width / 2.0, y: doneButton.bounds.size.height / 2.0)
+        doneLabel.textAlignment = .center
+        doneLabel.attributedText = NSAttributedString(string: "Done".uppercased(), attributes: [NSFontAttributeName : UIFont(name: "Gotham-Bold", size: 32)!])
+        doneLabel.textColor = .white
+        doneButton.addSubview(doneLabel)
+        doneButton.backgroundColor = CustomColor.customPurple
+        doneButton.layer.cornerRadius = doneButton.bounds.height / 2.0
     }
     
     override func viewWillAppear(_ animated: Bool) {

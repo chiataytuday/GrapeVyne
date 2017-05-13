@@ -8,13 +8,13 @@
 
 import UIKit
 import Koloda
+import TKSubmitTransitionSwift3
 
 // MARK: Global properties
 // Color Config
 private let viewBackgroundColor = UIColor.black
 private let cardViewTextColor = UIColor.white
 private let timerLabelTextColor = UIColor.white
-private let noMoreCardsLabelTextColor = UIColor.white
 private let countDownLabelTextColor = UIColor.white
 private let timeEndingWarningColor = CustomColor.red
 // Card Config
@@ -41,7 +41,6 @@ class GameViewController: UIViewController {
     
     // MARK: IBOutlets
     @IBOutlet weak var kolodaView: KolodaView!
-    @IBOutlet weak var noMoreCardsLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var countDownLabel: UILabel!
     
@@ -57,7 +56,6 @@ class GameViewController: UIViewController {
         configureViewUI()
         instructionView.frame = view.bounds
         view.insertSubview(instructionView, belowSubview: countDownLabel)
-        //dataSource = configureCardUI(arrayOfStories: )
         //game starts with this completion handler
         countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {started in self.updateCountDownTimer()})
     }
@@ -69,17 +67,10 @@ class GameViewController: UIViewController {
     private func configureViewUI() {
         kolodaView.layer.cornerRadius = cardCornerRadius
         
-        if (dataSource?.isEmpty)! {
-            noMoreCardsLabel.isHidden = false
-        } else {
-            noMoreCardsLabel.isHidden = true
-        }
-        
         configureCardBlurEffectView()
         
         countDownLabel.textColor = countDownLabelTextColor
         countDownLabel.text = String(countDownTime)
-        noMoreCardsLabel.textColor = noMoreCardsLabelTextColor
         
         timerLabel.textColor = timerLabelTextColor
         updateTimerLabel()
@@ -93,18 +84,6 @@ class GameViewController: UIViewController {
         blurEffectView.frame = kolodaView.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         kolodaView.addSubview(blurEffectView)
-    }
-    
-    private func configureCardUI(arrayOfStories: [Story]) -> [CardView] {
-        var tempArray = arrayOfStories
-        var arrayOfCardViews : [CardView] = []
-        while tempArray.count > 0 {
-            let randomIndex = Int(arc4random_uniform(UInt32(tempArray.count)))
-            let cardView = configureCardUI(title: tempArray[randomIndex].title, arrayCount: tempArray.count)
-            arrayOfCardViews.append(cardView)
-            tempArray.remove(at: randomIndex)
-        }
-        return arrayOfCardViews
     }
     
     private func getDataSource() -> [CardView] {
@@ -220,7 +199,6 @@ extension GameViewController: KolodaViewDelegate {
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
         endGame()
-        noMoreCardsLabel.isHidden = false
     }
     
     func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
@@ -335,4 +313,20 @@ extension GameViewController: KolodaViewDataSource {
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         return dataSource![index]
     }
+}
+
+// MARK: UIViewControllerTransitioningDelegate
+
+extension GameViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let fadeInAnimator = TKFadeInAnimator()
+        return fadeInAnimator
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let fadeInAnimator = TKFadeInAnimator()
+        return fadeInAnimator
+    }
+    
 }
