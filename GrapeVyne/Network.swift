@@ -32,7 +32,13 @@ class OpenTriviaDBNetwork {
         })
     }
     
-    public func getStoriesFor(categoryId: Int?, amount: Int, completion:  @escaping (_ array: [Story]) -> Void) {
+    public func getRandomStories(amount: Int, returnExhausted: Bool, completion: @escaping (_ array: [Story]?) -> Void) {
+        getStoriesFor(categoryId: nil, amount: amount, returnExhausted: returnExhausted, completion: {array in
+            completion(array)
+        })
+    }
+    
+    public func getStoriesFor(categoryId: Int?, amount: Int, returnExhausted: Bool, completion:  @escaping (_ array: [Story]?) -> Void) {
         var categoryIdString = ""
         if let categoryIdInt = categoryId {
             categoryIdString = String(categoryIdInt)
@@ -46,40 +52,73 @@ class OpenTriviaDBNetwork {
         
         if let token = userDefaults.string(forKey: sessionTokenUserDefaultsKey) { // Token not nil, saved in memory
             parameters["token"] = token
-            self.makeRequestForStories(parameters, completion: {json in
+            self.makeRequestForStories(parameters, returnExhausted: returnExhausted, completion: {json in
                 var array = [Story]()
-                for (_, subJson) in json["results"] {
-                    if let storyTitle = subJson["question"].string?.html2String,
-                        let storyFactString = subJson["correct_answer"].string,
-                        let storyFactBool = determineStoryReliable(factString: storyFactString) {
-                        array.append(Story(title: storyTitle, url: "", fact: storyFactBool))
+                if json != nil {
+                    for (_, subJson) in json!["results"] {
+                        if let storyTitle = subJson["question"].string?.html2String,
+                            let storyFactString = subJson["correct_answer"].string,
+                            let storyFactBool = determineStoryReliable(factString: storyFactString) {
+                            array.append(Story(title: storyTitle, url: nil, fact: storyFactBool))
+                        }
                     }
+                    completion(array)
+                } else {
+                   completion(nil)
                 }
-                completion(array)
+                
             })
         }
         guard userDefaults.string(forKey: sessionTokenUserDefaultsKey) != nil else { // Token is nil, not saved in memory
             getSessionToken(completion: {token in
                 parameters["token"] = token
                 self.userDefaults.set(token, forKey: self.sessionTokenUserDefaultsKey)
-                self.makeRequestForStories(parameters, completion: {json in
+                self.makeRequestForStories(parameters, returnExhausted: returnExhausted, completion: {json in
                     var array = [Story]()
-                    for (_, subJson) in json["results"] {
-                        if let storyTitle = subJson["question"].string?.html2String,
-                            let storyFactString = subJson["correct_answer"].string,
-                            let storyFactBool = determineStoryReliable(factString: storyFactString) {
-                            array.append(Story(title: storyTitle, url: "", fact: storyFactBool))
+                    if json != nil {
+                        for (_, subJson) in json!["results"] {
+                            if let storyTitle = subJson["question"].string?.html2String,
+                                let storyFactString = subJson["correct_answer"].string,
+                                let storyFactBool = determineStoryReliable(factString: storyFactString) {
+                                array.append(Story(title: storyTitle, url: nil, fact: storyFactBool))
+                            }
                         }
+                        completion(array)
+                    } else {
+                        completion(nil)
                     }
-                    completion(array)
                 })
             })
             return
         }
     }
     
-    private func makeRequestForStories(_ params: Parameters, completion: @escaping (_ json: JSON) -> Void) {
-        Alamofire.request("\(self.baseURL)/api.php", method: .get, parameters: params).responseJSON(completionHandler: {response in
+    private func makeRequestForStories(_ params: Parameters, returnExhausted: Bool, completion: @escaping (_ json: JSON?) -> Void) {
+        let sesh = URLSession(configuration: .default)
+        
+        var responseCode = 0
+        let category = params["category"] as! String
+        var amountString = params["amount"] as! String
+        repeat {
+            let url = URL(string: "https://opentdb.com/api.php?amount=\(amountString)&category=\(category)&type=boolean")!
+            if let data = sesh.synchronousDataTask(with: url).0 {
+                let json = JSON(data: data)
+                if let rCode = json["response_code"].int {
+                    responseCode = rCode
+                }
+            }
+            if let amountNum = Int(amountString) {
+                let newAmountNum = amountNum - 1
+                if newAmountNum <= 0 { // Assuming the API would not have a category with at least one question
+                    //completion(nil)
+                }
+                amountString = String(newAmountNum)
+            }
+        } while responseCode != 0
+        var copyParams = params
+        copyParams["amount"] = amountString
+        
+        Alamofire.request("\(self.baseURL)/api.php", method: .get, parameters: copyParams).responseJSON(completionHandler: {response in
             if let data = response.data {
                 let json = JSON(data: data)
                 if let responseCode = json["response_code"].int {
@@ -95,19 +134,25 @@ class OpenTriviaDBNetwork {
                         self.getSessionToken(completion: {token in
                             var copyParams = params
                             copyParams["token"] = token
-                            self.makeRequestForStories(copyParams, completion: {json in
+                            self.userDefaults.set(token, forKey: self.sessionTokenUserDefaultsKey)
+                            self.makeRequestForStories(copyParams, returnExhausted: returnExhausted, completion: {json in
                                 completion(json)
                             })
                         })
                     case 4: // Token Empty: Session Token has returned all possible questions for the specified query. Resetting the Token is necessary.
-                        let oldToken = params["token"] as! String
-                        self.resetSessionToken(token: oldToken, completion: {newToken in
-                            var copyParams = params
-                            copyParams["token"] = newToken
-                            self.makeRequestForStories(copyParams, completion: {json in
-                                completion(json)
+                        if returnExhausted {
+                            let oldToken = params["token"] as! String
+                            self.resetSessionToken(token: oldToken, completion: {newToken in
+                                var copyParams = params
+                                copyParams["token"] = newToken
+                                self.makeRequestForStories(copyParams, returnExhausted: returnExhausted, completion: {json in
+                                    completion(json)
+                                })
                             })
-                        })
+                        } else {
+                            completion(nil)
+                        }
+                        
                     default:
                         return
                     }
@@ -179,19 +224,36 @@ class SnopesScrapeNetwork {
     
     public func getStoriesFor(category: Category, completion:  @escaping (_ array: [Story]) -> Void) {
         var pageNum = 1
-        Alamofire.request("\(category.url!)/page/\(pageNum)").responseString(completionHandler: { response in
-            if let code = response.response?.statusCode {
-                if code > 400 {
-                    // no more stories
-                } else {
-                    // we can get more stories
+        let sesh = URLSession(configuration: .default)
+        var hasFailed = false
+        repeat {
+            let response = sesh.synchronousDataTask(with: URL(string: "\(category.url!)/page/\(pageNum)")!).1
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
                     pageNum += 1
-                    self.getStoriesFor(category: category, completion: { _ in
-                        
-                    })
-                    
+                } else if httpResponse.statusCode >= 400 {
+                    hasFailed = true
                 }
             }
+        } while !hasFailed
+        
+        var arrayOfStories = [Story]()
+        var count = 0
+        for i in 0...pageNum {
+            self.makeRequestFor(category: category, pageNum: i, completion: {array in
+                count += 1
+                for story in array {
+                    arrayOfStories.append(story)
+                }
+                if count == pageNum {
+                    completion(arrayOfStories)
+                }
+            })
+        }
+    }
+    
+    private func makeRequestFor(category: Category, pageNum: Int, completion:  @escaping (_ array: [Story]) -> Void) {
+        Alamofire.request("\(category.url!)/page/\(pageNum)").responseString(completionHandler: { response in
             var array = [Story]()
             if let html = response.result.value {
                 array = self.scrapeStories(html: html)

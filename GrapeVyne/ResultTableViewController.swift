@@ -28,6 +28,7 @@ class ResultTableViewCell: UITableViewCell {
     @IBOutlet weak var storyLabel: UILabel!
     @IBOutlet weak var correctAnsLabel: UILabel!
     @IBOutlet weak var userAnsLabel: UILabel!
+    @IBOutlet weak var linkButton: UIButton!
     
     @IBAction func linkButton(_ sender: UIButton) {
         let svc = SFSafariViewController(url: URL(string: storyURLasString)!)
@@ -40,6 +41,9 @@ class ResultTableViewCell: UITableViewCell {
 class ResultTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var resultCounterLabel: UILabel!
+    @IBOutlet weak var doneButton: UIButton!
+    var doneLabel: UILabel!
+    
     let cellSpacingHeight : CGFloat = 10
 
     override func viewDidLoad() {
@@ -71,6 +75,16 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         resultCounterLabel.backgroundColor = CustomColor.customPurple
         resultCounterLabel.layer.cornerRadius = cardCornerRadius
         resultCounterLabel.layer.masksToBounds = true
+        
+        
+        doneLabel = UILabel(frame: CGRect(x: 0, y: 0, width: doneButton.bounds.size.width, height: doneButton.bounds.size.height))
+        doneLabel.center = CGPoint(x: doneButton.bounds.size.width / 2.0, y: doneButton.bounds.size.height / 2.0)
+        doneLabel.textAlignment = .center
+        doneLabel.attributedText = NSAttributedString(string: "Done".uppercased(), attributes: [NSFontAttributeName : UIFont(name: "Gotham-Bold", size: 32)!])
+        doneLabel.textColor = .white
+        doneButton.addSubview(doneLabel)
+        doneButton.backgroundColor = CustomColor.customPurple
+        doneButton.layer.cornerRadius = doneButton.bounds.height / 2.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,7 +134,13 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
 
         let story = storyRepo.arrayOfSwipedStories[indexPath.section]
         cell.storyLabel.text = story.title
-        cell.storyURLasString = story.url!
+        
+        if story.url == nil {
+            cell.linkButton.isHidden = true
+        } else {
+            cell.storyURLasString = story.url!
+        }
+        
         if storyRepo.arrayOfCorrectStories.contains(where: {$0.title == story.title}) {
             //user was correct, now just match result images
             if story.fact {

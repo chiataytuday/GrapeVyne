@@ -27,10 +27,12 @@ class StoryRepo {
     }
 }
 class CategoryRepo {
-    var arrayOfCategories: [Category]
+    var arrayOfSnopesCategories: [Category]
+    var arrayOfOpenTriviaDBCategories: [Category]
     
     init() {
-        arrayOfCategories = []
+        arrayOfSnopesCategories = []
+        arrayOfOpenTriviaDBCategories = []
     }
     
     func writeCategoriesToCD(array: [Category]) {
