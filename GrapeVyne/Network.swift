@@ -19,15 +19,23 @@ class SnopesScrapeNetwork {
     
     public func prepareDB() {
         let pageNum = 15
-        let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
+        var managedObject = CoreDataManager.fetchModel(entity: "CDStory")
         if managedObject.isEmpty { // Nothing in Core Data
             for i in 0...pageNum {
                 let tempArray = getStoriesFor(url: "\(factCheckURL)\(i)")
                 for story in tempArray {
                     let parsedStory = getFactValueFor(story: story)
-                    arrayOfParsedStories.append(parsedStory)
-                    CoreDataManager.writeToModel(story)
+                    CoreDataManager.writeToModel(parsedStory)
                 }
+            }
+            managedObject = CoreDataManager.fetchModel(entity: "CDStory")
+            for object in managedObject {
+                let title = object.value(forKey: "title") as! String
+                let factValue = object.value(forKey: "fact") as! Bool
+                let urlString = object.value(forKey: "urlString") as! String
+                let id = object.objectID
+                let tempStory = Story(title: title, url: urlString, fact: factValue, id: id)
+                arrayOfParsedStories.append(tempStory)
             }
         } else { // Something in Core Data
             print("Stories in CD \(managedObject.count)")

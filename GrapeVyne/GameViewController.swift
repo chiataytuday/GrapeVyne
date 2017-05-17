@@ -211,6 +211,7 @@ extension GameViewController: KolodaViewDelegate {
     }
     
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
+        
         let storyTitle = (dataSource?[index].titleLabel.text!)!
         let indexOfStory = storyRepo.arrayOfStories.index(where: {$0.title == storyTitle})
         let storyFactValue = storyRepo.arrayOfStories[indexOfStory!].fact
