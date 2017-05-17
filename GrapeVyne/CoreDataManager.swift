@@ -122,6 +122,33 @@ class CoreDataManager {
         return managedObject
     }
     
+    static func fetchObjectBy(id: NSManagedObjectID) -> NSManagedObject? {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        var managedObject: NSManagedObject?
+        do {
+            let result = try context.existingObject(with: id)
+            managedObject = result
+        } catch let error as NSError  {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        return managedObject
+    }
+    
+    static func deleteObjectBy(id: NSManagedObjectID) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        do {
+            let result = try context.existingObject(with: id)
+            context.delete(result)
+            try context.save()
+        } catch let error as NSError  {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+    }
+    
     static func deleteObject(entity: String, title: String) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext

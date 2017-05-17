@@ -30,6 +30,7 @@ class SnopesScrapeNetwork {
                 }
             }
         } else { // Something in Core Data
+            print("Stories in CD \(managedObject.count)")
             for object in managedObject {
                 let title = object.value(forKey: "title") as! String
                 let factValue = object.value(forKey: "fact") as! Bool

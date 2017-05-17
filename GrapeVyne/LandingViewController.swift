@@ -85,6 +85,7 @@ class LandingViewController: UIViewController {
     }
     
     private func randomBool() -> Bool {
+        print(arc4random_uniform(2) == 0)
         return arc4random_uniform(2) == 0
     }
     
