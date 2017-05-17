@@ -64,7 +64,28 @@ class LandingViewController: UIViewController {
         didStartLoading()
         storyRepo.arrayOfStories = [Story]()
   
-        Async.userInitiated({Async.main({})})
+        Async.userInitiated({
+            while storyRepo.arrayOfStories.count < 30 {
+                var randBool = self.randomBool()
+                for story in snopesScrapeNetwork.arrayOfParsedStories {
+                    if story.fact == randBool {
+                        let s = story
+                        if let index = snopesScrapeNetwork.arrayOfParsedStories.index(where: {$0.title == story.title}) {
+                            snopesScrapeNetwork.arrayOfParsedStories.remove(at: index)
+                        }
+                        storyRepo.arrayOfStories.append(s)
+                        randBool = self.randomBool()
+                    }
+                }
+            }
+            Async.main({
+                self.leaveViewController()
+            })
+        })
+    }
+    
+    private func randomBool() -> Bool {
+        return arc4random_uniform(2) == 0
     }
     
     

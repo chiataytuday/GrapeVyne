@@ -51,6 +51,7 @@ struct Category {
 
 struct Story {
     var title: String
-    var url: String?
+    var url: String
     var fact: Bool
+    var id: NSManagedObjectID?
 }

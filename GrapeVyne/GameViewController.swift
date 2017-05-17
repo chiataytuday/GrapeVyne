@@ -218,7 +218,7 @@ extension GameViewController: KolodaViewDelegate {
         let storyURLString = storyRepo.arrayOfStories[indexOfStory!].url
         
         //Create a temporary story property
-        let tempStory = Story(title: storyTitle, url: storyURLString, fact: storyFactValue)
+        let tempStory = Story(title: storyTitle, url: storyURLString, fact: storyFactValue, id: <#NSManagedObjectID?#>)
         
         //Determine result of user action
         let userAnswer = isUserCorrectFor(factValue: storyFactValue, swipeDirection: direction)

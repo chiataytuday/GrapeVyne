@@ -8,6 +8,7 @@
 
 import UIKit
 import RevealingSplashView
+import Async
 
 let snopesScrapeNetwork = SnopesScrapeNetwork()
 let categoryRepo = CategoryRepo()
@@ -30,12 +31,35 @@ class LaunchViewController: UIViewController {
         self.view.addSubview(revealingSplashView)
         
         //Starts animation
-        revealingSplashView.startAnimation()
+        //revealingSplashView.startAnimation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        revealingSplashView.startAnimation()
+        Async.userInitiated({
+            snopesScrapeNetwork.prepareDB()
+            Async.main({
+                self.revealingSplashView.playZoomOutAnimation({
+                    let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+                    self.present(landingVC, animated: true, completion: nil)
+                })
+            })
+        })
+    }
+    
+    private func printTimeElapsedWhenRunningCode(title:String, operation:()->()) {
+        let startTime = CFAbsoluteTimeGetCurrent()
+        operation()
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        print("Time elapsed for \(title): \(timeElapsed) s")
+    }
+    
+    private func timeElapsedInSecondsWhenRunningCode(operation:()->()) -> Double {
+        let startTime = CFAbsoluteTimeGetCurrent()
+        operation()
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        return Double(timeElapsed)
     }
     
 }
