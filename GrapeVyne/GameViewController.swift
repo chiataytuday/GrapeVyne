@@ -211,22 +211,11 @@ extension GameViewController: KolodaViewDelegate {
     }
     
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
-        
-        let storyTitle = (dataSource?[index].titleLabel.text!)!
-        let indexOfStory = storyRepo.arrayOfStories.index(where: {$0.title == storyTitle})
-        let storyFactValue = storyRepo.arrayOfStories[indexOfStory!].fact
-        let storyURLString = storyRepo.arrayOfStories[indexOfStory!].url
-        
-        //Create a temporary story property
-        let tempStory = Story(title: storyTitle, url: storyURLString, fact: storyFactValue, id: nil)
-        
-        //Determine result of user action
-        let userAnswer = isUserCorrectFor(factValue: storyFactValue, swipeDirection: direction)
-        
-        performSwipeResultAnimationFor(userAns: userAnswer)
-        storyRepo.arrayOfSwipedStories.append(tempStory)
-        updateResultArrayFor(userAns: userAnswer, story: tempStory)
-        if let storyAtIndex = dataSource?[index].story, let storyID = storyAtIndex.id {
+        if let cardAtIndex = dataSource?[index], let story = cardAtIndex.story, let storyID = story.id {
+            let userAnswer = isUserCorrectFor(factValue: story.fact, swipeDirection: direction)
+            performSwipeResultAnimationFor(userAns: userAnswer)
+            storyRepo.arrayOfSwipedStories.append(story)
+            updateResultArrayFor(userAns: userAnswer, story: story)
             CoreDataManager.deleteObjectBy(id: storyID)
         }
     }
