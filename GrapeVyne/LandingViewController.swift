@@ -65,16 +65,16 @@ class LandingViewController: UIViewController {
         storyRepo.arrayOfStories = [Story]()
   
         Async.userInitiated({
+            var randBool = self.randomBool()
             while storyRepo.arrayOfStories.count < 30 {
-                var randBool = self.randomBool()
                 for story in snopesScrapeNetwork.arrayOfParsedStories {
                     if story.fact == randBool {
-                        let s = story
-                        if let index = snopesScrapeNetwork.arrayOfParsedStories.index(where: {$0.title == story.title}) {
+                        storyRepo.arrayOfStories.append(story)
+                        if let index = snopesScrapeNetwork.arrayOfParsedStories.index(where: {$0.id == story.id}) {
                             snopesScrapeNetwork.arrayOfParsedStories.remove(at: index)
                         }
-                        storyRepo.arrayOfStories.append(s)
                         randBool = self.randomBool()
+                        break
                     }
                 }
             }

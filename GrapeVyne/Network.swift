@@ -18,7 +18,7 @@ class SnopesScrapeNetwork {
     var arrayOfParsedStories = [Story]()
     
     public func prepareDB() {
-        let pageNum = 15
+        let pageNum = 50
         var managedObject = CoreDataManager.fetchModel(entity: "CDStory")
         if managedObject.isEmpty { // Nothing in Core Data
             for i in 0...pageNum {
