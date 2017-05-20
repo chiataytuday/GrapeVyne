@@ -21,17 +21,11 @@ class LaunchViewController: UIViewController {
         super.viewDidLoad()
         modalTransitionStyle = appModalTransitionStyle
         
-        //Initialize a revealing Splash with with the iconImage, the initial size and the background color
         revealingSplashView = RevealingSplashView(iconImage: #imageLiteral(resourceName: "logo_icon"),
-                                                      iconInitialSize: CGSize(width: 100, height: 100),
-                                           backgroundColor: .black)
+                                                  iconInitialSize: CGSize(width: 100, height: 100),
+                                                  backgroundColor: .black)
         revealingSplashView.animationType = .heartBeat
-        
-        //Adds the revealing splash view as a sub view
         self.view.addSubview(revealingSplashView)
-        
-        //Starts animation
-        //revealingSplashView.startAnimation()
     }
     
     override func viewDidAppear(_ animated: Bool) {

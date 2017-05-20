@@ -60,7 +60,6 @@ class LandingViewController: UIViewController {
     }
     
     @IBAction func playButton(_ sender: UIButton) {
-        //view.isUserInteractionEnabled = false
         didStartLoading()
         storyRepo.arrayOfStories = [Story]()
   
@@ -85,65 +84,7 @@ class LandingViewController: UIViewController {
     }
     
     private func randomBool() -> Bool {
-        //print(arc4random_uniform(2) == 0)
         return arc4random_uniform(2) == 0
-    }
-    
-    
-    private func presentCustomAlertViewControllerFor(category: Category?) {
-        self.view.isUserInteractionEnabled = true
-        prompt = SwiftPromptsView(frame: self.view.bounds)
-        
-        prompt.setColorWithTransparency(color: .clear)
-        
-        prompt.setPromptHeight(height: 0.35 * (view.frame.height))
-        prompt.setPromptWidth(width: 0.75 * (view.frame.width))
-        
-        prompt.setPromptButtonDividerVisibility(dividerVisibility: false)
-        prompt.setPromptTopLineVisibility(topLineVisibility: false)
-        prompt.setPromptBackgroundColor(backgroundColor: CustomColor.customPurple)
-        prompt.enableGesturesOnPrompt(gestureEnabler: false)
-        
-        
-        if category == nil {
-            prompt.setPromptHeader(header: "Oops".uppercased())
-            prompt.setPromptHeaderTxtSize(headerTxtSize: 25)
-            
-            prompt.setPromptContentText(contentTxt: "You have to choose a category first!".uppercased())
-            prompt.setPromptContentTxtSize(contentTxtSize: 18)
-            
-            prompt.setMainButtonText(buttonTitle: "Ok".uppercased())
-            prompt.setMainButtonColor(colorForButton: .white)
-            prompt.setMainButtonBackgroundColor(colorForBackground: CustomColor.customGreen)
-            prompt.setMainButtonAction {
-                self.prompt.dismissPrompt()
-                self.didCancelLoading()
-            }
-        } else {
-            prompt.setPromptHeader(header: "Hol' up".uppercased())
-            prompt.setPromptHeaderTxtSize(headerTxtSize: 25)
-            
-            prompt.setPromptContentText(contentTxt: "We can't find any new trivia. Would you like to play the same ones again?".uppercased())
-            prompt.setPromptContentTxtSize(contentTxtSize: 18)
-            
-            prompt.enableDoubleButtonsOnPrompt()
-            
-            prompt.setMainButtonText(buttonTitle: "Sure!".uppercased())
-            prompt.setMainButtonColor(colorForButton: .white)
-            prompt.setMainButtonBackgroundColor(colorForBackground: CustomColor.customGreen)
-            prompt.setMainButtonAction {
-    
-            }
-            
-            prompt.setSecondButtonText(secondButtonTitle: "Nah".uppercased())
-            prompt.setSecondButtonColor(colorForSecondButton: UIColor.white)
-            prompt.setSecondButtonAction {
-                self.prompt.dismissPrompt()
-                self.didCancelLoading()
-            }
-        }
-        
-        self.view.addSubview(prompt)
     }
     
     private func leaveViewController() {
