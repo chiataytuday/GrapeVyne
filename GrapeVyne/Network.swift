@@ -56,8 +56,7 @@ class SnopesScrapeNetwork {
         for i in pageNum+1...pageNum+4 {
             let tempArray = getStoriesFor(url: "\(factCheckURL)\(i)")
             for story in tempArray {
-                let parsedStory = getFactValueFor(story: story)
-                CoreDataManager.writeToModel(parsedStory)
+                CoreDataManager.writeToModel(getFactValueFor(story: story))
             }
         }
         let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
