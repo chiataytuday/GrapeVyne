@@ -15,10 +15,10 @@ class SnopesScrapeNetwork {
     private let factCheckURL = "http://www.snopes.com/category/facts/page/"
     private let whatsNewURL = "http://www.snopes.com/whats-new/page/"
     private let hotFiftyURL = "http://www.snopes.com/50-hottest-urban-legends/"
-    var arrayOfParsedStories = [Story]()
+    let pageNum = 30
     
-    public func prepareDB() {
-        let pageNum = 50
+    public func prepareDB() -> [Story] {
+        var arrayOfParsedStories = [Story]()
         var managedObject = CoreDataManager.fetchModel(entity: "CDStory")
         if managedObject.isEmpty { // Nothing in Core Data
             for i in 0...pageNum {
@@ -48,6 +48,7 @@ class SnopesScrapeNetwork {
                 arrayOfParsedStories.append(tempStory)
             }
         }
+        return arrayOfParsedStories
     }
     
     public func getStoriesFor(url: String) -> [Story] {

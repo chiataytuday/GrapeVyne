@@ -38,6 +38,7 @@ class GameViewController: UIViewController {
     var countDownTimer = Timer()
     var blurEffectView = UIVisualEffectView()
     let instructionView = Bundle.main.loadNibNamed("Instruction", owner: nil, options: nil)?[0] as! UIView
+    var gameSetArray = [Story]()
     
     // MARK: IBOutlets
     @IBOutlet weak var kolodaView: KolodaView!
@@ -87,7 +88,7 @@ class GameViewController: UIViewController {
     }
     
     private func getDataSource() -> [CardView] {
-        var tempArray = storyRepo.arrayOfStories
+        var tempArray = gameSetArray
         var arrayOfCardViews : [CardView] = []
         
         while tempArray.count > 0 {

@@ -61,24 +61,26 @@ class LandingViewController: UIViewController {
     
     @IBAction func playButton(_ sender: UIButton) {
         didStartLoading()
-        storyRepo.arrayOfStories = [Story]()
+        var arrayToPass = [Story]()
   
         Async.userInitiated({
             var randBool = self.randomBool()
-            while storyRepo.arrayOfStories.count < 30 {
-                for story in snopesScrapeNetwork.arrayOfParsedStories {
+            while arrayToPass.count < 30 {
+                for story in storyRepo.arrayOfStories {
                     if story.fact == randBool {
-                        storyRepo.arrayOfStories.append(story)
-                        if let index = snopesScrapeNetwork.arrayOfParsedStories.index(where: {$0.id == story.id}) {
-                            snopesScrapeNetwork.arrayOfParsedStories.remove(at: index)
+                        arrayToPass.append(story)
+                        if let index = storyRepo.arrayOfStories.index(where: {$0.id == story.id}) {
+                            storyRepo.arrayOfStories.remove(at: index)
                         }
                         randBool = self.randomBool()
                         break
+                    } else {
+                        
                     }
                 }
             }
             Async.main({
-                self.leaveViewController()
+                self.leaveViewController(with: arrayToPass)
             })
         })
     }
@@ -87,11 +89,12 @@ class LandingViewController: UIViewController {
         return arc4random_uniform(2) == 0
     }
     
-    private func leaveViewController() {
+    private func leaveViewController(with: [Story]) {
         playLabel.isHidden = false
         playButton.startFinishAnimation(0 , completion: {
             let gameVC = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
             gameVC.transitioningDelegate = self
+            gameVC.gameSetArray = with
             self.present(gameVC, animated: true, completion: {
                 self.view.isUserInteractionEnabled = true
             })

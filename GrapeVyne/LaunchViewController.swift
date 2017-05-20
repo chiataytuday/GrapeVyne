@@ -32,7 +32,7 @@ class LaunchViewController: UIViewController {
         super.viewDidAppear(animated)
         revealingSplashView.startAnimation()
         Async.userInitiated({
-            snopesScrapeNetwork.prepareDB()
+            storyRepo.arrayOfStories = snopesScrapeNetwork.prepareDB()
             Async.main({
                 self.revealingSplashView.playZoomOutAnimation({
                     let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
