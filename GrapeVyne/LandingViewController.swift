@@ -66,6 +66,9 @@ class LandingViewController: UIViewController {
         Async.userInitiated({
             var randBool = self.randomBool()
             while arrayToPass.count < 30 {
+                if !storyRepo.arrayOfStories.contains(where: {$0.fact == randBool}) {
+                    storyRepo.arrayOfStories.append(contentsOf: snopesScrapeNetwork.getStories())
+                }
                 for story in storyRepo.arrayOfStories {
                     if story.fact == randBool {
                         arrayToPass.append(story)
@@ -74,8 +77,6 @@ class LandingViewController: UIViewController {
                         }
                         randBool = self.randomBool()
                         break
-                    } else {
-                        
                     }
                 }
             }

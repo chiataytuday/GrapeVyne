@@ -51,6 +51,27 @@ class SnopesScrapeNetwork {
         return arrayOfParsedStories
     }
     
+    public func getStories() -> [Story] {
+        var arrayOfParsedStories = [Story]()
+        for i in pageNum+1...pageNum+4 {
+            let tempArray = getStoriesFor(url: "\(factCheckURL)\(i)")
+            for story in tempArray {
+                let parsedStory = getFactValueFor(story: story)
+                CoreDataManager.writeToModel(parsedStory)
+            }
+        }
+        let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
+        for object in managedObject {
+            let title = object.value(forKey: "title") as! String
+            let factValue = object.value(forKey: "fact") as! Bool
+            let urlString = object.value(forKey: "urlString") as! String
+            let id = object.objectID
+            let tempStory = Story(title: title, url: urlString, fact: factValue, id: id)
+            arrayOfParsedStories.append(tempStory)
+        }
+        return arrayOfParsedStories
+    }
+    
     public func getStoriesFor(url: String) -> [Story] {
         var array = [Story]()
         let session = URLSession(configuration: .default)
