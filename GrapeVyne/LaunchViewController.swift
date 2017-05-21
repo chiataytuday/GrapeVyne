@@ -9,7 +9,9 @@
 import UIKit
 import RevealingSplashView
 import Async
+import ReachabilitySwift
 
+let reachability = Reachability()!
 let snopesScrapeNetwork = SnopesScrapeNetwork()
 let categoryRepo = CategoryRepo()
 let storyRepo = StoryRepo()
@@ -30,16 +32,33 @@ class LaunchViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        reachability.whenReachable = { reachability in
+            print("reachable")
+        }
+        
+        reachability.whenUnreachable = { reachability in
+            print("Not reachable")
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
         revealingSplashView.startAnimation()
         Async.userInitiated({
             storyRepo.arrayOfStories = snopesScrapeNetwork.prepareDB()
-            Async.main({
-                self.revealingSplashView.playZoomOutAnimation({
-                    let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
-                    self.present(landingVC, animated: true, completion: nil)
-                })
+        }).main({
+            self.revealingSplashView.playZoomOutAnimation({
+                let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+                self.present(landingVC, animated: true, completion: nil)
             })
         })
+    }
+    
+    private func networkReachable() {
+        
     }
     
     private func printTimeElapsedWhenRunningCode(title:String, operation:()->()) {
