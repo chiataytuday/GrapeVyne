@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '3C43CEC38011BE215495844BE52F6154'
+               BlueprintIdentifier = 'F97C1F5122BA63461362520AE7955200'
                BlueprintName = 'TKSubmitTransitionSwift3'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'TKSubmitTransitionSwift3.framework'>
