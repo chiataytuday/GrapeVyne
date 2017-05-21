@@ -16,7 +16,6 @@ class LandingViewController: UIViewController {
     let landingCornerRadius: CGFloat = 12.5
     let numberOfStoriesOpenTrivia = 20
     var selectedRow: Int?
-    var prompt = SwiftPromptsView()
     var playLabel: UILabel!
     @IBOutlet weak var playButton: TKTransitionSubmitButton!
     

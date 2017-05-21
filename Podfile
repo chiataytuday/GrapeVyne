@@ -13,4 +13,6 @@ target ‘GrapeVyne’ do
   pod 'RevealingSplashView'
   pod 'AsyncSwift'
   pod 'PickerView'
+  pod 'ReachabilitySwift'
+  pod 'PopupDialog'
 end
