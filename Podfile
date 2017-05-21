@@ -14,4 +14,5 @@ target ‘GrapeVyne’ do
   pod 'AsyncSwift'
   pod 'PickerView'
   pod 'ReachabilitySwift'
+  pod 'PopupDialog'
 end
