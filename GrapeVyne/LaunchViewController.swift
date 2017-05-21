@@ -77,11 +77,7 @@ class LaunchViewController: UIViewController {
             })
         }
     }
-    
-    private func networkReachable() {
-        
-    }
-    
+ 
     private func printTimeElapsedWhenRunningCode(title:String, operation:()->()) {
         let startTime = CFAbsoluteTimeGetCurrent()
         operation()
