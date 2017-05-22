@@ -19,6 +19,7 @@ let storyRepo = StoryRepo()
 
 class LaunchViewController: UIViewController {
     var revealingSplashView: RevealingSplashView!
+    @IBOutlet weak var loadingLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,15 @@ class LaunchViewController: UIViewController {
                                                   iconInitialSize: CGSize(width: 100, height: 100),
                                                   backgroundColor: .black)
         revealingSplashView.animationType = .heartBeat
-        self.view.addSubview(revealingSplashView)
+        self.view.insertSubview(revealingSplashView, belowSubview: loadingLabel)
+        //self.view.addSubview(revealingSplashView)
+        
+        loadingLabel.attributedText = NSAttributedString(string: "Loading database,\n please do not navigate away".uppercased(),
+                                                                 attributes: [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 22.0)!,
+                                                                              NSForegroundColorAttributeName: UIColor.white])
+        loadingLabel.numberOfLines = 2
+        loadingLabel.textAlignment = .center
+        loadingLabel.adjustsFontSizeToFitWidth = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,6 +79,7 @@ class LaunchViewController: UIViewController {
             Async.userInitiated({
                 storyRepo.arrayOfStories = snopesScrapeNetwork.prepareDB()
             }).main({
+                self.loadingLabel.isHidden = true
                 self.revealingSplashView.playZoomOutAnimation({
                     let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
                     self.present(landingVC, animated: true, completion: nil)

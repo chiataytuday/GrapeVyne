@@ -141,7 +141,8 @@ class CoreDataManager {
         let context = appDelegate.persistentContainer.viewContext
         
         do {
-            let result = try context.existingObject(with: id)
+            let result = context.object(with: id)
+            //let result = try context.existingObject(with: id)
             context.delete(result)
             try context.save()
         } catch let error as NSError  {

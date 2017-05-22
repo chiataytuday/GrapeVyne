@@ -79,9 +79,8 @@ class LandingViewController: UIViewController {
                     }
                 }
             }
-            Async.main({
-                self.leaveViewController(with: arrayToPass)
-            })
+        }).main({
+            self.leaveViewController(with: arrayToPass)
         })
     }
     

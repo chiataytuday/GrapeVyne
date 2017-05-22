@@ -15,7 +15,7 @@ class SnopesScrapeNetwork {
     private let factCheckURL = "http://www.snopes.com/category/facts/page/"
     private let whatsNewURL = "http://www.snopes.com/whats-new/page/"
     private let hotFiftyURL = "http://www.snopes.com/50-hottest-urban-legends/"
-    let pageNum = 30
+    let pageNum = 15
     
     public func prepareDB() -> [Story] {
         var arrayOfParsedStories = [Story]()
