@@ -10,12 +10,14 @@ import Foundation
 import Alamofire
 import Kanna
 import SwiftyJSON
+import Async
 
 class SnopesScrapeNetwork {
     private let factCheckURL = "http://www.snopes.com/category/facts/page/"
     private let whatsNewURL = "http://www.snopes.com/whats-new/page/"
     private let hotFiftyURL = "http://www.snopes.com/50-hottest-urban-legends/"
     let pageNum = 15
+    var counter = 0
     
     public func prepareDB() -> [Story] {
         var arrayOfParsedStories = [Story]()
@@ -53,11 +55,11 @@ class SnopesScrapeNetwork {
     
     public func getStories() -> [Story] {
         var arrayOfParsedStories = [Story]()
-        for i in pageNum+1...pageNum+4 {
-            let tempArray = getStoriesFor(url: "\(factCheckURL)\(i)")
-            for story in tempArray {
-                CoreDataManager.writeToModel(getFactValueFor(story: story))
-            }
+        counter += 1
+        print(counter)
+        let tempArray = getStoriesFor(url: "\(factCheckURL)\(pageNum+counter)")
+        for story in tempArray {
+            CoreDataManager.writeToModel(getFactValueFor(story: story))
         }
         let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
         for object in managedObject {

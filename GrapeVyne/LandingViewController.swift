@@ -66,16 +66,18 @@ class LandingViewController: UIViewController {
             var randBool = self.randomBool()
             while arrayToPass.count < 30 {
                 if !storyRepo.arrayOfStories.contains(where: {$0.fact == randBool}) {
-                    storyRepo.arrayOfStories.append(contentsOf: snopesScrapeNetwork.getStories())
-                }
-                for story in storyRepo.arrayOfStories {
-                    if story.fact == randBool {
-                        arrayToPass.append(story)
-                        if let index = storyRepo.arrayOfStories.index(where: {$0.id == story.id}) {
-                            storyRepo.arrayOfStories.remove(at: index)
+                    storyRepo.arrayOfStories = snopesScrapeNetwork.getStories()
+                    //storyRepo.arrayOfStories.append(contentsOf: snopesScrapeNetwork.getStories())
+                } else {
+                    for story in storyRepo.arrayOfStories {
+                        if story.fact == randBool {
+                            arrayToPass.append(story)
+                            if let index = storyRepo.arrayOfStories.index(where: {$0.id == story.id}) {
+                                storyRepo.arrayOfStories.remove(at: index)
+                            }
+                            randBool = self.randomBool()
+                            break
                         }
-                        randBool = self.randomBool()
-                        break
                     }
                 }
             }
