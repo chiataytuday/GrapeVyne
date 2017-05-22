@@ -21,23 +21,16 @@ class SnopesScrapeNetwork {
     
     public func prepareDB() -> [Story] {
         var arrayOfParsedStories = [Story]()
-        var managedObject = CoreDataManager.fetchModel(entity: "CDStory")
+        let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
         if managedObject.isEmpty { // Nothing in Core Data
-            for i in 0...pageNum {
+            for i in 1...pageNum {
                 let tempArray = getStoriesFor(url: "\(factCheckURL)\(i)")
                 for story in tempArray {
                     let parsedStory = getFactValueFor(story: story)
-                    CoreDataManager.writeToModel(parsedStory)
+                    if let storyWithID = CoreDataManager.writeToModel(parsedStory) {
+                        arrayOfParsedStories.append(storyWithID)
+                    }
                 }
-            }
-            managedObject = CoreDataManager.fetchModel(entity: "CDStory")
-            for object in managedObject {
-                let title = object.value(forKey: "title") as! String
-                let factValue = object.value(forKey: "fact") as! Bool
-                let urlString = object.value(forKey: "urlString") as! String
-                let id = object.objectID
-                let tempStory = Story(title: title, url: urlString, fact: factValue, id: id)
-                arrayOfParsedStories.append(tempStory)
             }
         } else { // Something in Core Data
             print("Stories in CD \(managedObject.count)")
@@ -56,19 +49,12 @@ class SnopesScrapeNetwork {
     public func getStories() -> [Story] {
         var arrayOfParsedStories = [Story]()
         counter += 1
-        print(counter)
         let tempArray = getStoriesFor(url: "\(factCheckURL)\(pageNum+counter)")
         for story in tempArray {
-            CoreDataManager.writeToModel(getFactValueFor(story: story))
-        }
-        let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
-        for object in managedObject {
-            let title = object.value(forKey: "title") as! String
-            let factValue = object.value(forKey: "fact") as! Bool
-            let urlString = object.value(forKey: "urlString") as! String
-            let id = object.objectID
-            let tempStory = Story(title: title, url: urlString, fact: factValue, id: id)
-            arrayOfParsedStories.append(tempStory)
+            let parsedStory = getFactValueFor(story: story)
+            if let storyWithID = CoreDataManager.writeToModel(parsedStory) {
+                arrayOfParsedStories.append(storyWithID)
+            }
         }
         return arrayOfParsedStories
     }
@@ -83,7 +69,7 @@ class SnopesScrapeNetwork {
         return array
     }
     
-    public func getFactValueFor(story: Story) -> Story{
+    public func getFactValueFor(story: Story) -> Story {
         var parsedStory = story
         let session = URLSession(configuration: .default)
         

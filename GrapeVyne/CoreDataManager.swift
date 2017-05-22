@@ -42,20 +42,29 @@ class CoreDataManager {
         }
     }
     
-    static func writeToModel(_ story: Story) {
+    static func writeToModel(_ story: Story) -> Story? {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
+        var retStory: Story?
+        let argStory = story
         
         let _story = CDStory(context: context)
-        _story.title = story.title
-        _story.fact = story.fact
-        _story.urlString = story.url
+        _story.title = argStory.title
+        _story.fact = argStory.fact
+        _story.urlString = argStory .url
         
         do {
             try context.save()
+            if let title = _story.title, let url = _story.urlString {
+                retStory = Story(title: title,
+                                 url: url,
+                                 fact: _story.fact,
+                                 id: _story.objectID)
+            }
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         }
+        return retStory
     }
     
     static func writeToModel(_ category: Category) {
@@ -141,8 +150,8 @@ class CoreDataManager {
         let context = appDelegate.persistentContainer.viewContext
         
         do {
-            let result = context.object(with: id)
-            //let result = try context.existingObject(with: id)
+            //let result = context.object(with: id)
+            let result = try context.existingObject(with: id)
             context.delete(result)
             try context.save()
         } catch let error as NSError  {
