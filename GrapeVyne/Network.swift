@@ -32,6 +32,19 @@ class SnopesScrapeNetwork {
                     }
                 }
             }
+        } else if managedObject.count > 1500 {// Automatically refresh database
+            for object in managedObject {
+                CoreDataManager.deleteObjectBy(id: object.objectID)
+            }
+            for i in 1...pageNum {
+                let tempArray = getStoriesFor(url: "\(factCheckURL)\(i)")
+                for story in tempArray {
+                    let parsedStory = getFactValueFor(story: story)
+                    if let storyWithID = CoreDataManager.writeToModel(parsedStory) {
+                        arrayOfParsedStories.append(storyWithID)
+                    }
+                }
+            }
         } else { // Something in Core Data
             print("Stories in CD \(managedObject.count)")
             for object in managedObject {
