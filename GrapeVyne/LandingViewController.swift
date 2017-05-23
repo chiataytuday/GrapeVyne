@@ -48,10 +48,19 @@ class LandingViewController: UIViewController {
             self.present(creditsVC, animated: true, completion: nil)
         })
         
+        let refreshDBAction = UIAlertAction(title: "Refresh Database", style: .destructive, handler: { _ in
+            let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
+            for object in managedObject {
+                CoreDataManager.deleteObjectBy(id: object.objectID)
+            }
+            self.dismiss(animated: true, completion: nil)
+        })
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         optionMenu.addAction(viewTutorialAction)
         optionMenu.addAction(viewCreditsAction)
+        optionMenu.addAction(refreshDBAction)
         optionMenu.addAction(cancelAction)
         
         optionMenu.view.tintColor = CustomColor.customPurple

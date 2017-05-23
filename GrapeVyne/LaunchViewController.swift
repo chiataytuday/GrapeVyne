@@ -24,25 +24,10 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         modalTransitionStyle = appModalTransitionStyle
-        
-        revealingSplashView = RevealingSplashView(iconImage: #imageLiteral(resourceName: "logo_icon"),
-                                                  iconInitialSize: CGSize(width: 100, height: 100),
-                                                  backgroundColor: .black)
-        revealingSplashView.animationType = .heartBeat
-        self.view.insertSubview(revealingSplashView, belowSubview: loadingLabel)
-        //self.view.addSubview(revealingSplashView)
-        
-        loadingLabel.attributedText = NSAttributedString(string: "Loading database,\n please do not navigate away".uppercased(),
-                                                                 attributes: [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 22.0)!,
-                                                                              NSForegroundColorAttributeName: UIColor.white])
-        loadingLabel.numberOfLines = 2
-        loadingLabel.textAlignment = .center
-        loadingLabel.adjustsFontSizeToFitWidth = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         let popupDialog = PopupDialog(title: "Network Error!".uppercased(),
                                       message: "Please check your internet connection and try again.".uppercased(),
                                       image: nil, buttonAlignment: .horizontal,
@@ -73,6 +58,20 @@ class LaunchViewController: UIViewController {
         } catch {
             print("Unable to start notifier")
         }
+        
+        revealingSplashView = RevealingSplashView(iconImage: #imageLiteral(resourceName: "logo_icon"),
+                                                  iconInitialSize: CGSize(width: 100, height: 100),
+                                                  backgroundColor: .black)
+        revealingSplashView.animationType = .heartBeat
+        self.view.insertSubview(revealingSplashView, belowSubview: loadingLabel)
+        
+        loadingLabel.attributedText = NSAttributedString(string: "Loading database,\n please do not navigate away".uppercased(),
+                                                         attributes: [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 22.0)!,
+                                                                      NSForegroundColorAttributeName: UIColor.white])
+        loadingLabel.numberOfLines = 2
+        loadingLabel.textAlignment = .center
+        loadingLabel.adjustsFontSizeToFitWidth = true
+        loadingLabel.isHidden = false
         
         revealingSplashView.startAnimation()
         if reachability.isReachable {
