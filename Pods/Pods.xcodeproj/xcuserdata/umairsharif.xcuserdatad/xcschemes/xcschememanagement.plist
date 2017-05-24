@@ -39,6 +39,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PopupDialog.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ReachabilitySwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>RevealingSplashView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,12 +72,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>07C8914355D413545567A7672E42CD5B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>20151774CE2F5FA6B8126D4F5ED1C5FE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>269FE9C83B148C0D714F115DB2E7483A</key>
+		<key>43400703743A9EA8B92F1D3B4C897B67</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,12 +97,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7F45F2F21482C3777494ACE42307212D</key>
+		<key>7CF1751D36441ACF80162A06E3BEE3C4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>88800CB09FE53DF51416EF67A6ACC245</key>
+		<key>7F45F2F21482C3777494ACE42307212D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,17 +117,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B3C802066974EEE6925E8DD0B2D046CB</key>
+		<key>DFD7DFC710A5F9A0AE5476D6A46CBCF0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CCD2C67F75856FDF0CE1CE899A941B5C</key>
+		<key>E28C0437B20FB4495EE198CDF26BA8F9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E6201897E03F1CF81B18D371B6BEA2CB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F97C1F5122BA63461362520AE7955200</key>
 		<dict>
 			<key>primary</key>
 			<true/>

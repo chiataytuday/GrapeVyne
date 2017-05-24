@@ -19,12 +19,6 @@ class StoryRepo {
         arrayOfCorrectStories = []
         arrayOfIncorrectStories = []
     }
-    
-    func writeStoriesToCD(array: [Story]) {
-        for story in array {
-            CoreDataManager.writeToModel(story)
-        }
-    }
 }
 class CategoryRepo {
     var arrayOfSnopesCategories: [Category]
@@ -51,6 +45,7 @@ struct Category {
 
 struct Story {
     var title: String
-    var url: String?
+    var url: String
     var fact: Bool
+    var id: NSManagedObjectID?
 }

@@ -7,6 +7,8 @@ PODS:
     - pop (~> 1.0)
   - PickerView (0.3.1)
   - pop (1.0.9)
+  - PopupDialog (0.5.4)
+  - ReachabilitySwift (3)
   - RevealingSplashView (0.2.0)
   - SwiftyJSON (3.1.4)
   - TKSubmitTransitionSwift3 (0.5)
@@ -18,6 +20,8 @@ DEPENDENCIES:
   - Kanna (~> 2.1.0)
   - Koloda (~> 4.1)
   - PickerView
+  - PopupDialog
+  - ReachabilitySwift
   - RevealingSplashView
   - SwiftyJSON
   - TKSubmitTransitionSwift3
@@ -30,10 +34,12 @@ SPEC CHECKSUMS:
   Koloda: 6c4fa3ce9a68776a8ef973311e53fdda432799a8
   PickerView: 13713136c7db291e6ada509f0ba6de242ee0627d
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  PopupDialog: 75cf955693590b0cb2fdde00223fb65d99c57247
+  ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
   RevealingSplashView: a19962358db66188841c73afd51eb663a29f75cd
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TKSubmitTransitionSwift3: fadd76eefa015542d0fe6d85424a43dd6f3354d2
 
-PODFILE CHECKSUM: 5401d9205df48bfbad303c3cc71b4dd0d947bd88
+PODFILE CHECKSUM: ed09a0558731f915a4d65fdfc03a08f4745d4f83
 
 COCOAPODS: 1.2.1

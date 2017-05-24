@@ -38,6 +38,7 @@ class GameViewController: UIViewController {
     var countDownTimer = Timer()
     var blurEffectView = UIVisualEffectView()
     let instructionView = Bundle.main.loadNibNamed("Instruction", owner: nil, options: nil)?[0] as! UIView
+    var gameSetArray = [Story]()
     
     // MARK: IBOutlets
     @IBOutlet weak var kolodaView: KolodaView!
@@ -87,21 +88,22 @@ class GameViewController: UIViewController {
     }
     
     private func getDataSource() -> [CardView] {
-        var tempArray = storyRepo.arrayOfStories
+        var tempArray = gameSetArray
         var arrayOfCardViews : [CardView] = []
         
         while tempArray.count > 0 {
             let randomIndex = Int(arc4random_uniform(UInt32(tempArray.count)))
-            let cardView = configureCardUI(title: tempArray[randomIndex].title, arrayCount: tempArray.count)
+            let cardView = configureCardUI(story: tempArray[randomIndex], arrayCount: tempArray.count)
             arrayOfCardViews.append(cardView)
             tempArray.remove(at: randomIndex)
         }
         return arrayOfCardViews
     }
     
-    private func configureCardUI(title: String, arrayCount: Int) -> CardView {
+    private func configureCardUI(story: Story, arrayCount: Int) -> CardView {
         let cardView = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?[0] as! CardView
-        cardView.titleLabel.text = title
+        cardView.story = story
+        cardView.titleLabel.text = story.title
         
         cardView.layer.cornerRadius = cardCornerRadius
         cardView.titleLabel.textColor = cardViewTextColor
@@ -210,22 +212,13 @@ extension GameViewController: KolodaViewDelegate {
     }
     
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
-        //Use the card display title to store the story title
-        let storyTitle = (dataSource?[index].titleLabel.text!)!
-        
-        let indexOfStory = storyRepo.arrayOfStories.index(where: {$0.title == storyTitle})
-        let storyFactValue = storyRepo.arrayOfStories[indexOfStory!].fact
-        let storyURLString = storyRepo.arrayOfStories[indexOfStory!].url
-        
-        //Create a temporary story property
-        let tempStory = Story(title: storyTitle, url: storyURLString, fact: storyFactValue)
-        
-        //Determine result of user action
-        let userAnswer = isUserCorrectFor(factValue: storyFactValue, swipeDirection: direction)
-        
-        performSwipeResultAnimationFor(userAns: userAnswer)
-        storyRepo.arrayOfSwipedStories.append(tempStory)
-        updateResultArrayFor(userAns: userAnswer, story: tempStory)
+        if let cardAtIndex = dataSource?[index], let story = cardAtIndex.story, let storyID = story.id {
+            let userAnswer = isUserCorrectFor(factValue: story.fact, swipeDirection: direction)
+            performSwipeResultAnimationFor(userAns: userAnswer)
+            storyRepo.arrayOfSwipedStories.append(story)
+            updateResultArrayFor(userAns: userAnswer, story: story)
+            CoreDataManager.deleteObjectBy(id: storyID)
+        }
     }
     
     func kolodaShouldTransparentizeNextCard(_ koloda: KolodaView) -> Bool {

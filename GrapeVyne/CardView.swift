@@ -11,4 +11,5 @@ import UIKit
 class CardView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bgImageView: UIImageView!
+    var story: Story?
 }

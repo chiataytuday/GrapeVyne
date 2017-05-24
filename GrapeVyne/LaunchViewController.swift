@@ -8,67 +8,97 @@
 
 import UIKit
 import RevealingSplashView
+import Async
+import ReachabilitySwift
+import PopupDialog
 
+let reachability = Reachability()!
 let snopesScrapeNetwork = SnopesScrapeNetwork()
-let openTriviaDBNetwork = OpenTriviaDBNetwork()
 let categoryRepo = CategoryRepo()
 let storyRepo = StoryRepo()
 
 class LaunchViewController: UIViewController {
     var revealingSplashView: RevealingSplashView!
+    @IBOutlet weak var loadingLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         modalTransitionStyle = appModalTransitionStyle
-        
-        //Initialize a revealing Splash with with the iconImage, the initial size and the background color
-        revealingSplashView = RevealingSplashView(iconImage: #imageLiteral(resourceName: "logo_icon"),
-                                                      iconInitialSize: CGSize(width: 100, height: 100),
-                                           backgroundColor: .black)
-        revealingSplashView.animationType = .heartBeat
-        
-        //Adds the revealing splash view as a sub view
-        self.view.addSubview(revealingSplashView)
-        
-        //Starts animation
-        revealingSplashView.startAnimation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        openTriviaDBNetwork.getCategories(completion: {arrayOfCategories in
-            categoryRepo.arrayOfOpenTriviaDBCategories = arrayOfCategories.sorted(by: {$0.title < $1.title})
-            categoryRepo.arrayOfOpenTriviaDBCategories.insert(Category(title: "Random", id: nil, url: nil, stories: nil), at: 0)
-            self.getCategories(completion: {
-                self.revealingSplashView.playZoomOutAnimation()
-                let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
-                self.present(landingVC, animated: true, completion: nil)
-            })
-        })
-    }
-    
-    private func getCategories(completion: @escaping () -> Void) {
-        snopesScrapeNetwork.getCategories(completion: { arrayOfCategories in
-            self.loadValidCategories(array: arrayOfCategories, completion: { arrayOfValidCategories in
-                categoryRepo.arrayOfSnopesCategories = arrayOfValidCategories.sorted(by: {$0.title < $1.title})
-                completion()
-            })
-        })
-    }
-    
-    private func loadValidCategories(array: [Category], completion: @escaping (_ array: [Category]) -> Void) {
-        var counterToComplete = 0
-        var completeArray = [Category]()
-        for category in array {
-            snopesScrapeNetwork.isValidCategory(category: category, completion: {bool in
-                counterToComplete += 1
-                if bool {
-                    completeArray.append(category)
-                }
-                if counterToComplete == array.count {
-                    completion(completeArray)
-                }
+        let popupDialog = PopupDialog(title: "Network Error!".uppercased(),
+                                      message: "Please check your internet connection and try again.".uppercased(),
+                                      image: nil, buttonAlignment: .horizontal,
+                                      transitionStyle: .fadeIn, gestureDismissal: false,
+                                      completion: nil)
+        let dialogAppearance = PopupDialogDefaultView.appearance()
+        dialogAppearance.backgroundColor      = CustomColor.customPurple
+        dialogAppearance.titleFont            = UIFont(name: "Gotham-Bold", size: 22.0)!
+        dialogAppearance.titleColor           = .white
+        dialogAppearance.titleTextAlignment   = .center
+        dialogAppearance.messageFont          = UIFont(name: "Gotham-Bold", size: 14.0)!
+        dialogAppearance.messageColor         = .white
+        dialogAppearance.messageTextAlignment = .center
+        
+        let pcv = PopupDialogContainerView.appearance()
+        pcv.cornerRadius = 15
+        
+        reachability.whenReachable = { reachability in
+            popupDialog.dismiss(animated: true, completion: nil)
+        }
+        
+        reachability.whenUnreachable = { reachability in
+            self.present(popupDialog, animated: true, completion: nil)
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
+        revealingSplashView = RevealingSplashView(iconImage: #imageLiteral(resourceName: "logo_icon"),
+                                                  iconInitialSize: CGSize(width: 100, height: 100),
+                                                  backgroundColor: .black)
+        revealingSplashView.animationType = .heartBeat
+        self.view.insertSubview(revealingSplashView, belowSubview: loadingLabel)
+        
+        loadingLabel.attributedText = NSAttributedString(string: "Loading database,\n please do not navigate away".uppercased(),
+                                                         attributes: [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 22.0)!,
+                                                                      NSForegroundColorAttributeName: UIColor.white])
+        loadingLabel.numberOfLines = 2
+        loadingLabel.textAlignment = .center
+        loadingLabel.adjustsFontSizeToFitWidth = true
+        loadingLabel.isHidden = false
+        
+        revealingSplashView.startAnimation()
+        if reachability.isReachable {
+            Async.userInitiated({
+                storyRepo.arrayOfStories = snopesScrapeNetwork.prepareDB()
+            }).main({
+                self.loadingLabel.isHidden = true
+                self.revealingSplashView.playZoomOutAnimation({
+                    let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+                    self.present(landingVC, animated: true, completion: nil)
+                })
             })
         }
     }
+ 
+    private func printTimeElapsedWhenRunningCode(title:String, operation:()->()) {
+        let startTime = CFAbsoluteTimeGetCurrent()
+        operation()
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        print("Time elapsed for \(title): \(timeElapsed) s")
+    }
+    
+    private func timeElapsedInSecondsWhenRunningCode(operation:()->()) -> Double {
+        let startTime = CFAbsoluteTimeGetCurrent()
+        operation()
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        return Double(timeElapsed)
+    }
+    
 }
