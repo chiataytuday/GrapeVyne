@@ -74,19 +74,17 @@ class LaunchViewController: UIViewController {
         loadingLabel.isHidden = false
         
         revealingSplashView.startAnimation()
-        if reachability.isReachable {
-            Async.userInitiated({
-                storyRepo.arrayOfStories = snopesScrapeNetwork.prepareDB()
-            }).main({
-                self.loadingLabel.isHidden = true
-                self.revealingSplashView.playZoomOutAnimation({
-                    let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
-                    self.present(landingVC, animated: true, completion: nil)
-                })
+        Async.userInitiated({
+            storyRepo.arrayOfStories = snopesScrapeNetwork.prepareDB()
+        }).main({
+            self.loadingLabel.isHidden = true
+            self.revealingSplashView.playZoomOutAnimation({
+                let landingVC = self.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+                self.present(landingVC, animated: true, completion: nil)
             })
-        }
+        })
     }
- 
+    
     private func printTimeElapsedWhenRunningCode(title:String, operation:()->()) {
         let startTime = CFAbsoluteTimeGetCurrent()
         operation()
