@@ -4,7 +4,32 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AsyncSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>DGRunkeeperSwitch.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Kanna.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Koloda.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PickerView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -14,7 +39,27 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PopupDialog.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ReachabilitySwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RevealingSplashView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftyJSON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>TKSubmitTransitionSwift3.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,12 +72,42 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>07C8914355D413545567A7672E42CD5B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>20151774CE2F5FA6B8126D4F5ED1C5FE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7F0A30C56CC7BD7AD3AF0E3DCD0C5C64</key>
+		<key>43400703743A9EA8B92F1D3B4C897B67</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>496F985CE0A0DF525DA96845156BC37C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4D10E4FF5A483B852B47CCA0B994E340</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7CF1751D36441ACF80162A06E3BEE3C4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7F45F2F21482C3777494ACE42307212D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,7 +117,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C5E96BAAB34DE5032EF4F0ADE63AE0EB</key>
+		<key>DFD7DFC710A5F9A0AE5476D6A46CBCF0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E28C0437B20FB4495EE198CDF26BA8F9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E6201897E03F1CF81B18D371B6BEA2CB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F97C1F5122BA63461362520AE7955200</key>
 		<dict>
 			<key>primary</key>
 			<true/>
