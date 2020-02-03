@@ -1,45 +1,56 @@
 PODS:
-  - Alamofire (4.4.0)
-  - AsyncSwift (2.0.1)
-  - DGRunkeeperSwitch (1.1.4)
-  - Kanna (2.1.1)
-  - Koloda (4.1):
+  - Alamofire (5.0.0-rc.3)
+  - AsyncSwift (2.0.4)
+  - DynamicBlurView (4.0.0)
+  - Kanna (5.0.0)
+  - Koloda (4.7):
     - pop (~> 1.0)
-  - PickerView (0.3.1)
-  - pop (1.0.9)
-  - PopupDialog (0.5.4)
-  - ReachabilitySwift (3)
-  - RevealingSplashView (0.2.0)
-  - SwiftyJSON (3.1.4)
-  - TKSubmitTransitionSwift3 (0.5)
+  - PickerView (0.4.0)
+  - pop (1.0.12)
+  - PopupDialog (1.1.1):
+    - DynamicBlurView (~> 4.0)
+  - ReachabilitySwift (5.0.0)
+  - RevealingSplashView (0.6.0)
+  - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.4.0)
+  - Alamofire (~> 5.0.0-rc.3)
   - AsyncSwift
-  - DGRunkeeperSwitch
-  - Kanna (~> 2.1.0)
-  - Koloda (~> 4.1)
+  - Kanna (~> 5.0.0)
+  - Koloda
   - PickerView
   - PopupDialog
   - ReachabilitySwift
   - RevealingSplashView
   - SwiftyJSON
-  - TKSubmitTransitionSwift3
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AsyncSwift
+    - DynamicBlurView
+    - Kanna
+    - Koloda
+    - PickerView
+    - pop
+    - PopupDialog
+    - ReachabilitySwift
+    - RevealingSplashView
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
-  AsyncSwift: 632138e42ead868b53c745fcde9bf733ce1527ad
-  DGRunkeeperSwitch: cc237936f42237307f5e212e18136a27bf907bf1
-  Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
-  Koloda: 6c4fa3ce9a68776a8ef973311e53fdda432799a8
-  PickerView: 13713136c7db291e6ada509f0ba6de242ee0627d
-  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
-  PopupDialog: 75cf955693590b0cb2fdde00223fb65d99c57247
-  ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
-  RevealingSplashView: a19962358db66188841c73afd51eb663a29f75cd
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
-  TKSubmitTransitionSwift3: fadd76eefa015542d0fe6d85424a43dd6f3354d2
+  Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
+  AsyncSwift: 65775a7b32e740609b24969ece3de58723b9dc3e
+  DynamicBlurView: ccf9acd2b20c883cc2c72e3524a04d8d3ee20533
+  Kanna: a32875df62975f8f4b871e933b4ea1a5c3b8be0f
+  Koloda: f456d003d2ce15ef9f10c2874a444f1f570b490c
+  PickerView: a736ea986d992aa3ef32423f475fdf3f3a0cf7d4
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
+  PopupDialog: 720c92befd8bc23c13442254945213db5612f149
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  RevealingSplashView: 40c5a770894459736acdc95655eeba0dd30ce91c
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: ed09a0558731f915a4d65fdfc03a08f4745d4f83
+PODFILE CHECKSUM: 2c28d5f0c26b9054f7a6d6cff1cab1d669f4d0bc
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.8.4

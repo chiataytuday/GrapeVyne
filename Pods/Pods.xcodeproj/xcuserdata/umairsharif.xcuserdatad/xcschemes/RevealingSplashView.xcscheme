@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '07C8914355D413545567A7672E42CD5B'
-               BlueprintName = 'RevealingSplashView'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'RevealingSplashView.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A16BB753FC705C22DAFCD8B7C1071A09"
+               BuildableName = "RevealingSplashView.framework"
+               BlueprintName = "RevealingSplashView"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

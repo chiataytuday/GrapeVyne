@@ -4,12 +4,10 @@
 
 target ‘GrapeVyne’ do
   use_frameworks!
-  pod 'Koloda', '~> 4.1'
+  pod 'Koloda'
   pod 'SwiftyJSON'
-  pod 'Kanna', '~> 2.1.0'
-  pod 'Alamofire', '~> 4.4.0'
-  pod 'TKSubmitTransitionSwift3'
-  pod 'DGRunkeeperSwitch'
+  pod 'Kanna', '~> 5.0.0'
+  pod 'Alamofire', '~> 5.0.0-rc.3'
   pod 'RevealingSplashView'
   pod 'AsyncSwift'
   pod 'PickerView'

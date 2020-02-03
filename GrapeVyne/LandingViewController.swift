@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import TKSubmitTransitionSwift3
-import DGRunkeeperSwitch
 import Async
 import PickerView
 

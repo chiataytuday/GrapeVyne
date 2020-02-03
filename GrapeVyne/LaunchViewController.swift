@@ -9,7 +9,7 @@
 import UIKit
 import RevealingSplashView
 import Async
-import ReachabilitySwift
+import Reachability
 import PopupDialog
 
 let reachability = Reachability()!

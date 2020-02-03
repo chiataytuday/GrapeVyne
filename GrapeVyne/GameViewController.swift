@@ -8,7 +8,6 @@
 
 import UIKit
 import Koloda
-import TKSubmitTransitionSwift3
 
 // MARK: Global properties
 // Color Config
