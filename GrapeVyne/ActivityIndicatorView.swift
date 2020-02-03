@@ -16,7 +16,7 @@ class ActivityIndicatorView: UIVisualEffectView {
         }
     }
     
-    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    let activityIndicator = UIActivityIndicatorView(style: .medium)
     let label = UILabel()
     let blurEffect = UIBlurEffect(style: .light)
     let vibrancyView: UIVisualEffectView

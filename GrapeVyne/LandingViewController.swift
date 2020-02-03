@@ -15,20 +15,20 @@ class LandingViewController: UIViewController {
     let numberOfStoriesOpenTrivia = 20
     var selectedRow: Int?
     var playLabel: UILabel!
-    @IBOutlet weak var playButton: TKTransitionSubmitButton!
+    let playButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         modalTransitionStyle = appModalTransitionStyle
         
         playButton.backgroundColor = CustomColor.customPurple
-        playButton.spinnerColor = CustomColor.customGreen
-        playButton.normalCornerRadius = 25
+//        playButton.spinnerColor = CustomColor.customGreen
+//        playButton.normalCornerRadius = 25
         
         playLabel = UILabel(frame: CGRect(x: 0, y: 0, width: playButton.bounds.size.width, height: playButton.bounds.size.height))
         playLabel.center = CGPoint(x: playButton.bounds.size.width / 2.0, y: playButton.bounds.size.height / 2.0)
         playLabel.textAlignment = .center
-        playLabel.attributedText = NSAttributedString(string: "Play".uppercased(), attributes: [NSFontAttributeName : UIFont(name: "Gotham-Bold", size: 40.0)!])
+        playLabel.attributedText = NSAttributedString(string: "Play".uppercased(), attributes: [NSAttributedString.Key.font : UIFont(name: "Gotham-Bold", size: 40.0)!])
         playLabel.textColor = .white
         playButton.addSubview(playLabel)
     }
@@ -78,7 +78,7 @@ class LandingViewController: UIViewController {
                 for story in storyRepo.arrayOfStories {
                     if story.fact == randBool {
                         arrayToPass.append(story)
-                        if let index = storyRepo.arrayOfStories.index(where: {$0.id == story.id}) {
+                        if let index = storyRepo.arrayOfStories.firstIndex(where: {$0.id == story.id}) {
                             storyRepo.arrayOfStories.remove(at: index)
                         }
                         randBool = self.randomBool()
@@ -97,40 +97,25 @@ class LandingViewController: UIViewController {
     
     private func leaveViewController(with: [Story]) {
         playLabel.isHidden = false
-        playButton.startFinishAnimation(0 , completion: {
-            let gameVC = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
-            gameVC.transitioningDelegate = self
-            gameVC.gameSetArray = with
-            self.present(gameVC, animated: true, completion: {
-                self.view.isUserInteractionEnabled = true
-            })
-        })
+//        playButton.startFinishAnimation(0 , completion: {
+//            let gameVC = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
+//            gameVC.transitioningDelegate = self
+//            gameVC.gameSetArray = with
+//            self.present(gameVC, animated: true, completion: {
+//                self.view.isUserInteractionEnabled = true
+//            })
+//        })
     }
     
     func didStartLoading() {
         self.view.isUserInteractionEnabled = false
         playLabel.isHidden = true
-        playButton.startLoadingAnimation()
+        //playButton.startLoadingAnimation()
     }
     
     func didCancelLoading() {
         self.view.isUserInteractionEnabled = true
         playLabel.isHidden = false
-        playButton.returnToOriginalState()
-    }
-}
-
-// MARK: UIViewControllerTransitioningDelegate
-
-extension LandingViewController: UIViewControllerTransitioningDelegate {
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let fadeInAnimator = TKFadeInAnimator()
-        return fadeInAnimator
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let fadeInAnimator = TKFadeInAnimator()
-        return fadeInAnimator
+        //playButton.returnToOriginalState()
     }
 }

@@ -12,12 +12,12 @@ import Async
 import Reachability
 import PopupDialog
 
-let reachability = Reachability()!
 let snopesScrapeNetwork = SnopesScrapeNetwork()
 let categoryRepo = CategoryRepo()
 let storyRepo = StoryRepo()
 
 class LaunchViewController: UIViewController {
+    let reachability = try? Reachability()
     var revealingSplashView: RevealingSplashView!
     @IBOutlet weak var loadingLabel: UILabel!
     
@@ -31,7 +31,7 @@ class LaunchViewController: UIViewController {
         let popupDialog = PopupDialog(title: "Network Error!".uppercased(),
                                       message: "Please check your internet connection and try again.".uppercased(),
                                       image: nil, buttonAlignment: .horizontal,
-                                      transitionStyle: .fadeIn, gestureDismissal: false,
+                                      transitionStyle: .fadeIn, tapGestureDismissal: false,
                                       completion: nil)
         let dialogAppearance = PopupDialogDefaultView.appearance()
         dialogAppearance.backgroundColor      = CustomColor.customPurple
@@ -45,16 +45,16 @@ class LaunchViewController: UIViewController {
         let pcv = PopupDialogContainerView.appearance()
         pcv.cornerRadius = 15
         
-        reachability.whenReachable = { reachability in
+        reachability?.whenReachable = { reachability in
             popupDialog.dismiss(animated: true, completion: nil)
         }
         
-        reachability.whenUnreachable = { reachability in
+        reachability?.whenUnreachable = { reachability in
             self.present(popupDialog, animated: true, completion: nil)
         }
         
         do {
-            try reachability.startNotifier()
+            try reachability?.startNotifier()
         } catch {
             print("Unable to start notifier")
         }
@@ -66,8 +66,8 @@ class LaunchViewController: UIViewController {
         self.view.insertSubview(revealingSplashView, belowSubview: loadingLabel)
         
         loadingLabel.attributedText = NSAttributedString(string: "Loading database,\n please do not navigate away".uppercased(),
-                                                         attributes: [NSFontAttributeName: UIFont(name: "Gotham-Bold", size: 22.0)!,
-                                                                      NSForegroundColorAttributeName: UIColor.white])
+                                                         attributes: [NSAttributedString.Key.font: UIFont(name: "Gotham-Bold", size: 22.0)!,
+                                                                      NSAttributedString.Key.foregroundColor: UIColor.white])
         loadingLabel.numberOfLines = 2
         loadingLabel.textAlignment = .center
         loadingLabel.adjustsFontSizeToFitWidth = true

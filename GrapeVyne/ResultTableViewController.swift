@@ -60,17 +60,17 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         //resultCounterLabel.text = "\(storyRepo.arrayOfCorrectStories.count) CORRECT\n\(storyRepo.arrayOfIncorrectStories.count) INCORRECT"
         let resultCounterString = "\(storyRepo.arrayOfCorrectStories.count) CORRECT\n\(storyRepo.arrayOfIncorrectStories.count) INCORRECT"
         let correctCounterString = "\(storyRepo.arrayOfCorrectStories.count) CORRECT\n"
-        let correctRange = NSRange(location: 0, length: correctCounterString.characters.count)
+        let correctRange = NSRange(location: 0, length: correctCounterString.count)
         
         let incorrectCounterString = "\(storyRepo.arrayOfIncorrectStories.count) INCORRECT"
-        let incorrectRange = NSRange(location: correctCounterString.characters.count, length: incorrectCounterString.characters.count)
+        let incorrectRange = NSRange(location: correctCounterString.count, length: incorrectCounterString.count)
         
         
         var myMutableString = NSMutableAttributedString()
         
         myMutableString = NSMutableAttributedString(string: resultCounterString, attributes: nil)
-        myMutableString.addAttribute(NSForegroundColorAttributeName, value: correctCounterLabelTextColor, range: correctRange)
-        myMutableString.addAttribute(NSForegroundColorAttributeName, value: incorrectCounterLabelTextColor, range: incorrectRange)
+        myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: correctCounterLabelTextColor, range: correctRange)
+        myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: incorrectCounterLabelTextColor, range: incorrectRange)
         resultCounterLabel.attributedText = myMutableString
         resultCounterLabel.backgroundColor = CustomColor.customPurple
         resultCounterLabel.layer.cornerRadius = cardCornerRadius
@@ -80,7 +80,7 @@ class ResultTableViewController: UIViewController, UITableViewDelegate, UITableV
         doneLabel = UILabel(frame: CGRect(x: 0, y: 0, width: doneButton.bounds.size.width, height: doneButton.bounds.size.height))
         doneLabel.center = CGPoint(x: doneButton.bounds.size.width / 2.0, y: doneButton.bounds.size.height / 2.0)
         doneLabel.textAlignment = .center
-        doneLabel.attributedText = NSAttributedString(string: "Done".uppercased(), attributes: [NSFontAttributeName : UIFont(name: "Gotham-Bold", size: 32)!])
+        doneLabel.attributedText = NSAttributedString(string: "Done".uppercased(), attributes: [NSAttributedString.Key.font : UIFont(name: "Gotham-Bold", size: 32)!])
         doneLabel.textColor = .white
         doneButton.addSubview(doneLabel)
         doneButton.backgroundColor = CustomColor.customPurple

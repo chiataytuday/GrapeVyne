@@ -177,20 +177,20 @@ extension UIView: CAAnimationDelegate {
     
     func pushTransitionFromTopWith(duration: CFTimeInterval) {
         let animation = CATransition()
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        animation.type = kCATransitionPush
-        animation.subtype = kCATransitionFromTop
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animation.type = CATransitionType.push
+        animation.subtype = CATransitionSubtype.fromTop
         animation.duration = duration
-        self.layer.add(animation, forKey: kCATransitionPush)
+        self.layer.add(animation, forKey: CATransitionType.push.rawValue)
     }
     
     func pushTransitionFromBottomWith(duration: CFTimeInterval) {
         let animation = CATransition()
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        animation.type = kCATransitionPush
-        animation.subtype = kCATransitionFromBottom
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animation.type = .push
+        animation.subtype = .fromBottom
         animation.duration = duration
-        self.layer.add(animation, forKey: kCATransitionPush)
+        self.layer.add(animation, forKey: CATransitionType.push.rawValue)
     }
 }
 
@@ -305,20 +305,4 @@ extension GameViewController: KolodaViewDataSource {
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         return dataSource![index]
     }
-}
-
-// MARK: UIViewControllerTransitioningDelegate
-
-extension GameViewController: UIViewControllerTransitioningDelegate {
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let fadeInAnimator = TKFadeInAnimator()
-        return fadeInAnimator
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let fadeInAnimator = TKFadeInAnimator()
-        return fadeInAnimator
-    }
-    
 }

@@ -97,7 +97,7 @@ class SnopesScrapeNetwork {
     
     private func scrapeFactValue(html: String) -> String? {
         var ratingString: String?
-        if let doc = Kanna.HTML(html: html, encoding: .utf8) {
+        if let doc = try? Kanna.HTML(html: html, encoding: .utf8) {
             let xmlElement = doc.at_xpath("/html/body/main/section/div[2]/div/article/div[4]/div[1]/span", namespaces: nil)
             if let rating = xmlElement?.text {
                 ratingString = rating
@@ -115,7 +115,7 @@ class SnopesScrapeNetwork {
     
     private func scrapeStories(html: String) -> [Story] {
         var _arrayOfStories = [Story]()
-        if let doc = Kanna.HTML(html: html, encoding: .utf8) {
+        if let doc = try? Kanna.HTML(html: html, encoding: .utf8) {
             for story in doc.xpath("//*[@id='main-list']/article/a") {
                 var parsedStory = Story(title: "", url: "", fact: false, id: nil)
                 if let url = story["href"] {
