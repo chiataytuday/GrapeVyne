@@ -13,9 +13,9 @@ import SwiftyJSON
 import Async
 
 class SnopesScrapeNetwork {
-    private let factCheckURL = "http://www.snopes.com/category/facts/page/"
-    private let whatsNewURL = "http://www.snopes.com/whats-new/page/"
-    private let hotFiftyURL = "http://www.snopes.com/50-hottest-urban-legends/"
+    private let factCheckURL = "https://www.snopes.com/fact-check/"
+    private let whatsNewURL = "https://www.snopes.com/whats-new/"
+    private let hotFiftyURL = "https://www.snopes.com/50-hottest-urban-legends/"
     let pageNum = 15
     var counter = 0
     
@@ -62,7 +62,8 @@ class SnopesScrapeNetwork {
     public func getStories() -> [Story] {
         var arrayOfParsedStories = [Story]()
         counter += 1
-        let tempArray = getStoriesFor(url: "\(factCheckURL)\(pageNum+counter)")
+        let url = "\(factCheckURL)" + "page/" + "\(pageNum+counter)/"
+        let tempArray = getStoriesFor(url: url)
         for story in tempArray {
             let parsedStory = getFactValueFor(story: story)
             if let storyWithID = CoreDataManager.writeToModel(parsedStory) {
@@ -116,22 +117,21 @@ class SnopesScrapeNetwork {
     private func scrapeStories(html: String) -> [Story] {
         var _arrayOfStories = [Story]()
         if let doc = try? Kanna.HTML(html: html, encoding: .utf8) {
-            for story in doc.xpath("//*[@id='main-list']/article/a") {
-                var parsedStory = Story(title: "", url: "", fact: false, id: nil)
-                if let url = story["href"] {
-                    parsedStory.url = url
-                }
-                let h2 = story.css("h2")
-                for title in h2 {
-                    if let text = title.text {
-                        parsedStory.title = text
+            let stories = doc.css(".base-main .media-wrapper")
+            
+            for story in stories {
+                let title = story.css(".title").first
+                let url = story.css(".media.fact_check").first
+                
+                if let sureTitle = title?.text, let sureURL = url?["href"] {
+                    if sureTitle.contains("?") {
+                        if !sureTitle.containsIncorrectSyntaxQuestion() {
+                            let story = Story(title: sureTitle, url: sureURL, fact: false, id: nil)
+                            _arrayOfStories.append(story)
+                        }
                     }
                 }
-                if parsedStory.title.contains("?") {
-                    if !parsedStory.title.lowercased().containsIncorrectSyntaxQuestion() {
-                        _arrayOfStories.append(parsedStory)
-                    }
-                }
+                
             }
         }
         return _arrayOfStories
@@ -176,7 +176,7 @@ extension String {
     func containsIncorrectSyntaxQuestion() -> Bool {
         let incorrectSyntaxQuestionArray = ["what","why","when","where","how"]
         for string in incorrectSyntaxQuestionArray {
-            if self.contains(string) {
+            if self.lowercased().contains(string) {
                 return true
             }
         }
