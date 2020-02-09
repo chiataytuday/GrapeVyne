@@ -8,7 +8,6 @@
 
 import UIKit
 import RevealingSplashView
-import Async
 import Reachability
 import PopupDialog
 
@@ -17,28 +16,24 @@ let categoryRepo = CategoryRepo()
 let storyRepo = StoryRepo()
 
 class LaunchViewController: UIViewController {
-    let reachability = try? Reachability()
-    let revealingSplashView = RevealingSplashView(iconImage: #imageLiteral(resourceName: "logo_icon"),
-                                                  iconInitialSize: CGSize(width: 100, height: 100),
-                                                  backgroundColor: .black)
-    let loadingLabel = UILabel()
-    let popupDialog = PopupDialog(title: "Network Error!".uppercased(),
-                                  message: "Please check your internet connection and try again.".uppercased(),
-                                  image: nil,
-                                  buttonAlignment: .horizontal,
-                                  transitionStyle: .fadeIn,
-                                  tapGestureDismissal: false,
-                                  completion: nil)
+    private let reachability = try? Reachability()
+    private let revealingSplashView = RevealingSplashView(iconImage: #imageLiteral(resourceName: "logo_icon"),
+                                                          iconInitialSize: CGSize(width: 250, height: 250),
+                                                          backgroundColor: .black)
+    private let loadingLabel = UILabel()
+    private let popupDialog = PopupDialog(title: "Network Error!".uppercased(),
+                                          message: "Please check your internet connection and try again.".uppercased(),
+                                          image: nil,
+                                          buttonAlignment: .horizontal,
+                                          transitionStyle: .fadeIn,
+                                          tapGestureDismissal: false,
+                                          completion: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         modalTransitionStyle = appModalTransitionStyle
         loadSubviews()
         setupAutolayoutConstraints()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         DispatchQueue.global().async {
             storyRepo.arrayOfStories = snopesScrapeNetwork.prepareDB()
@@ -46,8 +41,9 @@ class LaunchViewController: UIViewController {
             DispatchQueue.main.sync { [weak self] in
                 self?.loadingLabel.isHidden = true
                 self?.revealingSplashView.playZoomOutAnimation({ [weak self] in
-                    let landingVC = self?.storyboard?.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
-                    self?.present(landingVC, animated: true, completion: nil)
+                    let landingViewController = LandingViewController()
+                    landingViewController.modalPresentationStyle = .fullScreen
+                    self?.present(landingViewController, animated: true, completion: nil)
                 })
             }
         }
@@ -113,21 +109,12 @@ class LaunchViewController: UIViewController {
     }
     
     private func setupAutolayoutConstraints() {
-        setupRevealingSplashViewConstraints()
         setupLoadingLabelViewConstraints()
     }
     
-    private func setupRevealingSplashViewConstraints() {
-        revealingSplashView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        revealingSplashView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        revealingSplashView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-    }
-    
     private func setupLoadingLabelViewConstraints() {
-        loadingLabel.topAnchor.constraint(equalTo: revealingSplashView.bottomAnchor).isActive = true
-        loadingLabel.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        loadingLabel.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        loadingLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        loadingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loadingLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
     private func printTimeElapsedWhenRunningCode(title:String, operation:()->()) {

@@ -14,60 +14,6 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Landing View Controller-->
-        <scene sceneID="KuR-LV-Oe6">
-            <objects>
-                <viewController storyboardIdentifier="LandingViewController" id="Nvd-zZ-N6L" customClass="LandingViewController" customModule="GrapeVyne" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="o5h-uW-qQr"/>
-                        <viewControllerLayoutGuide type="bottom" id="6SY-Xr-fKc"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="4oX-nx-ZDJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landing" translatesAutoresizingMaskIntoConstraints="NO" id="Xye-cU-OLH">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TNs-Oh-gFh">
-                                <rect key="frame" x="324" y="8" width="35" height="35"/>
-                                <state key="normal" image="question_button"/>
-                                <connections>
-                                    <action selector="questionButton:" destination="Nvd-zZ-N6L" eventType="touchUpInside" id="hvf-iE-9RC"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hj1-qY-KbL" customClass="TKTransitionSubmitButton" customModule="TKSubmitTransitionSwift3">
-                                <rect key="frame" x="47" y="544" width="281" height="55"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="RWV-yT-Ae2"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="playButton:" destination="Nvd-zZ-N6L" eventType="touchUpInside" id="rhf-3P-0jL"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="TNs-Oh-gFh" firstAttribute="top" secondItem="o5h-uW-qQr" secondAttribute="bottom" constant="8" symbolic="YES" id="0rt-dv-k4r"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="leading" secondItem="4oX-nx-ZDJ" secondAttribute="leading" id="19Z-q4-uTE"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="centerX" secondItem="Hj1-qY-KbL" secondAttribute="centerX" id="6xO-FS-SLx"/>
-                            <constraint firstItem="6SY-Xr-fKc" firstAttribute="top" secondItem="Hj1-qY-KbL" secondAttribute="bottom" constant="68" id="9mp-me-tm1"/>
-                            <constraint firstItem="TNs-Oh-gFh" firstAttribute="trailing" secondItem="4oX-nx-ZDJ" secondAttribute="trailingMargin" id="CXD-a4-C8t"/>
-                            <constraint firstAttribute="trailing" secondItem="Xye-cU-OLH" secondAttribute="trailing" id="DiK-aQ-G0g"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="bottom" secondItem="6SY-Xr-fKc" secondAttribute="top" id="QC8-xD-ahm"/>
-                            <constraint firstItem="Xye-cU-OLH" firstAttribute="top" secondItem="4oX-nx-ZDJ" secondAttribute="top" id="cfu-fX-y3z"/>
-                            <constraint firstItem="Hj1-qY-KbL" firstAttribute="leading" secondItem="4oX-nx-ZDJ" secondAttribute="leadingMargin" constant="31" id="smP-9P-MhR"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="playButton" destination="Hj1-qY-KbL" id="EwG-kU-l8Y"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="playButton" id="AQI-uK-RBG"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="f70-S2-oyq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1119.2" y="71.514242878560722"/>
-        </scene>
         <!--Instruction View Controller-->
         <scene sceneID="sPy-BD-7bW">
             <objects>
@@ -176,7 +122,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKy-BA-Ldl">
@@ -189,10 +135,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k13-cG-7zt" customClass="KolodaView" customModule="Koloda">
-                                <rect key="frame" x="29" y="126" width="315" height="468"/>
+                                <rect key="frame" x="29" y="126" width="315" height="488"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.14999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="KG6-f2-LAo">
-                                <rect key="frame" x="56" y="233" width="263" height="181"/>
+                                <rect key="frame" x="56" y="233" width="263" height="201"/>
                                 <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="130"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -351,8 +297,6 @@
     <resources>
         <image name="done_button" width="181" height="48"/>
         <image name="instruction" width="355" height="630"/>
-        <image name="landing" width="355" height="630"/>
-        <image name="question_button" width="35" height="35"/>
         <image name="storylink_button" width="107" height="27"/>
     </resources>
 </document>

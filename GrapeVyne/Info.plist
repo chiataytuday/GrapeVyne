@@ -32,6 +32,8 @@
 		<string>Quicksand-Bold.ttf</string>
 		<string>Gotham-Bold.ttf</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

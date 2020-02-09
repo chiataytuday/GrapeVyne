@@ -7,33 +7,116 @@
 //
 
 import UIKit
-import Async
 import PickerView
 
 class LandingViewController: UIViewController {
-    let landingCornerRadius: CGFloat = 12.5
-    let numberOfStoriesOpenTrivia = 20
-    var selectedRow: Int?
-    var playLabel: UILabel!
-    let playButton = UIButton()
+    private let questionButton = UIButton()
+    private let titleImageView = UIImageView()
+    private let centerImageView = UIImageView()
+    private let playButton = UIButton()
+    private let activityIndicatorView = UIActivityIndicatorView(style: .large)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         modalTransitionStyle = appModalTransitionStyle
-        
-        playButton.backgroundColor = CustomColor.customPurple
-//        playButton.spinnerColor = CustomColor.customGreen
-//        playButton.normalCornerRadius = 25
-        
-        playLabel = UILabel(frame: CGRect(x: 0, y: 0, width: playButton.bounds.size.width, height: playButton.bounds.size.height))
-        playLabel.center = CGPoint(x: playButton.bounds.size.width / 2.0, y: playButton.bounds.size.height / 2.0)
-        playLabel.textAlignment = .center
-        playLabel.attributedText = NSAttributedString(string: "Play".uppercased(), attributes: [NSAttributedString.Key.font : UIFont(name: "Gotham-Bold", size: 40.0)!])
-        playLabel.textColor = .white
-        playButton.addSubview(playLabel)
+        loadSubviews()
+        setupAutolayoutConstraints()
     }
     
-    @IBAction func questionButton(_ sender: UIButton) {
+    private func loadSubviews() {
+        loadQuestionButton()
+        loadTitleImageView()
+        loadCenterImageView()
+        loadPlayButton()
+        loadActivityIndicatorView()
+    }
+    
+    private func loadQuestionButton() {
+        questionButton.translatesAutoresizingMaskIntoConstraints = false
+        questionButton.setImage(UIImage(named: "question_button"), for: .normal)
+        
+        questionButton.addTarget(self, action: #selector(onTapQuestionButton), for: .touchUpInside)
+        
+        view.addSubview(questionButton)
+    }
+    
+    private func loadTitleImageView() {
+        titleImageView.translatesAutoresizingMaskIntoConstraints = false
+        titleImageView.image = UIImage(named: "logo_text")
+        
+        view.addSubview(titleImageView)
+    }
+    
+    private func loadCenterImageView() {
+        centerImageView.translatesAutoresizingMaskIntoConstraints = false
+        centerImageView.image = UIImage(named: "logo_icon")
+        
+        view.addSubview(centerImageView)
+    }
+    
+    private func loadPlayButton() {
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        playButton.backgroundColor = CustomColor.customPurple
+        playButton.titleLabel?.textAlignment = .center
+        playButton.titleLabel?.attributedText = NSAttributedString(string: "Play".uppercased(), attributes: [NSAttributedString.Key.font : UIFont(name: "Gotham-Bold", size: 40.0)!])
+        playButton.titleLabel?.textColor = .white
+        playButton.setTitle("Play".uppercased(), for: .normal)
+        playButton.setTitleColor(.white, for: .normal)
+        playButton.layer.cornerRadius = 25
+        
+        playButton.addTarget(self, action: #selector(onTapPlayButton), for: .touchUpInside)
+        
+        view.addSubview(playButton)
+    }
+    
+    private func loadActivityIndicatorView() {
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.color = CustomColor.customGreen
+        activityIndicatorView.hidesWhenStopped = true
+        activityIndicatorView.stopAnimating()
+        view.addSubview(activityIndicatorView)
+        view.bringSubviewToFront(activityIndicatorView)
+    }
+    
+    private func setupAutolayoutConstraints() {
+        setupQuestionButtonAutolayoutConstraints()
+        setupTitleImageViewAutolayoutConstraints()
+        setupCenterImageViewAutolayoutConstraints()
+        setupPlayButtonAutolayoutConstraints()
+        setupActivityIndicatorViewAutolayoutConstraints()
+    }
+    
+    private func setupQuestionButtonAutolayoutConstraints() {
+        questionButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        questionButton.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        questionButton.widthAnchor.constraint(equalTo: questionButton.heightAnchor).isActive = true
+        questionButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+    }
+    
+    private func setupTitleImageViewAutolayoutConstraints() {
+        titleImageView.topAnchor.constraint(equalTo: questionButton.bottomAnchor, constant: 10).isActive = true
+        titleImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    private func setupCenterImageViewAutolayoutConstraints() {
+        centerImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        centerImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    private func setupPlayButtonAutolayoutConstraints() {
+        playButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25).isActive = true
+        playButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -25).isActive = true
+        playButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25).isActive = true
+    }
+    
+    private func setupActivityIndicatorViewAutolayoutConstraints() {
+        activityIndicatorView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        activityIndicatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        activityIndicatorView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        activityIndicatorView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+    }
+    
+    @objc private func onTapQuestionButton() {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let viewTutorialAction = UIAlertAction(title: "How To Play", style: .default, handler: {presentVC in
@@ -65,11 +148,11 @@ class LandingViewController: UIViewController {
         present(optionMenu, animated: true, completion: nil)
     }
     
-    @IBAction func playButton(_ sender: UIButton) {
+    @objc private func onTapPlayButton() {
         didStartLoading()
         var arrayToPass = [Story]()
-  
-        Async.userInitiated({
+        
+        DispatchQueue.global().async {
             var randBool = self.randomBool()
             while arrayToPass.count < 30 {
                 while !storyRepo.arrayOfStories.contains(where: {$0.fact == randBool}) {
@@ -86,9 +169,11 @@ class LandingViewController: UIViewController {
                     }
                 }
             }
-        }).main({
-            self.leaveViewController(with: arrayToPass)
-        })
+            
+            DispatchQueue.main.sync { [weak self] in
+                self?.leaveViewController(with: arrayToPass)
+            }
+        }
     }
     
     private func randomBool() -> Bool {
@@ -96,7 +181,6 @@ class LandingViewController: UIViewController {
     }
     
     private func leaveViewController(with: [Story]) {
-        playLabel.isHidden = false
 //        playButton.startFinishAnimation(0 , completion: {
 //            let gameVC = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
 //            gameVC.transitioningDelegate = self
@@ -109,13 +193,11 @@ class LandingViewController: UIViewController {
     
     func didStartLoading() {
         self.view.isUserInteractionEnabled = false
-        playLabel.isHidden = true
-        //playButton.startLoadingAnimation()
+        activityIndicatorView.startAnimating()
     }
     
     func didCancelLoading() {
         self.view.isUserInteractionEnabled = true
-        playLabel.isHidden = false
-        //playButton.returnToOriginalState()
+        activityIndicatorView.stopAnimating()
     }
 }
