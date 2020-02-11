@@ -19,46 +19,6 @@ class SnopesScrapeNetwork {
     let pageNum = 15
     var counter = 0
     
-    public func prepareDB() -> [Story] {
-        var arrayOfParsedStories = [Story]()
-        let managedObject = CoreDataManager.fetchModel(entity: "CDStory")
-        if managedObject.isEmpty { // Nothing in Core Data
-            for i in 1...pageNum {
-                let tempArray = getStoriesFor(url: "\(factCheckURL)\(i)")
-                for story in tempArray {
-                    let parsedStory = getFactValueFor(story: story)
-                    if let storyWithID = CoreDataManager.writeToModel(parsedStory) {
-                        arrayOfParsedStories.append(storyWithID)
-                    }
-                }
-            }
-        } else if managedObject.count > 1500 {// Automatically refresh database
-            for object in managedObject {
-                CoreDataManager.deleteObjectBy(id: object.objectID)
-            }
-            for i in 1...pageNum {
-                let tempArray = getStoriesFor(url: "\(factCheckURL)\(i)")
-                for story in tempArray {
-                    let parsedStory = getFactValueFor(story: story)
-                    if let storyWithID = CoreDataManager.writeToModel(parsedStory) {
-                        arrayOfParsedStories.append(storyWithID)
-                    }
-                }
-            }
-        } else { // Something in Core Data
-            print("Stories in CD \(managedObject.count)")
-            for object in managedObject {
-                let title = object.value(forKey: "title") as! String
-                let factValue = object.value(forKey: "fact") as! Bool
-                let urlString = object.value(forKey: "urlString") as! String
-                let id = object.objectID
-                let tempStory = Story(title: title, url: urlString, fact: factValue, id: id)
-                arrayOfParsedStories.append(tempStory)
-            }
-        }
-        return arrayOfParsedStories
-    }
-    
     public func getStories() -> [Story] {
         var arrayOfParsedStories = [Story]()
         counter += 1
@@ -89,58 +49,55 @@ class SnopesScrapeNetwork {
         
         if let data = session.synchronousDataTask(with: URL(string: story.url)!).0,
             let html = String(data: data, encoding: .utf8) {
-            if let factValueString = self.scrapeFactValue(html: html), let factValue = determineStoryReliable(factString: factValueString) {
-                parsedStory.fact = factValue
+            
+            let factValueString = scrapeFactValue(html: html)
+            if let sureFactValueString = factValueString {
+                if let sureFactValue = determineStoryReliable(factString: sureFactValueString) {
+                    parsedStory.fact = sureFactValue
+                }
             }
         }
         return parsedStory
     }
     
     private func scrapeFactValue(html: String) -> String? {
-        var ratingString: String?
-        if let doc = try? Kanna.HTML(html: html, encoding: .utf8) {
-            let xmlElement = doc.at_xpath("/html/body/main/section/div[2]/div/article/div[4]/div[1]/span", namespaces: nil)
-            if let rating = xmlElement?.text {
-                ratingString = rating
-            }
-            
-            if ratingString == nil {
-                let xmlElement = doc.at_xpath("/html/body/main/section/div[2]/div/article/div[4]/div[2]/span", namespaces: nil)
-                if let rating = xmlElement?.text {
-                    ratingString = rating
-                }
-            }
-        }
-        return ratingString
+        guard let sureDoc = try? Kanna.HTML(html: html, encoding: .utf8) else { return nil }
+        
+        let mediaRating = sureDoc.css(".media.rating").first
+        let rating = mediaRating?.css("h5").first
+        
+        return rating?.text
     }
     
     private func scrapeStories(html: String) -> [Story] {
-        var _arrayOfStories = [Story]()
-        if let doc = try? Kanna.HTML(html: html, encoding: .utf8) {
-            let stories = doc.css(".base-main .media-wrapper")
+        var stories = [Story]()
+        
+        guard let sureDoc = try? Kanna.HTML(html: html, encoding: .utf8) else { return [] }
+        
+        let storiesDoc = sureDoc.css(".base-main .media-wrapper")
+        
+        for storyDoc in storiesDoc {
+            let title = storyDoc.css(".title").first
+            let url = storyDoc.css(".media").first
             
-            for story in stories {
-                let title = story.css(".title").first
-                let url = story.css(".media.fact_check").first
-                
-                if let sureTitle = title?.text, let sureURL = url?["href"] {
-                    if sureTitle.contains("?") {
-                        if !sureTitle.containsIncorrectSyntaxQuestion() {
-                            let story = Story(title: sureTitle, url: sureURL, fact: false, id: nil)
-                            _arrayOfStories.append(story)
-                        }
+            if let sureTitle = title?.text, let sureURL = url?["href"] {
+                if sureTitle.contains("?") {
+                    if !sureTitle.containsIncorrectSyntaxQuestion() {
+                        let story = Story(title: sureTitle, url: sureURL, fact: false, id: nil)
+                        stories.append(story)
                     }
                 }
-                
             }
+            
         }
-        return _arrayOfStories
+        
+        return stories
     }
 }
 
 fileprivate func determineStoryReliable(factString: String) -> Bool? {
     switch factString {
-    case "TRUE", "MOSTLY TRUE":
+    case "TRUE", "MOSTLY TRUE", "CORRECT ATTRIBUTION":
         return true
     case "FALSE", "MOSTLY FALSE", "MIXTURE", "MISCAPTIONED", "UNPROVEN", "SCAM", "OUTDATED":
         return false

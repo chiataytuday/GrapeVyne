@@ -36,7 +36,7 @@ class LaunchViewController: UIViewController {
         setupAutolayoutConstraints()
         
         DispatchQueue.global().async {
-            storyRepo.arrayOfStories = snopesScrapeNetwork.prepareDB()
+//            storyRepo.arrayOfStories = snopesScrapeNetwork.prepareDB()
             
             DispatchQueue.main.sync { [weak self] in
                 self?.loadingLabel.isHidden = true
